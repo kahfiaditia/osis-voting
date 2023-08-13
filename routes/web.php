@@ -19,7 +19,8 @@ use App\Http\Controllers\LoginController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', [FrontendController::class, 'index'])->name('awal');
+Route::get('/', [FrontendController::class, 'grafik'])->name('awal');
+Route::get('/grafik', [FrontendController::class, 'grafik'])->name('grafik');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/recovery', [LoginController::class, 'recovery'])->name('recovery');
 

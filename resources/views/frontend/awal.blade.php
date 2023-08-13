@@ -1,55 +1,99 @@
-<!doctype html>
-<html lang="en">
+@extends('frontend.main')
+@section('ft')
+    <div class="page-content" style="margin-top: 10px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-tabs-custom justify-content-center pt-2" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#all-post" role="tab">
+                                Slide
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('grafik') }}" role="tab">
+                                Grafik
+                            </a>
+                        </li>
+                    </ul>
 
-<head>
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
 
-    <meta charset="utf-8" />
-    <title>Coming Soon | E-Votting Osis</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+                                <h4 class="card-title">With captions</h4>
+                                <p class="card-title-desc">Add captions to your slides easily with the
+                                    <code>.carousel-caption</code> element within any
+                                    <code>.carousel-item</code>.
+                                </p>
 
-    <!-- Bootstrap Css -->
-    <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-
-</head>
-
-<body>
-    <div class="row">
-        <div class="text-center">
-            <div class="row justify-content-center mt-5">
-                <div class="col-sm-4">
-                    <div class="maintenance-img">
-                        <img src="assets/images/coming-soon.svg" alt="" class="img-fluid mx-auto d-block">
+                                <div id="carouselExampleCaption" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner" role="listbox">
+                                        <div class="carousel-item active">
+                                            <img src="assets/images/small/img-8.jpg" alt="..."
+                                                class="d-block img-fluid">
+                                            <div class="carousel-caption d-none d-md-block text-white-50">
+                                                <h5 class="text-white">First slide label</h5>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="assets/images/small/img-9.jpg" alt="..."
+                                                class="d-block img-fluid">
+                                            <div class="carousel-caption d-none d-md-block text-white-50">
+                                                <h5 class="text-white">Second slide label</h5>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="assets/images/small/img-9.jpg" alt="..."
+                                                class="d-block img-fluid">
+                                            <div class="carousel-caption d-none d-md-block text-white-50">
+                                                <h5 class="text-white">Third slide label</h5>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="assets/images/small/img-10.jpg" alt="..."
+                                                class="d-block img-fluid">
+                                            <div class="carousel-caption d-none d-md-block text-white-50">
+                                                <h5 class="text-white">Third slide label</h5>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="assets/images/small/img-11.jpg" alt="..."
+                                                class="d-block img-fluid">
+                                            <div class="carousel-caption d-none d-md-block text-white-50">
+                                                <h5 class="text-white">Third slide label</h5>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleCaption" role="button"
+                                        data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleCaption" role="button"
+                                        data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <h4 class="mt-5">Let's get started with E-Votting</h4>
-            <p class="text-muted">It will be as simple as Occidental in fact it will be Occidental.</p>
-        </div>
+            <!-- end row -->
+
+        </div> <!-- container-fluid -->
     </div>
-</body>
-<!-- JAVASCRIPT -->
-<script src="assets/libs/jquery/jquery.min.js"></script>
-<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/libs/metismenu/metisMenu.min.js"></script>
-<script src="assets/libs/simplebar/simplebar.min.js"></script>
-<script src="assets/libs/node-waves/waves.min.js"></script>
-
-<!-- Plugins js-->
-<script src="assets/libs/jquery-countdown/jquery.countdown.min.js"></script>
-
-<!-- Countdown js -->
-<script src="assets/js/pages/coming-soon.init.js"></script>
-
-<script src=assets/js/app.js"></script>
-
-
-
-</html>
+@endsection

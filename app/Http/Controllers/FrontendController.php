@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
 {
@@ -13,13 +15,52 @@ class FrontendController extends Controller
      */
     public function index()
     {
+
         $data = [
-            // 'title' => $this->title,
-            // 'menu' => $this->menu,
-            'submenu' => 'login',
-            'label' => 'login',
+            'all_vote' => User::where('roles', '!=', 'Administrator')->count(),
+            'list' => 'login',
         ];
         return view('frontend.awal');
+    }
+
+    public function grafik()
+    {
+        $Queryperiode = DB::table('periode')
+            ->select('periode_name')
+            ->orderBy('id', 'DESC')
+            ->limit(1)
+            ->get();
+        if (count($Queryperiode) > 0) {
+            $periode = $Queryperiode[0]->periode_name;
+        } else {
+            $periode = null;
+        }
+
+        $hasil_vote = DB::table('kandidat')
+            ->select('users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil')
+            ->selectRaw('COUNT(vote.id) as jml')
+            ->join('users', 'users.id', '=', 'kandidat.id_ketua')
+            ->join('users as w', 'w.id', '=', 'kandidat.id_wakil')
+            ->leftJoin('vote', 'vote.id_kandidat', '=', 'kandidat.id')
+            ->join('periode', 'periode.id', '=', 'kandidat.id_periode')
+            ->where('periode_name', $periode)
+            ->groupBy('kandidat.id')
+            ->orderByRaw('COUNT(vote.id) DESC')
+            ->get();
+
+        $jml_vote = DB::table('vote')
+            ->selectRaw('COUNT(vote.id) as jml_vote')
+            ->join('periode', 'periode.id', '=', 'vote.id_periode')
+            ->join('kandidat', 'kandidat.id', '=', 'vote.id_kandidat')
+            ->where('periode_name', $periode)
+            ->get();
+        $data = [
+            'all_vote' => User::where('roles', '!=', 'Administrator')->count(),
+            'hasil_vote' => $hasil_vote,
+            'jml_vote' => $jml_vote,
+            'periode' => $periode,
+        ];
+        return view('frontend.grafik', $data);
     }
 
     /**

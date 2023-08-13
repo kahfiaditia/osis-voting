@@ -10,7 +10,7 @@
                  <li class="menu-title" key="t-menu">Menu</li>
 
                  <li>
-                     <a href="{{ route('dashboard') }}" class="waves-effect">
+                     <a href="{{ route('dashboard.index') }}" class="waves-effect">
                          <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-info float-end">04</span>
                          <span key="t-dashboards">Dashboards</span>
                      </a>

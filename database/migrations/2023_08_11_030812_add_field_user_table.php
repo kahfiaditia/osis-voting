@@ -14,12 +14,12 @@ class AddFieldUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('foto', 60)->nullable()->after('remember_token');
-            $table->string('pin', 6)->nullable()->after('foto');
+            $table->string('pin', 4)->nullable()->after('remember_token');
             $table->string('nis', 15)->after('pin');
             $table->string('nik', 15)->after('nis');
             $table->string('address', 50)->nullable()->after('nik');
             $table->string('phone', 20)->nullable()->after('address');
+            $table->string('avatar', 64)->nullable()->after('phone');
             $table->string('roles', 15)->nullable()->after('phone');
         });
     }
@@ -32,7 +32,7 @@ class AddFieldUserTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('foto');
+            $table->dropColumn('avatar');
             $table->dropColumn('pin');
             $table->dropColumn('nis');
             $table->dropColumn('nik');
