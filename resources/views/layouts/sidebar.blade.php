@@ -37,7 +37,7 @@
                      </a>
                  </li>
                  <li>
-                     <a href="" class="waves-effect">
+                     <a href="{{ route('kandidat.index') }}" class="waves-effect">
                          <i class="bx bx-user-circle"></i>
                          <span key="t-authentication">Kandidat</span>
                      </a>

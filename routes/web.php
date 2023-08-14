@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClasessController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\KandidatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PeriodeController;
@@ -47,6 +48,6 @@ Route::group(
         // // menu
         Route::resource('/class', ClasessController::class);
         Route::resource('/periode', PeriodeController::class);
-        // Route::resource('/submenu', SubMenuController::class);
+        Route::resource('/kandidat', KandidatController::class);
     }
 );
