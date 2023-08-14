@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kandidat;
+use App\Models\KandidatModel;
 use App\Models\User;
 use App\Models\Vote;
 use Carbon\Carbon;
@@ -110,7 +111,7 @@ class VoteController extends Controller
             $trx_number   = Carbon::now()->format('ymd') . "0001";
         }
 
-        $kandidat = Kandidat::findorfail($request->dataId);
+        $kandidat = KandidatModel::findorfail($request->dataId);
         DB::beginTransaction();
         try {
             $rak = new Vote();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFieldClass extends Migration
+class AddFieldClassInUser extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class AddFieldClass extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('class_id')->nullable()->after('roles');
-            $table->foreign('class_id')->references('id')->on('class');
+            $table->foreign('class_id')->references('id')->on('clasess');
         });
     }
 

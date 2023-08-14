@@ -14,6 +14,11 @@ class Vote extends Model
 
     public function kandidat()
     {
-        return $this->belongsTo(Kandidat::class, 'id_kandidat');
+        return $this->belongsTo(KandidatModel::class, 'id_kandidat');
+    }
+
+    public function periode()
+    {
+        return $this->belongsTo(PeriodeModel::class, 'id_periode');
     }
 }

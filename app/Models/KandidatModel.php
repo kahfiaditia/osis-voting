@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Kandidat extends Model
+class KandidatModel extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'kandidat';
@@ -24,6 +24,6 @@ class Kandidat extends Model
 
     public function periode()
     {
-        return $this->belongsTo(Periode::class, 'id_periode');
+        return $this->belongsTo(PeriodeModel::class, 'id_periode');
     }
 }

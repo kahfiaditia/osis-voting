@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\ClasessController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\KandidatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\PeriodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +20,6 @@ use App\Http\Controllers\VoteController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::get('/', [FrontendController::class, 'grafik'])->name('awal');
 Route::get('/grafik', [FrontendController::class, 'grafik'])->name('grafik');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -43,9 +43,11 @@ Route::group(
         // dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::resource('/vote', VoteController::class);
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        // // menu
-        // Route::resource('/menu', MenuController::class);
-        // Route::resource('/submenu', SubMenuController::class);
+        // menu
+        Route::resource('/class', ClasessController::class);
+        Route::resource('/periode', PeriodeController::class);
+        Route::resource('/kandidat', KandidatController::class);
     }
 );
