@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ClasessController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PeriodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,10 +42,11 @@ Route::group(
     function () {
 
         // dashboard
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // // menu
-        // Route::resource('/menu', MenuController::class);
+        Route::resource('/class', ClasessController::class);
+        Route::resource('/periode', PeriodeController::class);
         // Route::resource('/submenu', SubMenuController::class);
     }
 );

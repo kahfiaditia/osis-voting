@@ -10,7 +10,7 @@
                  <li class="menu-title" key="t-menu">Menu</li>
 
                  <li>
-                     <a href="{{ route('dashboard.index') }}" class="waves-effect">
+                     <a href="{{ route('dashboard') }}" class="waves-effect">
                          <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-info float-end">04</span>
                          <span key="t-dashboards">Dashboards</span>
                      </a>
@@ -25,21 +25,21 @@
                      </a>
                  </li>
                  <li>
-                     <a href="" class="waves-effect">
-                         <i class="bx bx-calendar"></i>
-                         <span key="t-calendar">Class</span>
+                     <a href="{{ route('class.index') }}" class="waves-effect">
+                         <i class="bx bx-receipt"></i>
+                         <span key="t-invoice-list">Class</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="{{ route('periode.index') }}" class="waves-effect">
+                         <i class="bx bx-task"></i>
+                         <span key="t-tasks">Periode</span>
                      </a>
                  </li>
                  <li>
                      <a href="" class="waves-effect">
-                         <i class="bx bx-calendar"></i>
-                         <span key="t-calendar">Periode</span>
-                     </a>
-                 </li>
-                 <li>
-                     <a href="" class="waves-effect">
-                         <i class="bx bx-calendar"></i>
-                         <span key="t-calendar">Kandidat</span>
+                         <i class="bx bx-user-circle"></i>
+                         <span key="t-authentication">Kandidat</span>
                      </a>
                  </li>
                  <li>
