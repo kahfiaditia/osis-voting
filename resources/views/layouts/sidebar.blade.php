@@ -43,7 +43,7 @@
                      </a>
                  </li>
                  <li>
-                     <a href="" class="waves-effect">
+                     <a href="{{ route('vote.index') }}" class="waves-effect">
                          <i class="bx bx-calendar"></i>
                          <span key="t-calendar">Vote</span>
                      </a>

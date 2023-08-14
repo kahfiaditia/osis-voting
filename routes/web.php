@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\VoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::group(
 
         // dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::resource('/vote', VoteController::class);
 
         // // menu
         // Route::resource('/menu', MenuController::class);

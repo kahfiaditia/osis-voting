@@ -31,6 +31,54 @@
                         <div class="text-center">
                             <div class="row">
                                 <div class="col-sm-9">
+                                    <div class="button-items">
+                                        <?php $no = 0; ?>
+                                        @foreach ($hasil_vote as $item)
+                                            <?php
+                                            $no = $no + 1;
+                                            if ($no == 1) {
+                                                $color = 'success';
+                                                $text = 'Pasalon ' . $no;
+                                            } elseif ($no == 2) {
+                                                $color = 'info';
+                                                $text = 'Pasalon ' . $no;
+                                            } elseif ($no == 3) {
+                                                $color = 'warning';
+                                                $text = 'Pasalon ' . $no;
+                                            } elseif ($no == 4) {
+                                                $color = 'danger';
+                                                $text = 'Pasalon ' . $no;
+                                            }
+                                            ?>
+                                            @if (round(($item->jml / $all_vote) * 100) > 0)
+                                                <button type="button"
+                                                    class="btn btn-{{ $color }} waves-effect waves-light w-sm"
+                                                    style="min-width: 220px; min-height: {{ (200 * round(($item->jml / $all_vote) * 100)) / 100 + 35 }}px; bottom: 0;">
+                                                    {{ round(($item->jml / $all_vote) * 100) }}% </button>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div style="padding: 15%">
+                                        <p class="text-muted mb-2 font-size-24">Data Masuk</p>
+                                        <h1 style="font-weight: 600;">
+                                            {{ round(($jml_vote[0]->jml_vote / $all_vote) * 100) }}%</h1>
+
+                                        <div class="mt-3">
+                                            {{ number_format($jml_vote[0]->jml_vote) }} suara
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card card-body border-top">
+                        <div class="text-center">
+                            <div class="row">
+                                <div class="col-sm-9">
                                     <div class="">
                                         <?php $no = 0; ?>
                                         @foreach ($hasil_vote as $item)
@@ -102,7 +150,8 @@
                                     <div class="flex-grow-1 overflow-hidden">
                                         <h5 class="text-truncate font-size-15">
                                             <a href="javascript: void(0);" class="text-dark">
-                                                <span class="badge bg-{{ $color }}">Pasalon 1</span>
+                                                <span class="badge bg-{{ $color }}">Pasalon
+                                                    {{ $no }}</span>
                                             </a>
                                         </h5>
                                         <p class="text-muted mb-4">{{ $item->ketua }} & {{ $item->wakil }}</p>
