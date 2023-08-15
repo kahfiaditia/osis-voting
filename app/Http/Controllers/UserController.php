@@ -6,6 +6,7 @@ use App\Helper\AlertHelper;
 use App\Imports\UserImport;
 use App\Models\ClasessModel;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -200,6 +201,19 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $hapus = User::findorfail($id);
+            $hapus->deleted_at = Carbon::now();
+            $hapus->save();
+
+            DB::commit();
+            AlertHelper::deleteAlert(true);
+            return back();
+        } catch (\Throwable $err) {
+            DB::rollBack();
+            AlertHelper::deleteAlert(false);
+            return back();
+        }
     }
 }

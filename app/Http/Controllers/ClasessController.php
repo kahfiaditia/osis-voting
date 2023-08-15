@@ -142,25 +142,25 @@ class ClasessController extends Controller
     public function destroy($id)
     {
         // dd($id);
-        $hapus1 = ClasessModel::findorfail($id);
-        $hapus1->deleted_at = Carbon::now();
-        $hapus1->save();
+        // $hapus1 = ClasessModel::findorfail($id);
+        // $hapus1->deleted_at = Carbon::now();
+        // $hapus1->save();
 
 
-        // DB::beginTransaction();
-        // try {
-        //     $hapus = ClasessModel::findorfail($id);
-        //     $hapus->user_deleted = Auth::user()->id;
-        //     $hapus->deleted_at = Carbon::now();
-        //     $hapus->save();
+        DB::beginTransaction();
+        try {
+            $hapus = ClasessModel::findorfail($id);
+            $hapus->user_deleted = Auth::user()->id;
+            $hapus->deleted_at = Carbon::now();
+            $hapus->save();
 
-        //     DB::commit();
-        //     AlertHelper::deleteAlert(true);
-        //     return back();
-        // } catch (\Throwable $err) {
-        //     DB::rollBack();
-        //     AlertHelper::deleteAlert(false);
-        //     return back();
-        // }
+            DB::commit();
+            AlertHelper::deleteAlert(true);
+            return back();
+        } catch (\Throwable $err) {
+            DB::rollBack();
+            AlertHelper::deleteAlert(false);
+            return back();
+        }
     }
 }

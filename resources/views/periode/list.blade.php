@@ -46,7 +46,7 @@
                                             <td>{{ $per->flag }}</td>
                                             <td>
                                                 <?php $id = $per->id; ?>
-                                                <form class="delete-form" action="{{ route('periode.destroy', $id) }}"
+                                                <form class="delete-form" action="{{ route('periode.destroy', $per->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')

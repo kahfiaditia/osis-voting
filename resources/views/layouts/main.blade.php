@@ -31,8 +31,31 @@
     </div>
     @include('layouts.footer')
     <!-- END layout-wrapper -->
-
+    <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        // Pop up for delete confirm
+        $('.delete_confirm').on('click', function(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Hapus Data',
+                text: 'Ingin menghapus data?',
+                icon: 'question',
+                showCloseButton: true,
+                showCancelButton: true,
+                cancelButtonText: "Batal",
+                focusConfirm: false,
+            }).then((value) => {
+                console.log($(this).closest('form'))
+                if (value.isConfirmed) {
+                    $(this).closest("form").submit()
+                }
+            });
+        });
+    </script>
 </body>
 @include('layouts.js')
+
+
 
 </html>
