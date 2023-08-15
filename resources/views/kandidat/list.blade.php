@@ -16,7 +16,7 @@
                             <ol class="breadcrumb m-0">
                                 <a href="{{ route('kandidat.create') }}" type="button"
                                     class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                    <i class="mdi mdi-plus me-1"></i> Tambah Periode
+                                    <i class="mdi mdi-plus me-1"></i> Tambah Calon Osis
                                 </a>
 
                             </ol>
@@ -32,6 +32,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Nomor Urut</th>
                                         <th>Nama Calon</th>
                                         <th>Wakil</th>
                                         <th>Deskripsi</th>
@@ -43,8 +44,9 @@
                                     @foreach ($kandidat as $per)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $per->id_ketua }}</td>
-                                            <td>{{ $per->id_wakil }}</td>
+                                            <td>{{ $per->no_urut }}</td>
+                                            <td>{{ $per->ketua->name }}</td>
+                                            <td>{{ $per->wakil->name }}</td>
                                             <td>{{ $per->quote }}</td>
                                             <td>{{ $per->visi_misi }}</td>
                                             <td>

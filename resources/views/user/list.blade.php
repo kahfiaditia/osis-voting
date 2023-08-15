@@ -14,10 +14,9 @@
                         </div>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-
-                                <a href="{{ route('periode.create') }}" type="button"
+                                <a href="{{ route('pengguna.create') }}" type="button"
                                     class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                    <i class="mdi mdi-plus me-1"></i> Tambah Periode
+                                    <i class="mdi mdi-plus me-1"></i> Tambah User
                                 </a>
 
                             </ol>
@@ -33,25 +32,32 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Periode</th>
-                                        <th>Tanda</th>
-                                        <th>Action</th>
+                                        <th>Nama</th>
+                                        <th>Email</th>
+                                        <th>Nis</th>
+                                        <th>Nik</th>
+                                        <th>Role</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($periode as $per)
+                                    @foreach ($user as $data)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $per->periode_name }}</td>
-                                            <td>{{ $per->flag }}</td>
+                                            <td>{{ $data->name }}</td>
+                                            <td>{{ $data->email }}</td>
+                                            <td>{{ $data->nis }}</td>
+                                            <td>{{ $data->nik }}</td>
+                                            {{-- <td>{{ $data->phone }}</td> --}}
+                                            <td>{{ $data->roles }}</td>
                                             <td>
-                                                <?php $id = $per->id; ?>
-                                                <form class="delete-form" action="{{ route('periode.destroy', $per->id) }}"
+                                                <?php $id = $data->id; ?>
+                                                <form class="delete-form" action="{{ route('pengguna.destroy', $id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <div class="d-flex gap-3">
-                                                        <a href="{{ route('periode.edit', $id) }}" class="text-success">
+                                                        <a href="{{ route('pengguna.edit', $id) }}" class="text-success">
                                                             <i class="mdi mdi-pencil font-size-18"></i>
                                                         </a>
                                                         <a href class="text-danger delete_confirm">

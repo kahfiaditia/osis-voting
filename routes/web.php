@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,8 +47,16 @@ Route::group(
         Route::resource('/vote', VoteController::class);
         Route::get('/confirmasi', [VoteController::class, 'confirmasi'])->name('vote.confirmasi');
         // menu
+        Route::resource('/pengguna', UserController::class);
+        Route::get('/halaman', [UserController::class, 'halaman'])->name('pengguna.halaman');
+        Route::post('/upload_excel', [UserController::class, 'uploadExcel'])->name('pengguna.uploadExcel');
+        Route::get('/hasil_import', [UserController::class, 'hasil_import'])->name('pengguna.hasil_import');
         Route::resource('/class', ClasessController::class);
         Route::resource('/periode', PeriodeController::class);
         Route::resource('/kandidat', KandidatController::class);
+        Route::post('/get_calonketua', [KandidatController::class, 'get_calonketua'])->name('kandidat.get_calonketua');
+        Route::post('/get_calonwakil', [KandidatController::class, 'get_calonwakil'])->name('kandidat.get_calonwakil');
+        Route::post('/edit_get_nisketua', [KandidatController::class, 'edit_get_nisketua'])->name('kandidat.edit_get_nisketua');
+        Route::post('/edit_get_niswakil', [KandidatController::class, 'edit_get_niswakil'])->name('kandidat.edit_get_niswakil');
     }
 );

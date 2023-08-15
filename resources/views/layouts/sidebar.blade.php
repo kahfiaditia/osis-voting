@@ -19,7 +19,7 @@
                  <li class="menu-title" key="t-apps">Apps</li>
 
                  <li>
-                     <a href="" class="waves-effect">
+                     <a href="{{ route('pengguna.index') }}" class="waves-effect">
                          <i class="bx bx-user-circle"></i>
                          <span key="t-calendar">User</span>
                      </a>
