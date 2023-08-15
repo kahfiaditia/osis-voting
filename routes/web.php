@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,10 @@ Route::group(
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // menu
+        Route::resource('/pengguna', UserController::class);
+        Route::get('/halaman', [UserController::class, 'halaman'])->name('pengguna.halaman');
+        Route::post('/upload_excel', [UserController::class, 'uploadExcel'])->name('pengguna.uploadExcel');
+        Route::get('/hasil_import', [UserController::class, 'hasil_import'])->name('pengguna.hasil_import');
         Route::resource('/class', ClasessController::class);
         Route::resource('/periode', PeriodeController::class);
         Route::resource('/kandidat', KandidatController::class);

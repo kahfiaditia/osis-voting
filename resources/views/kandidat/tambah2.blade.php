@@ -1,5 +1,4 @@
 @extends('layouts.main')
-
 @section('evoting')
     <div class="page-content">
         <div class="container-fluid">
