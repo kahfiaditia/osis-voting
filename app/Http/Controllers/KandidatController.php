@@ -20,6 +20,90 @@ class KandidatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function get_calonketua()
+    {
+        $calonosis = DB::table('users')
+            ->whereNull('deleted_at')
+            ->where('roles', '=', "Siswa")
+            ->get();
+
+        if (count($calonosis) > 0) {
+            return response()->json([
+                'code' => 200,
+                'data' => $calonosis,
+            ]);
+        } else {
+            return response()->json([
+                'code' => 400,
+                'data' => null,
+            ]);
+        }
+    }
+
+    public function get_calonwakil()
+    {
+        $calonwakil = DB::table('users')
+            ->whereNull('deleted_at')
+            ->where('roles', '=', "Siswa")
+            ->get();
+
+        if (count($calonwakil) > 0) {
+            return response()->json([
+                'code' => 200,
+                'data' => $calonwakil,
+            ]);
+        } else {
+            return response()->json([
+                'code' => 400,
+                'data' => null,
+            ]);
+        }
+    }
+
+    public function edit_get_nisketua(Request $request)
+    {
+        // dd($request->id_ketua);
+        $ketua = $request->id_ketua;
+        $nis = DB::table('users')
+            ->select('nis')
+            ->where('id', $ketua)
+            ->first();
+
+        if ($nis) {
+            return response()->json([
+                'code' => 200,
+                'data' => $nis,
+            ]);
+        } else {
+            return response()->json([
+                'code' => 400,
+                'data' => null,
+            ]);
+        }
+    }
+
+    public function edit_get_niswakil(Request $request)
+    {
+        // dd($request->id_ketua);
+        $wakil = $request->id_wakil;
+        $nis = DB::table('users')
+            ->select('nis')
+            ->where('id', $wakil)
+            ->first();
+
+        if ($nis) {
+            return response()->json([
+                'code' => 200,
+                'data' => $nis,
+            ]);
+        } else {
+            return response()->json([
+                'code' => 400,
+                'data' => null,
+            ]);
+        }
+    }
+
     public function index()
     {
         $data = [
@@ -46,7 +130,7 @@ class KandidatController extends Controller
             'wakil' => User::where('roles', '=', "Siswa")->get(),
             'periode' => PeriodeModel::all(),
         ];
-        return view('kandidat.tambah')->with($data);
+        return view('kandidat.tambah2')->with($data);
     }
 
     /**
@@ -64,6 +148,7 @@ class KandidatController extends Controller
             $osis->id_wakil = $request->ketua;
             $osis->id_periode = $request->periode;
             $osis->quote = $request->quote;
+            $osis->no_urut = $request->urut;
             $osis->visi_misi = $request->editor1;
             $osis->user_created =  Auth::user()->id;
             $osis->save();
@@ -103,11 +188,11 @@ class KandidatController extends Controller
             'menu' => $this->menu,
             'label' => 'data Kandidat',
             'pilihan' => User::where('roles', '=', "Siswa")->get(),
-            'edit' => KandidatModel::findOrFail($id), // Use findOrFail instead of findORFail
+            'kandidat' => KandidatModel::findOrFail($id), // Use findOrFail instead of findORFail
             'pilihanwakil' => User::where('roles', '=', "Siswa")->get(),
             'periode' => PeriodeModel::all(),
         ];
-        return view('kandidat.edit', $data); // Change ->with($data) to just ,$data
+        return view('kandidat.edit', $data);
     }
 
     /**
@@ -119,17 +204,22 @@ class KandidatController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
         DB::beginTransaction();
         try {
             $editkelas = KandidatModel::findOrFail($id);
-            $editkelas->class_name = $request->kelas;
-            $editkelas->class_level = $request->level;
+            $editkelas->id_ketua = $request->ketua;
+            $editkelas->id_wakil = $request->wakil;
+            $editkelas->no_urut = $request->urut;
+            $editkelas->id_periode = $request->level;
+            $editkelas->quote = $request->quote;
+            $editkelas->visi_misi = $request->editor1;
             $editkelas->user_updated =  Auth::user()->id;
             $editkelas->save();
 
             DB::commit();
             AlertHelper::addAlert(true);
-            return redirect('/class');
+            return redirect('/kandidat');
         } catch (\Throwable $err) {
             DB::rollback();
             throw $err;

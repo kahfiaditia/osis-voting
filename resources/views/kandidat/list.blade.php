@@ -16,7 +16,7 @@
                             <ol class="breadcrumb m-0">
                                 <a href="{{ route('kandidat.create') }}" type="button"
                                     class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                    <i class="mdi mdi-plus me-1"></i> Tambah Periode
+                                    <i class="mdi mdi-plus me-1"></i> Tambah Calon Osis
                                 </a>
 
                             </ol>

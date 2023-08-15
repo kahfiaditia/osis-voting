@@ -49,5 +49,9 @@ Route::group(
         Route::resource('/class', ClasessController::class);
         Route::resource('/periode', PeriodeController::class);
         Route::resource('/kandidat', KandidatController::class);
+        Route::post('/get_calonketua', [KandidatController::class, 'get_calonketua'])->name('kandidat.get_calonketua');
+        Route::post('/get_calonwakil', [KandidatController::class, 'get_calonwakil'])->name('kandidat.get_calonwakil');
+        Route::post('/edit_get_nisketua', [KandidatController::class, 'edit_get_nisketua'])->name('kandidat.edit_get_nisketua');
+        Route::post('/edit_get_niswakil', [KandidatController::class, 'edit_get_niswakil'])->name('kandidat.edit_get_niswakil');
     }
 );

@@ -70,7 +70,7 @@
                                 <div class="card-body">
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
-                                            <p class="text-muted fw-medium">Karyawan</p>
+                                            <p class="text-muted fw-medium">Calon Osis</p>
                                             <h4 class="mb-0">gsdgsdgsd</h4>
                                         </div>
                                         <div class="flex-shrink-0 align-self-center">
@@ -126,51 +126,20 @@
                         <div class="col-md-12">
                             <div class="card mini-stats-wid">
                                 <div class="card-body">
-
-                                    <div class="clearfix mt-4 mt-lg-0">
-                                        <div class="dropdown float-end">
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-info dropdown-toggle"
-                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="mdi mdi-wallet me-1"></i>
-                                                    <span class="d-sm-inline-block">Total Tagihan :
-                                                        <b>fgxfgxdfghxf</b>
-                                                        <i class="mdi mdi-chevron-down"></i>
-                                                    </span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-md"
-                                                    style="">
-                                                    <div class="dropdown-item-text">
-                                                        <div>
-                                                            <p class="text-muted mb-2">Total Biaya</p>
-                                                            <h5 class="mb-0">
-                                                                hxfhfxdhfdx
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="javascript: void(0);">
-                                                        Uang Formulir : <span class="float-end">dfghsdfh</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        Uang Pangkal : <span class="float-end">fdhfdhdfh</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        Uang SPP : <span class="float-end">@
-                                                            fhfhdfh</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        Uang Kegiatan : <span class="float-end">@
-                                                            fdhdfhdf</span>
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item text-primary text-center" href="">
-                                                        Rincian pembayaran
-                                                    </a>
-                                                </div>
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <p class="text-muted fw-medium">Siswa1</p>
+                                            <h4 class="mb-0">safgasfgasf</h4>
+                                        </div>
+                                        <div class="flex-shrink-0 align-self-center">
+                                            <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
+                                                <span class="avatar-title rounded-circle bg-primary">
+                                                    <i class="bx bx-group font-size-24"></i>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -178,33 +147,119 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- subscribeModal -->
-    <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-bottom-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="text-center mb-4">
-                        <div class="avatar-md mx-auto mb-4">
-                            <div class="avatar-title bg-light rounded-circle text-primary h1">
-                                <i class="mdi mdi-progress-alert"></i>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-xl-10">
-                                <h4 class="text-primary">Lengkapi Data !</h4>
-                                <div class="text-danger message_alert" id="message_alert"></div>
+
+            {{-- ini ganti --}}
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card overflow-hidden">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Calon Ketua Osis</h4>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="border p-3 rounded mt-4">
+                                                {{-- <h4 class="card-title">No 1</h4> --}}
+
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="avatar-xs me-3">
+                                                        <span
+                                                            class="avatar-title rounded-circle bg-warning bg-soft text-warning font-size-18">
+                                                            <i class="mdi mdi-bitcoin"></i>
+                                                        </span>
+                                                    </div>
+                                                    <h5 class="font-size-14 mb-0">Bitcoin</h5>
+                                                </div>
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="avatar-xs me-3">
+                                                        <span
+                                                            class="avatar-title rounded-circle bg-warning bg-soft text-warning font-size-18">
+                                                            <i class="mdi mdi-bitcoin"></i>
+                                                        </span>
+                                                    </div>
+                                                    <h5 class="font-size-14 mb-0">Wakil Bitcoin</h5>
+                                                </div>
+                                                <!-- Rest of the content -->
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="border p-3 rounded mt-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="avatar-xs me-3">
+                                                        <span
+                                                            class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-18">
+                                                            <i class="mdi mdi-ethereum"></i>
+                                                        </span>
+                                                    </div>
+                                                    <h5 class="font-size-14 mb-0">Ethereum</h5>
+                                                </div>
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="avatar-xs me-3">
+                                                        <span
+                                                            class="avatar-title rounded-circle bg-primary bg-soft text-primary font-size-18">
+                                                            <i class="mdi mdi-ethereum"></i>
+                                                        </span>
+                                                    </div>
+                                                    <h5 class="font-size-14 mb-0">Ethereum</h5>
+                                                </div>
+                                                <!-- Rest of the content -->
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="border p-3 rounded mt-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="avatar-xs me-3">
+                                                        <span
+                                                            class="avatar-title rounded-circle bg-info bg-soft text-info font-size-18">
+                                                            <i class="mdi mdi-litecoin"></i>
+                                                        </span>
+                                                    </div>
+                                                    <h5 class="font-size-14 mb-0">Litecoin</h5>
+                                                </div>
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="avatar-xs me-3">
+                                                        <span
+                                                            class="avatar-title rounded-circle bg-info bg-soft text-info font-size-18">
+                                                            <i class="mdi mdi-litecoin"></i>
+                                                        </span>
+                                                    </div>
+                                                    <h5 class="font-size-14 mb-0">Litecoin</h5>
+                                                </div>
+                                                <!-- Rest of the content -->
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="border p-3 rounded mt-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="avatar-xs me-3">
+                                                        <span
+                                                            class="avatar-title rounded-circle bg-info bg-soft text-info font-size-18">
+                                                            <i class="mdi mdi-litecoin"></i>
+                                                        </span>
+                                                    </div>
+                                                    <h5 class="font-size-14 mb-0">Litecoin</h5>
+                                                </div>
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="avatar-xs me-3">
+                                                        <span
+                                                            class="avatar-title rounded-circle bg-info bg-soft text-info font-size-18">
+                                                            <i class="mdi mdi-litecoin"></i>
+                                                        </span>
+                                                    </div>
+                                                    <h5 class="font-size-14 mb-0">Litecoin</h5>
+                                                </div>
+                                                <!-- Rest of the content -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {{-- ini ganti --}}
         </div>
     </div>
-    <!-- end modal -->
 @endsection
