@@ -41,10 +41,10 @@ Route::group(
     function () {
 
         // dashboard
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-        Route::resource('/vote', VoteController::class);
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
+        // vote
+        Route::resource('/vote', VoteController::class);
+        Route::get('/confirmasi', [VoteController::class, 'confirmasi'])->name('vote.confirmasi');
         // menu
         Route::resource('/class', ClasessController::class);
         Route::resource('/periode', PeriodeController::class);

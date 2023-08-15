@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\AlertHelper;
 use App\Models\Kandidat;
 use App\Models\KandidatModel;
 use App\Models\User;
@@ -90,51 +91,59 @@ class VoteController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'satu' => 'required',
+            'dua' => 'required',
+            'tiga' => 'required',
+            'empat' => 'required',
+        ]);
+        $code = $request->satu . $request->dua . $request->tiga . $request->empat;
 
-        $registration_number = Vote::limit(1)->groupBy('trx_number')->orderBy('id', 'desc')->get();
-        if (count($registration_number) > 0) {
-            $thn = substr($registration_number[0]->trx_number, 0, 2);
-            if ($thn == Carbon::now()->format('y')) {
-                $date = $thn . Carbon::now()->format('md');
-                $nomor = (int) substr($registration_number[0]->trx_number, 6, 4) + 1;
+        $user = User::where('email', $request->email)->first();
+        if ($user->pin == $code) {
+            $registration_number = Vote::limit(1)->groupBy('trx_number')->orderBy('id', 'desc')->get();
+            if (count($registration_number) > 0) {
+                $thn = substr($registration_number[0]->trx_number, 0, 2);
+                if ($thn == Carbon::now()->format('y')) {
+                    $date = $thn . Carbon::now()->format('md');
+                    $nomor = (int) substr($registration_number[0]->trx_number, 6, 4) + 1;
 
-                $Nol = "";
-                $nilai = 4 - strlen($nomor);
-                for ($i = 1; $i <= $nilai; $i++) {
-                    $Nol = $Nol . "0";
+                    $Nol = "";
+                    $nilai = 4 - strlen($nomor);
+                    for ($i = 1; $i <= $nilai; $i++) {
+                        $Nol = $Nol . "0";
+                    }
+                    $trx_number   = $date . $Nol .  $nomor;
+                } else {
+                    $trx_number   = Carbon::now()->format('ymd') . "0001";
                 }
-                $trx_number   = $date . $Nol .  $nomor;
             } else {
                 $trx_number   = Carbon::now()->format('ymd') . "0001";
             }
+
+            $kandidat = KandidatModel::findorfail($request->id_kandidat);
+            DB::beginTransaction();
+            try {
+                $rak = new Vote();
+                $rak->trx_number = $trx_number;
+                $rak->id_user_vote = Auth::user()->id;
+                $rak->id_kandidat = $request->id_kandidat;
+                $rak->id_periode = $kandidat->id_periode;
+                $rak->user_created = Auth::user()->id;
+                $rak->save();
+
+                DB::commit();
+                AlertHelper::addAlert(true);
+                return redirect('vote');
+            } catch (\Throwable $err) {
+                DB::rollback();
+                throw $err;
+                AlertHelper::addAlert(false);
+                return back();
+            }
         } else {
-            $trx_number   = Carbon::now()->format('ymd') . "0001";
-        }
-
-        $kandidat = KandidatModel::findorfail($request->dataId);
-        DB::beginTransaction();
-        try {
-            $rak = new Vote();
-            $rak->trx_number = $trx_number;
-            $rak->id_user_vote = Auth::user()->id;
-            $rak->id_kandidat = $request->dataId;
-            $rak->id_periode = $kandidat->id_periode;
-            $rak->user_created = Auth::user()->id;
-            $rak->save();
-
-            DB::commit();
-
-            return response()->json([
-                'code' => 200,
-                'message' => 'Berhasil Vote',
-            ]);
-        } catch (\Throwable $err) {
-            DB::rollback();
-            throw $err;
-            return response()->json([
-                'code' => 404,
-                'message' => 'Gagal Vote',
-            ]);
+            AlertHelper::addAlert(false);
+            return back();
         }
     }
 

@@ -37,7 +37,7 @@ class FrontendController extends Controller
         }
 
         $hasil_vote = DB::table('kandidat')
-            ->select('users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil')
+            ->select('users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil', 'visi_misi')
             ->selectRaw('COUNT(vote.id) as jml')
             ->join('users', 'users.id', '=', 'kandidat.id_ketua')
             ->join('users as w', 'w.id', '=', 'kandidat.id_wakil')

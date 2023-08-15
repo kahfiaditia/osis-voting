@@ -69,7 +69,6 @@
                                             </button>
                                         </li>
                                     </ul>
-                                    <!-- Scrollable modal -->
                                     <div class="modal fade" id="exampleModalScrollable{{ $no }}" tabindex="-1"
                                         role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-scrollable">
@@ -87,10 +86,9 @@
                                                     <button type="button" class="btn btn-light"
                                                         data-bs-dismiss="modal">Close</button>
                                                 </div>
-                                            </div><!-- /.modal-content -->
-                                        </div><!-- /.modal-dialog -->
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!-- /.modal -->
                                 </div>
                             </div>
                         </div>
@@ -98,15 +96,102 @@
                 </div>
             </form>
         </div>
+        <!-- Static Backdrop Modal -->
+        <div class="modal fade staticBackdrop" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Verifikasi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="p-2">
+                                    <div class="text-center">
+                                        <div class="avatar-md mx-auto">
+                                            <div class="avatar-title rounded-circle bg-light">
+                                                <i class="bx bxs-lock h1 mb-0 text-primary"></i>
+                                            </div>
+                                        </div>
+                                        <div class="p-2 mt-4">
+                                            <h4>Verifikasi PIN</h4>
+                                            <form action="{{ route('vote.store') }}" method="POST">
+                                                @csrf
+                                                <input type="text" name="email" id="email"
+                                                    value="{{ Auth::user()->email }}">
+                                                <input type="text" name="id_kandidat" id="id_kandidat">
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <div class="mb-3">
+                                                            <label for="digit1-input" class="visually-hidden">Dight
+                                                                1</label>
+                                                            <input type="text" name='satu'
+                                                                class="form-control form-control-lg text-center"
+                                                                onkeyup="moveToNext(this, 2)" maxlength="1"
+                                                                id="digit1-input">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3">
+                                                        <div class="mb-3">
+                                                            <label for="digit2-input" class="visually-hidden">Dight
+                                                                2</label>
+                                                            <input type="text" name='dua'
+                                                                class="form-control form-control-lg text-center"
+                                                                onkeyup="moveToNext(this, 3)" maxlength="1"
+                                                                id="digit2-input">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3">
+                                                        <div class="mb-3">
+                                                            <label for="digit3-input" class="visually-hidden">Dight
+                                                                3</label>
+                                                            <input type="text" name='tiga'
+                                                                class="form-control form-control-lg text-center"
+                                                                onkeyup="moveToNext(this, 4)" maxlength="1"
+                                                                id="digit3-input">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3">
+                                                        <div class="mb-3">
+                                                            <label for="digit4-input" class="visually-hidden">Dight
+                                                                4</label>
+                                                            <input type="text" name='empat'
+                                                                class="form-control form-control-lg text-center"
+                                                                onkeyup="moveToNext(this, 4)" maxlength="1"
+                                                                id="digit4-input">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-4">
+                                                    <button class="btn btn-success w-md" type="submit">Confirm</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/two-step-verification.init.js') }}"></script>
     <script src="{{ asset('assets/alert.js') }}"></script>
-    <script src="{{ asset('assets/scanner/html5-qrcode.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-
             $('.vote').on('click', function(event) {
-
                 event.preventDefault();
                 Swal.fire({
                     title: 'Vote Kandidat',
@@ -118,39 +203,43 @@
                     focusConfirm: false,
                 }).then((value) => {
                     if (value.isConfirmed) {
+                        $('#staticBackdrop').modal('show');
                         var dataId = $(this).data('id');
-                        $.ajax({
-                            type: 'POST',
-                            url: '{{ route('vote.store') }}',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                dataId
-                            },
-                            success: (response) => {
-                                if (response.code === 200) {
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: `${response.message}`,
-                                        showConfirmButton: false,
-                                        timer: 1500,
-                                        willClose: () => {
-                                            var APP_URL =
-                                                {!! json_encode(url('/')) !!}
-                                            window.location = APP_URL +
-                                                '/vote'
-                                        }
-                                    })
 
-                                } else {
-                                    Swal.fire(
-                                        'Gagal',
-                                        `${response.message}`,
-                                        'error',
-                                    )
-                                }
-                            },
-                            error: err => console.log("Interal Server Error")
-                        })
+                        document.getElementById("id_kandidat").value = $(this).data('id');
+                        console.log(dataId);
+                        // $.ajax({
+                        //     type: 'POST',
+                        //     url: '{{ route('vote.store') }}',
+                        //     data: {
+                        //         "_token": "{{ csrf_token() }}",
+                        //         dataId
+                        //     },
+                        //     success: (response) => {
+                        //         if (response.code === 200) {
+                        //             Swal.fire({
+                        //                 icon: 'success',
+                        //                 title: `${response.message}`,
+                        //                 showConfirmButton: false,
+                        //                 timer: 1500,
+                        //                 willClose: () => {
+                        //                     var APP_URL =
+                        //                         {!! json_encode(url('/')) !!}
+                        //                     window.location = APP_URL +
+                        //                         '/vote'
+                        //                 }
+                        //             })
+
+                        //         } else {
+                        //             Swal.fire(
+                        //                 'Gagal',
+                        //                 `${response.message}`,
+                        //                 'error',
+                        //             )
+                        //         }
+                        //     },
+                        //     error: err => console.log("Interal Server Error")
+                        // })
                     }
                 });
             });
