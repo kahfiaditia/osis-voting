@@ -58,6 +58,7 @@ Route::group(
         Route::get('/get_data_pengguna', [UserController::class, 'get_data_pengguna'])->name('pengguna.get_data_pengguna');
         Route::get('/get_data_all', [UserController::class, 'get_data_all'])->name('pengguna.get_data_all');
         Route::resource('/class', ClasessController::class);
+        Route::get('/data_kelas', [ClasessController::class, 'data_kelas'])->name('class.data_kelas');
         Route::resource('/periode', PeriodeController::class);
         Route::resource('/kandidat', KandidatController::class);
         Route::post('/get_calonketua', [KandidatController::class, 'get_calonketua'])->name('kandidat.get_calonketua');
