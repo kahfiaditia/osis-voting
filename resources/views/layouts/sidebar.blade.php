@@ -11,7 +11,8 @@
 
                  <li>
                      <a href="{{ route('dashboard') }}" class="waves-effect">
-                         <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-info float-end">04</span>
+                         <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-info float-end">SMAN
+                             01</span>
                          <span key="t-dashboards">Dashboards</span>
                      </a>
                  </li>

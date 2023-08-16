@@ -81,7 +81,7 @@
                                     <div class="mb-3">
                                         <label for="validationCustom02" class="form-label">Email</label>
                                         <input type="email" class="form-control" name="email" id="email"
-                                            placeholder="Email" autofocus required>
+                                            placeholder="Email" autocomplete="off" autofocus required>
                                         <div class="invalid-feedback">
                                             Please Enter Email
                                         </div>
