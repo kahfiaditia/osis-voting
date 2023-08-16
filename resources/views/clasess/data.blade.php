@@ -17,7 +17,7 @@
                                 @if (Auth::user()->id == 1)
                                     <a href="{{ route('class.create') }}" type="button"
                                         class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                        <i class="mdi mdi-plus me-1"></i> Tambah Class
+                                        <i class="mdi mdi-plus me-1"></i> Tambah Kelas
                                     </a>
                                 @endif
                             </ol>

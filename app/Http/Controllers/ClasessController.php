@@ -13,7 +13,7 @@ use Yajra\DataTables\Facades\DataTables;
 class ClasessController extends Controller
 {
     protected $title = 'Evoting';
-    protected $menu = 'Classes';
+    protected $menu = 'Kelas';
     /**
      * Display a listing of the resource.
      *
@@ -145,8 +145,8 @@ class ClasessController extends Controller
         $data = [
             'title' => $this->title,
             'menu' => $this->menu,
-            'submenu' => 'Clasess',
-            'label' => 'data Clasess',
+            'submenu' => 'Kelas',
+            'label' => 'data Kelas',
             'edit' => ClasessModel::findORFail(
                 $id
             )
