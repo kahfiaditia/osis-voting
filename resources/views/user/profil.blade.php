@@ -6,7 +6,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Profil</h4>
-
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Data</a></li>
@@ -17,15 +16,11 @@
                     </div>
                 </div>
             </div>
-            {{-- {{ dd($profil->id) }} --}}
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-
                             <h4 class="card-title">Informasi User</h4>
-
                             <form class="needs-validation" action="{{ route('pengguna.updateprofil', $profil->id) }}"
                                 method="POST" novalidate>
                                 @csrf
@@ -65,7 +60,6 @@
                                         </div>
                                         {!! $errors->first('pin', '<div class="invalid-validasi">:message</div>') !!}
                                     </div>
-
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="control-label">Role</label>
@@ -103,11 +97,11 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="d-flex flex-wrap gap-2">
                                     <button type="submit" class="btn btn-primary waves-effect waves-light">Simpan
                                     </button>
-                                    <button type="button" class="btn btn-secondary waves-effect waves-light">Batal</button>
+                                    <a href="{{ route('dashboard') }}"
+                                        class="btn btn-secondary waves-effect waves-light">Batal</a>
                                 </div>
                             </form>
 
@@ -115,10 +109,6 @@
                     </div>
                 </div>
             </div>
-            <!-- end row -->
-
-            <!-- container-fluid -->
         </div>
     </div>
-    <!-- End Page-content -->
 @endsection

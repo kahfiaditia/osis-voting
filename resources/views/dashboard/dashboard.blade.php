@@ -31,11 +31,6 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="avatar-md profile-user-wid mb-4">
-
-
-                                        <input type="hidden" id="roles" value="">
-                                        <input type="hidden" id="jabatan" value="">
-                                        <input type="hidden" id="karyawan_id" value="">
                                     </div>
                                     <h5 class="font-size-15 text-truncate">{{ Auth::user()->name }}</h5>
                                     <p class="text-muted mb-0 text-truncate">
@@ -53,7 +48,8 @@
                                             </div>
                                         </div>
                                         <div class="mt-4">
-                                            <a href="" class="btn btn-primary waves-effect waves-light btn-sm">Akun
+                                            <a href="{{ route('pengguna.profil') }}"
+                                                class="btn btn-primary waves-effect waves-light btn-sm">Akun
                                                 <i class="mdi mdi-arrow-right ms-1"></i></a>
                                         </div>
                                     </div>

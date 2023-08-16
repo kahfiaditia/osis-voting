@@ -41,7 +41,6 @@ Route::group(
         'middleware' => 'auth'
     ],
     function () {
-
         // dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         // vote
