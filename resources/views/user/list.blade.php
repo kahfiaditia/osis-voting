@@ -15,9 +15,9 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 @if (Auth::user()->id == 1)
-                                    <a href="{{ route('pengguna.create') }}" type="button"
+                                    <a href="{{ route('pengguna.tambah_siswa') }}" type="button"
                                         class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                        <i class="mdi mdi-plus me-1"></i> Tambah User
+                                        <i class="mdi mdi-plus me-1"></i> Tambah Siswa
                                     </a>
                                 @endif
                             </ol>

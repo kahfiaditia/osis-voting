@@ -219,10 +219,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'role' => 'required',
             'nama' => 'required',
-            'email' => 'required|unique',
-            'telepon' => 'required|unique',
+            'email' => 'required|unique:users,email',
+            'telepon' => 'required|unique:users,phone',
         ]);
 
         DB::beginTransaction();
@@ -234,8 +233,8 @@ class UserController extends Controller
             $osis->password =  bcrypt('12345');
             // $osis->remember_token = $request->ketua;
             $osis->pin = 1234;
-            $osis->nis = $request->nis;
-            $osis->nik = $request->nik;
+            $osis->nis = $request->nis ?? 0;
+            $osis->nik = $request->nik ?? 0;
             $osis->address = $request->alamat;
             $osis->phone = $request->telepon;
             $osis->roles = $request->role;
@@ -251,6 +250,17 @@ class UserController extends Controller
             AlertHelper::addAlert(false);
             return back();
         }
+    }
+
+    public function tambah_siswa(Request $request)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->siswa,
+            'label' => $this->siswa,
+            'kelas' => ClasessModel::All()
+        ];
+        return view('user.tambah_siswa')->with($data);
     }
 
     /**
