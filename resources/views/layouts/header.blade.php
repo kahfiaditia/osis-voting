@@ -81,7 +81,7 @@
                 </form>
             </div>
             <div class="">
-                <form method="POST" action="{{ route('pengguna.index') }}">
+                <form method="POST" action="{{ route('login.logout') }}">
                     @csrf
                     <button class="btn header-item noti-icon waves-effect logout_confirm">
                         <i class="mdi mdi-logout text-danger"></i>
@@ -96,5 +96,23 @@
         </div>
 
     </div>
-    </div>
+    <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+    <script>
+        $('.logout_confirm').on('click', function(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Keluar Aplikasi',
+                text: 'Ingin keluar aplikasi?',
+                icon: 'question',
+                showCloseButton: true,
+                showCancelButton: true,
+                cancelButtonText: "Batal",
+                focusConfirm: false,
+            }).then((value) => {
+                if (value.isConfirmed) {
+                    $(this).closest("form").submit()
+                }
+            });
+        });
+    </script>
 </header>
