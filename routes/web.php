@@ -52,9 +52,11 @@ Route::group(
         Route::get('/halaman', [UserController::class, 'halaman'])->name('pengguna.halaman');
         Route::get('/profil', [UserController::class, 'profil'])->name('pengguna.profil');
         Route::patch('/updateprofil/{id}', [UserController::class, 'updateprofil'])->name('pengguna.updateprofil');
+        Route::get('/alluser', [UserController::class, 'alluser'])->name('pengguna.alluser');
         Route::post('/upload_excel', [UserController::class, 'uploadExcel'])->name('pengguna.uploadExcel');
         Route::get('/hasil_import', [UserController::class, 'hasil_import'])->name('pengguna.hasil_import');
         Route::get('/get_data_pengguna', [UserController::class, 'get_data_pengguna'])->name('pengguna.get_data_pengguna');
+        Route::get('/get_data_all', [UserController::class, 'get_data_all'])->name('pengguna.get_data_all');
         Route::resource('/class', ClasessController::class);
         Route::resource('/periode', PeriodeController::class);
         Route::resource('/kandidat', KandidatController::class);

@@ -44,8 +44,8 @@
                                     </h2>
 
                                     <div id="collapseOne" class="accordion-collapse collapse <?php
-                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['nik']) or isset($_GET['class_id'])) {
-                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['nik'] != null or $_GET['class_id'] != null) {
+                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['nik']) or isset($_GET['roles'])) {
+                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['nik'] != null or $_GET['roles'] != null) {
                                             echo 'show';
                                         }
                                     }
@@ -86,8 +86,8 @@
                                                                         autocomplete="off">
                                                                 </div>
                                                                 <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="class_id" id="class_id"
-                                                                        value="{{ isset($_GET['class_id']) ? $_GET['class_id'] : null }}"
+                                                                    <input type="text" name="roles" id="roles"
+                                                                        value="{{ isset($_GET['roles']) ? $_GET['roles'] : null }}"
                                                                         class="form-control" placeholder="Jabatan"
                                                                         autocomplete="off">
                                                                 </div>
@@ -127,7 +127,7 @@
                                                                 $email = $_GET['email'];
                                                                 $nis = $_GET['nis'];
                                                                 $nik = $_GET['nik'];
-                                                                $class_id = $_GET['class_id'];
+                                                                $roles = $_GET['roles'];
                                                                 // $name = $_GET['name'];
                                                                 $search_manual = $_GET['search_manual'];
                                                                 if (isset($_GET['like'])) {
@@ -146,8 +146,8 @@
                                                                         $nis .
                                                                         '&nik=' .
                                                                         $nik .
-                                                                        '&class_id=' .
-                                                                        $class_id .
+                                                                        '&roles=' .
+                                                                        $roles .
                                                                         // '&name=' .
                                                                         // $name .
                                                                         '&search_manual=' .
@@ -179,7 +179,7 @@
                                         <th>Email</th>
                                         <th>Nis</th>
                                         <th>Nik</th>
-                                        <th>Kelas</th>
+                                        <th>Roles</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -202,7 +202,7 @@
                 document.getElementById("email").value = null;
                 document.getElementById("nis").value = null;
                 document.getElementById("nik").value = null;
-                document.getElementById("class_id").value = null;
+                document.getElementById("roles").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
                 document.getElementById("id_where").style.display = 'none';
@@ -222,7 +222,7 @@
                 document.getElementById("email").value = null;
                 document.getElementById("nis").value = null;
                 document.getElementById("nik").value = null;
-                document.getElementById("class_id").value = null;
+                document.getElementById("roles").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
                 document.getElementById("id_where").style.display = 'none';
@@ -242,7 +242,7 @@
                 serverSide: true,
                 responsive: true,
                 ajax: {
-                    url: "{{ route('pengguna.get_data_pengguna') }}",
+                    url: "{{ route('pengguna.get_data_all') }}",
                     data: function(d) {
                         d.name = (document.getElementById("name").value
                                 .length != 0) ?
@@ -261,10 +261,10 @@
                             document
                             .getElementById(
                                 "nik").value : null;
-                        d.class_id = (document.getElementById("class_id").value.length != 0) ?
+                        d.roles = (document.getElementById("roles").value.length != 0) ?
                             document
                             .getElementById(
-                                "class_id").value : null;
+                                "roles").value : null;
                         d.search_manual = (document.getElementById("search_manual").value
                                 .length != 0) ?
                             document
@@ -299,8 +299,8 @@
                         name: 'nik'
                     },
                     {
-                        data: 'class_id',
-                        name: 'class_id'
+                        data: 'roles',
+                        name: 'roles'
                     },
                     {
                         data: 'action',

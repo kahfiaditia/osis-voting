@@ -26,6 +26,12 @@
                      </a>
                  </li>
                  <li>
+                     <a href="{{ route('pengguna.alluser') }}" class="waves-effect">
+                         <i class="bx bx-list-ul"></i>
+                         <span key="bx bx-list-ul">List User</span>
+                     </a>
+                 </li>
+                 <li>
                      <a href="{{ route('pengguna.index') }}" class="waves-effect">
                          <i class="bx bxs-user-detail"></i>
                          <span key="t-chat">Data Siswa</span>
