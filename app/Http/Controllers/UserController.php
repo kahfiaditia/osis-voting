@@ -81,7 +81,6 @@ class UserController extends Controller
                     ->orWhere('name', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%')
                     ->orWhere('nis', 'like', '%' . $search . '%')
-                    ->orWhere('nik', 'like', '%' . $search . '%')
                     ->orWhere('roles', 'like', '%' . $search . '%');
                 // ->orWhere('id_supplier', 'like', '%' . $search . '%');
             });
@@ -94,7 +93,6 @@ class UserController extends Controller
                         ->orWhere('name', 'like', '%' . $search . '%')
                         ->orWhere('email', 'like', '%' . $search . '%')
                         ->orWhere('nis', 'like', '%' . $search . '%')
-                        ->orWhere('nik', 'like', '%' . $search . '%')
                         ->orWhere('roles', 'like', '%' . $search . '%');
                     // ->orWhere('id_supplier', 'like', '%' . $search . '%');
                 });
@@ -191,7 +189,7 @@ class UserController extends Controller
         }
 
         return DataTables::of($userdata)
-            ->addColumn('action', 'user.akse')
+            ->addColumn('action', 'user.aksiall')
             ->rawColumns(['action'])
             ->make(true);
     }

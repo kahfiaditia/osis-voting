@@ -44,8 +44,8 @@
                                     </h2>
 
                                     <div id="collapseOne" class="accordion-collapse collapse <?php
-                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['nik']) or isset($_GET['class_id'])) {
-                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['nik'] != null or $_GET['class_id'] != null) {
+                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['class_id'])) {
+                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['class_id'] != null) {
                                             echo 'show';
                                         }
                                     }
@@ -79,12 +79,7 @@
                                                                         class="form-control" placeholder="Nis"
                                                                         autocomplete="off">
                                                                 </div>
-                                                                <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="nik" id="nik"
-                                                                        value="{{ isset($_GET['nik']) ? $_GET['nik'] : null }}"
-                                                                        class="form-control" placeholder="Nik"
-                                                                        autocomplete="off">
-                                                                </div>
+
                                                                 <div class="col-sm-2 mb-2">
                                                                     <input type="text" name="class_id" id="class_id"
                                                                         value="{{ isset($_GET['class_id']) ? $_GET['class_id'] : null }}"
@@ -126,7 +121,6 @@
                                                                 $name = $_GET['name'];
                                                                 $email = $_GET['email'];
                                                                 $nis = $_GET['nis'];
-                                                                $nik = $_GET['nik'];
                                                                 $class_id = $_GET['class_id'];
                                                                 // $name = $_GET['name'];
                                                                 $search_manual = $_GET['search_manual'];
@@ -144,8 +138,6 @@
                                                                         $email .
                                                                         '&nis=' .
                                                                         $nis .
-                                                                        '&nik=' .
-                                                                        $nik .
                                                                         '&class_id=' .
                                                                         $class_id .
                                                                         // '&name=' .
@@ -178,7 +170,6 @@
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Nis</th>
-                                        <th>Nik</th>
                                         <th>Kelas</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -201,7 +192,6 @@
                 document.getElementById("name").value = null;
                 document.getElementById("email").value = null;
                 document.getElementById("nis").value = null;
-                document.getElementById("nik").value = null;
                 document.getElementById("class_id").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
@@ -221,7 +211,6 @@
                 document.getElementById("name").value = null;
                 document.getElementById("email").value = null;
                 document.getElementById("nis").value = null;
-                document.getElementById("nik").value = null;
                 document.getElementById("class_id").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
@@ -257,10 +246,6 @@
                             document
                             .getElementById(
                                 "nis").value : null;
-                        d.nik = (document.getElementById("nik").value.length != 0) ?
-                            document
-                            .getElementById(
-                                "nik").value : null;
                         d.class_id = (document.getElementById("class_id").value.length != 0) ?
                             document
                             .getElementById(
@@ -293,10 +278,6 @@
                     {
                         data: 'nis',
                         name: 'nis'
-                    },
-                    {
-                        data: 'nik',
-                        name: 'nik'
                     },
                     {
                         data: 'class_id',
