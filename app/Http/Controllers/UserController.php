@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -62,6 +63,61 @@ class UserController extends Controller
 
         return view('user.data_import')->with($data);
     }
+
+    public function get_data_pengguna(Request $request)
+    {
+        $userdata = DB::table('users')
+            ->whereNull('users.deleted_at')
+            ->orderBy('users.id', 'DESC');
+
+
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $userdata->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('nik', 'like', '%' . $search . '%')
+                    ->orWhere('roles', 'like', '%' . $search . '%');
+                // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+            });
+
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $userdata->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('nis', 'like', '%' . $search . '%')
+                        ->orWhere('nik', 'like', '%' . $search . '%')
+                        ->orWhere('roles', 'like', '%' . $search . '%');
+                    // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+            if ($request->get('email') != null) {
+                $email = $request->get('email');
+                $userdata->where('email', '=', $email);
+            }
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+        }
+
+        return DataTables::of($userdata)
+            ->addColumn('action', 'user.akse')
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
 
     public function index()
     {

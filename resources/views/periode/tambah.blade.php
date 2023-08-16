@@ -38,11 +38,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="validationCustom02" class="form-label">Tanda
+                                            <label for="validationCustom02" class="form-label">Flag
                                                 <code>*</code></label>
                                             <input type="text" class="form-control" id="flag" name="flag"
                                                 onkeyup="this.value = this.value.toUpperCase();" value="{{ old('flag') }}"
-                                                autofocus required placeholder="flag">
+                                                autofocus required placeholder="flag" autocomplete="off">
                                             <div class="invalid-feedback">
                                                 Data wajib diisi.
                                             </div>

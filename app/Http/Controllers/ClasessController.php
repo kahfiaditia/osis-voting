@@ -53,6 +53,10 @@ class ClasessController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'kelas' => 'required|max:25',
+        ]);
+
         DB::beginTransaction();
         try {
             $kelas = new ClasessModel();
@@ -141,11 +145,6 @@ class ClasessController extends Controller
      */
     public function destroy($id)
     {
-        // dd($id);
-        // $hapus1 = ClasessModel::findorfail($id);
-        // $hapus1->deleted_at = Carbon::now();
-        // $hapus1->save();
-
 
         DB::beginTransaction();
         try {

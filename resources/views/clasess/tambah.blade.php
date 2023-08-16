@@ -28,7 +28,7 @@
                                                 <code>*</code></label>
                                             <input type="text" class="form-control" id="kelas" name="kelas"
                                                 onkeyup="this.value = this.value.toUpperCase();" value="{{ old('kelas') }}"
-                                                autofocus required placeholder="etc: 2">
+                                                autofocus placeholder="etc: 2" required>
                                             <div class="invalid-feedback">
                                                 Data wajib diisi.
                                             </div>
@@ -41,7 +41,7 @@
                                                 <code>*</code></label>
                                             <input type="text" class="form-control" id="level" name="level"
                                                 onkeyup="this.value = this.value.toUpperCase();" value="{{ old('level') }}"
-                                                autofocus required placeholder="Level">
+                                                autofocus placeholder="Level">
                                             <div class="invalid-feedback">
                                                 Data wajib diisi.
                                             </div>
@@ -51,7 +51,8 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">
-                                        <a href="" class="btn btn-secondary waves-effect">Batal</a>
+                                        <a href="{{ route('class.index') }}"
+                                            class="btn btn-secondary waves-effect">Batal</a>
                                         <button class="btn btn-primary" type="submit" style="float: right"
                                             id="submit">Simpan</button>
                                     </div>

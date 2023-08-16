@@ -60,33 +60,41 @@
 
 
             <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg"
-                        alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-1" key="t-henry">Henry</span>
-                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <!-- item-->
-                    <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i>
-                        <span key="t-profile">Profile</span></a>
-                    <a class="dropdown-item" href="#"><i class="bx bx-wallet font-size-16 align-middle me-1"></i>
-                        <span key="t-my-wallet">My
-                            Wallet</span></a>
-                    <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i
-                            class="bx bx-wrench font-size-16 align-middle me-1"></i> <span
-                            key="t-settings">Settings</span></a>
-                    <a class="dropdown-item" href="#"><i
-                            class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span key="t-lock-screen">Lock
-                            screen</span></a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger" href="#"><i
-                            class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
-                            key="t-logout">Logout</span></a>
-                </div>
+                <form method="GET" action="{{ route('pengguna.index', Crypt::encryptString(Auth::user()->id)) }}">
+                    @csrf
+                    <button class="btn header-item waves-effect">
+                        <?php
+                        $avatar = DB::table('users')
+                            // ->select('foto')
+                            ->where('id', Auth::user()->id)
+                            ->get();
+                        ?>
+                        {{-- @if (count($avatar) > 0 and $avatar[0]->foto != null)
+                            <img class="rounded-circle header-profile-user"
+                                src="{{ Storage::url('karyawan/foto/' . $avatar[0]->foto) }}" alt="Header Avatar">
+                        @else
+                            <img class="rounded-circle header-profile-user"
+                                src="{{ URL::asset('assets/images/users/avatar.png') }}" alt="Header Avatar">
+                        @endif --}}
+                        <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{ Auth::user()->name }}</span>
+                    </button>
+                </form>
             </div>
-
+            <div class="">
+                <form method="POST" action="{{ route('pengguna.index') }}">
+                    @csrf
+                    <button class="btn header-item noti-icon waves-effect logout_confirm">
+                        <i class="mdi mdi-logout text-danger"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
+                    <i class="bx bx-cog bx-spin"></i>
+                </button>
+            </div>
         </div>
+
+    </div>
     </div>
 </header>

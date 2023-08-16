@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\DB;
 
 class VoteController extends Controller
 {
+    protected $title = 'Evoting';
+    protected $menu = 'Voting';
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +29,8 @@ class VoteController extends Controller
             $list = Vote::where('id_user_vote', Auth::user()->id)->get();
         }
         $data = [
-            'menu' => 'Apps',
+            'title' => $this->title,
+            'menu' => $this->menu,
             'submenu' => 'Vote',
             'label' => 'Data Vote',
             'list' => $list,

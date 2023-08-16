@@ -144,8 +144,8 @@ class KandidatController extends Controller
         DB::beginTransaction();
         try {
             $osis = new KandidatModel();
-            $osis->id_ketua = $request->wakil;
-            $osis->id_wakil = $request->ketua;
+            $osis->id_ketua = $request->ketua;
+            $osis->id_wakil = $request->wakil;
             $osis->id_periode = $request->periode;
             $osis->quote = $request->quote;
             $osis->no_urut = $request->urut;
@@ -236,11 +236,6 @@ class KandidatController extends Controller
      */
     public function destroy($id)
     {
-        // dd($id);
-        // $hapus1 = KandidatModel::findorfail($id);
-        // $hapus1->deleted_at = Carbon::now();
-        // $hapus1->save();
-
 
         DB::beginTransaction();
         try {

@@ -81,6 +81,19 @@ class LoginController extends Controller
         return view('login.recovery')->with($data);
     }
 
+    public function logout(Request $request)
+    {
+        User::where(['id' => Auth::user()->id])->update([
+            'date_login' => null,
+            'date_logout' => Carbon::now(),
+        ]);
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

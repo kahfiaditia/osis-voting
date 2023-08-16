@@ -100,7 +100,7 @@
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Deskripsi Visi dan Misi
                                                 <code>*</code></label>
-                                            <textarea name="editor1" id="editor1">fhdf</textarea>
+                                            <textarea name="editor1" id="editor1"></textarea>
                                         </div>
                                     </div>
                                 </div>
