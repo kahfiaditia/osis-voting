@@ -5,7 +5,8 @@
                  <li class="menu-title" key="t-menu">Menu</li>
                  <li>
                      <a href="{{ route('dashboard') }}" class="waves-effect">
-                         <i class="bx bx-home-circle"></i>
+                         <i class="bx bx-home-circle"></i><span class="badge rounded-pill bg-info float-end">SMAN
+                             01</span>
                          <span key="t-dashboards">Dashboards</span>
                      </a>
                  </li>
@@ -14,6 +15,12 @@
                      <a href="{{ route('pengguna.profil') }}" class="waves-effect">
                          <i class="bx bx-user-circle"></i>
                          <span key="t-calendar">Profil User</span>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="{{ route('pengguna.alluser') }}" class="waves-effect">
+                         <i class="bx bx-list-ul"></i>
+                         <span key="bx bx-list-ul">List User</span>
                      </a>
                  </li>
                  <li>

@@ -15,9 +15,9 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 @if (Auth::user()->id == 1)
-                                    <a href="{{ route('pengguna.tambah_siswa') }}" type="button"
+                                    <a href="{{ route('periode.create') }}" type="button"
                                         class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                        <i class="mdi mdi-plus me-1"></i> Tambah Siswa
+                                        <i class="mdi mdi-plus me-1"></i> Tambah Periode
                                     </a>
                                 @endif
                             </ol>
@@ -32,7 +32,7 @@
                             <div class="accordion" id="accordionExample">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne">
-                                        <button class="accordion-button fw-medium <?php if (isset($_GET['name'])) {
+                                        <button class="accordion-button fw-medium <?php if (isset($_GET['class_name'])) {
                                         } else {
                                             echo 'collapsed';
                                         } ?>" type="button"
@@ -44,8 +44,8 @@
                                     </h2>
 
                                     <div id="collapseOne" class="accordion-collapse collapse <?php
-                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['class_id'])) {
-                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['class_id'] != null) {
+                                    if (isset($_GET['periode_name']) or isset($_GET['flag'])) {
+                                        if ($_GET['periode_name'] != null or $_GET['flag'] != null) {
                                             echo 'show';
                                         }
                                     }
@@ -62,28 +62,16 @@
                                                         <div class="col-md-12">
                                                             <div class="row">
                                                                 <div class="col-md-2 mb-2">
-                                                                    <input type="text" name="name" id="name"
-                                                                        value="{{ isset($_GET['name']) ? $_GET['name'] : null }}"
-                                                                        class="form-control" placeholder="Nama"
+                                                                    <input type="text" name="periode_name"
+                                                                        id="periode_name"
+                                                                        value="{{ isset($_GET['periode_name']) ? $_GET['periode_name'] : null }}"
+                                                                        class="form-control" placeholder="Periode"
                                                                         autocomplete="off">
                                                                 </div>
                                                                 <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="email" id="email"
-                                                                        value="{{ isset($_GET['email']) ? $_GET['email'] : null }}"
-                                                                        class="form-control" placeholder="Email"
-                                                                        autocomplete="off">
-                                                                </div>
-                                                                <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="nis" id="nis"
-                                                                        value="{{ isset($_GET['nis']) ? $_GET['nis'] : null }}"
-                                                                        class="form-control" placeholder="Nis"
-                                                                        autocomplete="off">
-                                                                </div>
-
-                                                                <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="class_id" id="class_id"
-                                                                        value="{{ isset($_GET['class_id']) ? $_GET['class_id'] : null }}"
-                                                                        class="form-control" placeholder="Jabatan"
+                                                                    <input type="text" name="flag" id="flag"
+                                                                        value="{{ isset($_GET['flag']) ? $_GET['flag'] : null }}"
+                                                                        class="form-control" placeholder="Flag"
                                                                         autocomplete="off">
                                                                 </div>
                                                             </div>
@@ -114,15 +102,12 @@
                                                         <div class="col-sm-10 mb-2">
                                                             <button type="submit"
                                                                 class="btn btn-primary w-md">Cari</button>
-                                                            <a href="{{ route('pengguna.index') }}"
+                                                            <a href="{{ route('periode.index') }}"
                                                                 class="btn btn-secondary w-md">Batal</a>
-                                                            @if (isset($_GET['name']) or isset($_GET['like']))
+                                                            @if (isset($_GET['periode_name']) or isset($_GET['like']))
                                                                 <?php
-                                                                $name = $_GET['name'];
-                                                                $email = $_GET['email'];
-                                                                $nis = $_GET['nis'];
-                                                                $class_id = $_GET['class_id'];
-                                                                // $name = $_GET['name'];
+                                                                $periode_name = $_GET['periode_name'];
+                                                                $flag = $_GET['flag'];
                                                                 $search_manual = $_GET['search_manual'];
                                                                 if (isset($_GET['like'])) {
                                                                     $like = $_GET['like'];
@@ -132,26 +117,12 @@
                                                                 ?>
                                                                 <a href="{{ route(
                                                                     'pengguna.index',
-                                                                    'name=' .
-                                                                        $name .
-                                                                        '&email=' .
-                                                                        $email .
-                                                                        '&nis=' .
-                                                                        $nis .
-                                                                        '&class_id=' .
-                                                                        $class_id .
-                                                                        // '&name=' .
-                                                                        // $name .
-                                                                        '&search_manual=' .
-                                                                        $search_manual .
-                                                                        '&like=' .
-                                                                        $like .
-                                                                        '',
+                                                                    'periode_name=' . $periode_name . '&flag=' . $flag . '&search_manual=' . $search_manual . '&like=' . $like . '',
                                                                 ) }}"
                                                                     class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
                                                                         class="bx bx-cloud-download me-1"></i>Unduh</a>
                                                             @else
-                                                                <a href="{{ route('pengguna.index') }}"
+                                                                <a href="{{ route('periode.index') }}"
                                                                     class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
                                                                         class="bx bx-cloud-download me-1"></i>Unduh</a>
                                                             @endif
@@ -167,10 +138,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Nis</th>
-                                        <th>Kelas</th>
+                                        <th>Periode</th>
+                                        <th>Flag</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -189,10 +158,8 @@
         function toggleCheckbox() {
             like = document.getElementById("like").checked;
             if (like == true) {
-                document.getElementById("name").value = null;
-                document.getElementById("email").value = null;
-                document.getElementById("nis").value = null;
-                document.getElementById("class_id").value = null;
+                document.getElementById("periode_name").value = null;
+                document.getElementById("flag").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
                 document.getElementById("id_where").style.display = 'none';
@@ -208,10 +175,8 @@
         $(document).ready(function() {
             like = document.getElementById("like").checked;
             if (like == true) {
-                document.getElementById("name").value = null;
-                document.getElementById("email").value = null;
-                document.getElementById("nis").value = null;
-                document.getElementById("class_id").value = null;
+                document.getElementById("periode_name").value = null;
+                document.getElementById("flag").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
                 document.getElementById("id_where").style.display = 'none';
@@ -231,25 +196,17 @@
                 serverSide: true,
                 responsive: true,
                 ajax: {
-                    url: "{{ route('pengguna.get_data_pengguna') }}",
+                    url: "{{ route('periode.data_periode') }}",
                     data: function(d) {
-                        d.name = (document.getElementById("name").value
+                        d.periode_name = (document.getElementById("periode_name").value
                                 .length != 0) ?
                             document
                             .getElementById(
-                                "name").value : null;
-                        d.email = (document.getElementById("email").value.length != 0) ?
+                                "periode_name").value : null;
+                        d.flag = (document.getElementById("flag").value.length != 0) ?
                             document
                             .getElementById(
-                                "email").value : null;
-                        d.nis = (document.getElementById("nis").value.length != 0) ?
-                            document
-                            .getElementById(
-                                "nis").value : null;
-                        d.class_id = (document.getElementById("class_id").value.length != 0) ?
-                            document
-                            .getElementById(
-                                "class_id").value : null;
+                                "flag").value : null;
                         d.search_manual = (document.getElementById("search_manual").value
                                 .length != 0) ?
                             document
@@ -268,20 +225,12 @@
 
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'periode_name',
+                        name: 'periode_name'
                     },
                     {
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        data: 'nis',
-                        name: 'nis'
-                    },
-                    {
-                        data: 'class_id',
-                        name: 'class_id'
+                        data: 'flag',
+                        name: 'flag'
                     },
                     {
                         data: 'action',

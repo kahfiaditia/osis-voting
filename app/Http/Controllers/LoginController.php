@@ -43,6 +43,12 @@ class LoginController extends Controller
             if (Auth::user()->roles == 'Administrator') {
                 $request->session()->regenerate();
                 return redirect()->intended('dashboard');
+            } else if (Auth::user()->roles == 'guru') {
+                $request->session()->regenerate();
+                return redirect()->intended('dashboard');
+            } else if (Auth::user()->roles == 'siswa') {
+                $request->session()->regenerate();
+                return redirect()->intended('dashboard');
             } else {
                 Auth::logout();
                 $request->session()->invalidate();

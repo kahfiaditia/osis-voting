@@ -16,6 +16,7 @@ use Yajra\DataTables\Facades\DataTables;
 class UserController extends Controller
 {
     protected $title = 'Evoting';
+    protected $siswa = 'Siswa';
     protected $menu = 'User';
     /**
      * Display a listing of the resource.
@@ -67,6 +68,81 @@ class UserController extends Controller
     public function get_data_pengguna(Request $request)
     {
         $userdata = DB::table('users')
+            ->where('roles', '=', 'siswa')
+            ->whereNull('users.deleted_at')
+            ->orderBy('users.id', 'DESC');
+
+
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $userdata->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('roles', 'like', '%' . $search . '%');
+                // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+            });
+
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $userdata->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('nis', 'like', '%' . $search . '%')
+                        ->orWhere('roles', 'like', '%' . $search . '%');
+                    // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+            if ($request->get('email') != null) {
+                $email = $request->get('email');
+                $userdata->where('email', '=', $email);
+            }
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+        }
+
+        return DataTables::of($userdata)
+            ->addColumn('action', 'user.akse')
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+
+    public function index()
+    {
+
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->siswa,
+            'label' => $this->siswa,
+        ];
+        return view('user.list')->with($data);
+    }
+
+    public function alluser()
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'label' => $this->menu,
+        ];
+        return view('user.alluser')->with($data);
+    }
+
+    public function get_data_all(Request $request)
+    {
+        $userdata = DB::table('users')
             ->whereNull('users.deleted_at')
             ->orderBy('users.id', 'DESC');
 
@@ -113,21 +189,9 @@ class UserController extends Controller
         }
 
         return DataTables::of($userdata)
-            ->addColumn('action', 'user.akse')
+            ->addColumn('action', 'user.aksiall')
             ->rawColumns(['action'])
             ->make(true);
-    }
-
-
-    public function index()
-    {
-        $data = [
-            'title' => $this->title,
-            'menu' => $this->menu,
-            'label' => $this->menu,
-            'user' => User::All()
-        ];
-        return view('user.list')->with($data);
     }
 
     /**
@@ -155,10 +219,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'role' => 'required',
             'nama' => 'required',
-            'email' => 'required|unique',
-            'telepon' => 'required|unique',
+            'email' => 'required|unique:users,email',
+            'telepon' => 'required|unique:users,phone',
         ]);
 
         DB::beginTransaction();
@@ -170,8 +233,8 @@ class UserController extends Controller
             $osis->password =  bcrypt('12345');
             // $osis->remember_token = $request->ketua;
             $osis->pin = 1234;
-            $osis->nis = $request->nis;
-            $osis->nik = $request->nik;
+            $osis->nis = $request->nis ?? 0;
+            $osis->nik = $request->nik ?? 0;
             $osis->address = $request->alamat;
             $osis->phone = $request->telepon;
             $osis->roles = $request->role;
@@ -187,6 +250,17 @@ class UserController extends Controller
             AlertHelper::addAlert(false);
             return back();
         }
+    }
+
+    public function tambah_siswa(Request $request)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->siswa,
+            'label' => $this->siswa,
+            'kelas' => ClasessModel::All()
+        ];
+        return view('user.tambah_siswa')->with($data);
     }
 
     /**

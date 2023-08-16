@@ -51,11 +51,16 @@ Route::group(
         Route::get('/halaman', [UserController::class, 'halaman'])->name('pengguna.halaman');
         Route::get('/profil', [UserController::class, 'profil'])->name('pengguna.profil');
         Route::patch('/updateprofil/{id}', [UserController::class, 'updateprofil'])->name('pengguna.updateprofil');
+        Route::get('/alluser', [UserController::class, 'alluser'])->name('pengguna.alluser');
         Route::post('/upload_excel', [UserController::class, 'uploadExcel'])->name('pengguna.uploadExcel');
         Route::get('/hasil_import', [UserController::class, 'hasil_import'])->name('pengguna.hasil_import');
         Route::get('/get_data_pengguna', [UserController::class, 'get_data_pengguna'])->name('pengguna.get_data_pengguna');
+        Route::get('/tambah_siswa', [UserController::class, 'tambah_siswa'])->name('pengguna.tambah_siswa');
+        Route::get('/get_data_all', [UserController::class, 'get_data_all'])->name('pengguna.get_data_all');
         Route::resource('/class', ClasessController::class);
+        Route::get('/data_kelas', [ClasessController::class, 'data_kelas'])->name('class.data_kelas');
         Route::resource('/periode', PeriodeController::class);
+        Route::get('/data_periode', [PeriodeController::class, 'data_periode'])->name('periode.data_periode');
         Route::resource('/kandidat', KandidatController::class);
         Route::post('/get_calonketua', [KandidatController::class, 'get_calonketua'])->name('kandidat.get_calonketua');
         Route::post('/get_calonwakil', [KandidatController::class, 'get_calonwakil'])->name('kandidat.get_calonwakil');

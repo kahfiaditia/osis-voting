@@ -8,6 +8,7 @@ use App\Models\PeriodeModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class PeriodeController extends Controller
 {
@@ -26,7 +27,53 @@ class PeriodeController extends Controller
             'label' => $this->menu,
             'periode' => PeriodeModel::All()
         ];
-        return view('periode.list')->with($data);
+        return view('periode.data')->with($data);
+    }
+
+    public function data_periode(Request $request)
+    {
+        $userdata = DB::table('periode')
+            ->whereNull('periode.deleted_at')
+            ->orderBy('periode.id', 'DESC');
+
+
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $userdata->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('periode_name', 'like', '%' . $search . '%')
+                    ->orWhere('flag', 'like', '%' . $search . '%');
+            });
+
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $userdata->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('periode_name', 'like', '%' . $search . '%')
+                        ->orWhere('flag', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('periode_name') != null) {
+                $periode_name = $request->get('periode_name');
+                $userdata->where('periode_name', '=', $periode_name);
+            }
+            if ($request->get('flag') != null) {
+                $flag = $request->get('flag');
+                $userdata->where('flag', '=', $flag);
+            }
+            if ($request->get('periode_name') != null) {
+                $periode_name = $request->get('periode_name');
+                $userdata->where('periode_name', '=', $periode_name);
+            }
+        }
+
+        return DataTables::of($userdata)
+            ->addColumn('action', 'periode.button')
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     /**

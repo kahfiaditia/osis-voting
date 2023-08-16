@@ -8,12 +8,12 @@ use App\Helper\AlertHelper;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Yajra\DataTables\Facades\DataTables;
 
 class ClasessController extends Controller
 {
     protected $title = 'Evoting';
-    protected $menu = 'Classes';
+    protected $menu = 'Kelas';
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +27,7 @@ class ClasessController extends Controller
             'label' => $this->menu,
             'kelas' => ClasessModel::All()
         ];
-        return view('clasess.list')->with($data);
+        return view('clasess.data')->with($data);
     }
 
     /**
@@ -43,6 +43,52 @@ class ClasessController extends Controller
             'label' => $this->menu,
         ];
         return view('clasess.tambah')->with($data);
+    }
+
+    public function data_kelas(Request $request)
+    {
+        $userdata = DB::table('clasess')
+            ->whereNull('clasess.deleted_at')
+            ->orderBy('clasess.id', 'DESC');
+
+
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $userdata->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('class_name', 'like', '%' . $search . '%')
+                    ->orWhere('class_level', 'like', '%' . $search . '%');
+            });
+
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $userdata->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('class_name', 'like', '%' . $search . '%')
+                        ->orWhere('class_level', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('class_name') != null) {
+                $class_name = $request->get('class_name');
+                $userdata->where('class_name', '=', $class_name);
+            }
+            if ($request->get('class_level') != null) {
+                $class_level = $request->get('class_level');
+                $userdata->where('class_level', '=', $class_level);
+            }
+            if ($request->get('class_name') != null) {
+                $class_name = $request->get('class_name');
+                $userdata->where('class_name', '=', $class_name);
+            }
+        }
+
+        return DataTables::of($userdata)
+            ->addColumn('action', 'clasess.aksi')
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     /**
@@ -99,8 +145,8 @@ class ClasessController extends Controller
         $data = [
             'title' => $this->title,
             'menu' => $this->menu,
-            'submenu' => 'Clasess',
-            'label' => 'data Clasess',
+            'submenu' => 'Kelas',
+            'label' => 'data Kelas',
             'edit' => ClasessModel::findORFail(
                 $id
             )

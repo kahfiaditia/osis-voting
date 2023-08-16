@@ -1,13 +1,12 @@
 <?php $id = $model->id; ?>
 <?php $id_decrypted = Crypt::encryptString($id); ?>
-<form class="delete-form" action="{{ route('pengguna.destroy', $id) }}" method="POST">
+<form class="delete-form" action="{{ route('class.destroy', $id) }}" method="POST">
     @csrf
     @method('DELETE')
     <div class="d-flex gap-3">
 
         @if (Auth::user()->id == 1)
-            <a href="{{ route('pengguna.edit', $id) }}" class="text-success"><i
-                    class="mdi mdi-pencil font-size-18"></i></a>
+            <a href="{{ route('class.edit', $id) }}" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
             <a href="#" class="text-danger delete_confirm"><i class="mdi mdi-delete font-size-18"></i></a>
         @endif
 
