@@ -3,21 +3,21 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="{{ route('dashboard') }}" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="assets/images/logo.svg" alt="" height="22">
+                <a href="{{ route('dashboard') }}" class="logo logo-dark  mt-5">
+                    <span class="logo-sm mt-4">
+                        <img src="{{ URL::asset('assets/images/brands/logo123.png') }}" alt="" height="100">
                     </span>
                     <span class="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="" height="17">
+                        <img src="{{ URL::asset('assets/images/brands/logo123.png') }}" alt="" height="100">
                     </span>
                 </a>
 
-                <a href="{{ route('dashboard') }}" class="logo logo-light">
+                <a href="{{ route('dashboard') }}" class="logo logo-light  mt-5">
                     <span class="logo-sm">
-                        <img src="assets/images/logo-light.svg" alt="" height="22">
+                        <img src="{{ URL::asset('assets/images/brands/logo123.png') }}" alt="" height="100">
                     </span>
                     <span class="logo-lg">
-                        <img src="assets/images/logo-light.png" alt="" height="19">
+                        <img src="{{ URL::asset('assets/images/brands/logo123.png') }}" alt="" height="100">
                     </span>
                 </a>
             </div>
