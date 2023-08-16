@@ -28,7 +28,7 @@
                                                 <code>*</code></label>
                                             <input type="text" class="form-control" id="kelas" name="kelas"
                                                 onkeyup="this.value = this.value.toUpperCase();" value="{{ old('kelas') }}"
-                                                autofocus placeholder="etc: 2" required>
+                                                autofocus placeholder="etc: 2" maxlength="15" autocomplete="off" required>
                                             <div class="invalid-feedback">
                                                 Data wajib diisi.
                                             </div>
@@ -37,11 +37,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="validationCustom02" class="form-label">Level
-                                                <code>*</code></label>
+                                            <label for="validationCustom02" class="form-label">Subkelas
+                                            </label>
                                             <input type="text" class="form-control" id="level" name="level"
                                                 onkeyup="this.value = this.value.toUpperCase();" value="{{ old('level') }}"
-                                                autofocus placeholder="Level">
+                                                autofocus placeholder="etc: B" autocomplete="off">
                                             <div class="invalid-feedback">
                                                 Data wajib diisi.
                                             </div>

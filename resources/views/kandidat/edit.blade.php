@@ -38,6 +38,10 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('ketua', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3" id="nis_ketua_container" style="display: none;">
@@ -60,6 +64,10 @@
                                                         {{ $item567->name }}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('wakil', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3" id="nis_wakil_container" style="display: none;">
@@ -79,6 +87,10 @@
                                                 <code>*</code></label>
                                             <textarea class="form-control" name="quote" id="quote">{{ $kandidat->quote }}</textarea>
                                         </div>
+                                        <div class="invalid-feedback">
+                                            Data wajib diisi.
+                                        </div>
+                                        {!! $errors->first('quote', '<div class="invalid-validasi">:message</div>') !!}
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
@@ -93,6 +105,10 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('periode', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -115,6 +131,10 @@
                                                     @if ($kandidat->no_urut == 4) selected @endif> 4
                                                 </option>
                                             </select>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('urut', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                 </div>
@@ -126,6 +146,10 @@
                                                 <code>*</code></label>
                                             <textarea name="editor1" id="editor1">{{ $kandidat->visi_misi }}</textarea>
                                         </div>
+                                        <div class="invalid-feedback">
+                                            Data wajib diisi.
+                                        </div>
+                                        {!! $errors->first('editor1', '<div class="invalid-validasi">:message</div>') !!}
                                     </div>
                                 </div>
 
@@ -133,7 +157,8 @@
                                     <div class="col-sm-12">
                                         <a href="{{ route('kandidat.index') }}"
                                             class="btn btn-secondary waves-effect">Batal</a>
-                                        <button class="btn btn-primary" type="submit" style="float: right">Simpan</button>
+                                        <button class="btn btn-primary" type="submit"
+                                            style="float: right">Simpan</button>
                                     </div>
                                 </div>
                             </div>

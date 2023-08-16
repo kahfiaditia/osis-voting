@@ -141,6 +141,15 @@ class KandidatController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'ketua' => 'required',
+            'wakil' => 'required',
+            'periode' => 'required',
+            'quote' => 'required',
+            'urut' => 'required',
+            'editor1' => 'required',
+        ]);
+
         DB::beginTransaction();
         try {
             $osis = new KandidatModel();
@@ -204,7 +213,15 @@ class KandidatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request);
+        $validated = $request->validate([
+            'ketua' => 'required',
+            'wakil' => 'required',
+            'periode' => 'required',
+            'quote' => 'required',
+            'urut' => 'required',
+            'editor1' => 'required',
+        ]);
+
         DB::beginTransaction();
         try {
             $editkelas = KandidatModel::findOrFail($id);

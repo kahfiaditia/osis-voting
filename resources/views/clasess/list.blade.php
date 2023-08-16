@@ -35,8 +35,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Kelas</th>
-                                        <th>Level</th>
+                                        <th>Kelas</th>
+                                        <th>Sub Kelas</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>

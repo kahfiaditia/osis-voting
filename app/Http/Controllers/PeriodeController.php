@@ -53,6 +53,11 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'periode' => 'required',
+            'flag' => 'required',
+        ]);
+
         DB::beginTransaction();
         try {
             $kelas = new PeriodeModel();

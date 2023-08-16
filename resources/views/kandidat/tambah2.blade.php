@@ -31,6 +31,10 @@
                                                 required>
                                                 <option value="" required> -- Pilih --</option>
                                             </select>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('ketua', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -48,6 +52,10 @@
                                                 required>
                                                 <option value="" required> -- Pilih --</option>
                                             </select>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('wakil', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -66,6 +74,10 @@
                                             <label for="validationCustom02" class="form-label">Qoute <code>*</code></label>
                                             <textarea class="form-control" name="quote" id="quote"></textarea>
                                         </div>
+                                        <div class="invalid-feedback">
+                                            Data wajib diisi.
+                                        </div>
+                                        {!! $errors->first('quote', '<div class="invalid-validasi">:message</div>') !!}
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
@@ -77,6 +89,10 @@
                                                     <option value="{{ $item->id }}"> {{ $item->periode_name }}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('periode', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -91,6 +107,10 @@
                                                 <option value="3"> 3 </option>
                                                 <option value="4"> 4 </option>
                                             </select>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('urut', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                 </div>
@@ -101,6 +121,10 @@
                                             <label for="validationCustom02" class="form-label">Deskripsi Visi dan Misi
                                                 <code>*</code></label>
                                             <textarea name="editor1" id="editor1"></textarea>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('editor1', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                 </div>

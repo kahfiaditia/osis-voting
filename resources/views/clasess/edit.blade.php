@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="validationCustom02" class="form-label">Level
+                                            <label for="validationCustom02" class="form-label">Subkelas
                                                 <code>*</code></label>
                                             <input type="text" class="form-control" id="level" name="level"
                                                 onkeyup="this.value = this.value.toUpperCase();"

@@ -51,21 +51,25 @@
                                         <div class="mb-3">
                                             <label for="nama" class="form-label">Nama <code>*</code></label>
                                             <input type="text" class="form-control" name="nama" id="nama"
-                                                autocomplete="off" required>
+                                                autocomplete="off" maxlength="30" required>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('nama', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="nis" class="form-label">Nis </label>
                                             <input type="text" class="form-control" name="nis" id="nis"
-                                                autocomplete="off">
+                                                autocomplete="off" maxlength="15">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="nik" class="form-label">NIK </label>
                                             <input type="text" class="form-control" name="nik" id="nik"
-                                                autocomplete="off">
+                                                autocomplete="off" maxlength="15">
                                         </div>
                                     </div>
                                 </div>
@@ -86,21 +90,29 @@
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email <code>*</code></label>
                                             <input class="form-control" type="text" id="email" name="email"
-                                                value="" autocomplete="off" required>
+                                                value="" autocomplete="off" maxlength="50" required>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('email', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="alamat" class="form-label">Alamat</label>
                                             <input type="text" class="form-control" name="alamat" id="alamat"
-                                                autocomplete="off">
+                                                autocomplete="off" maxlength="50">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="telepon" class="form-label">Phone <code>*</code></label>
                                             <input type="text" class="form-control" name="telepon" id="telepon"
-                                                autocomplete="off" required>
+                                                autocomplete="off" maxlength="20" required>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('telepon', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                 </div>

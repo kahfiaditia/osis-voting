@@ -154,7 +154,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->role);
+        $validated = $request->validate([
+            'role' => 'required',
+            'nama' => 'required',
+            'email' => 'required|unique',
+            'telepon' => 'required|unique',
+        ]);
+
         DB::beginTransaction();
         try {
             $osis = new User();
