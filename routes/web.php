@@ -50,6 +50,8 @@ Route::group(
         // menu
         Route::resource('/pengguna', UserController::class);
         Route::get('/halaman', [UserController::class, 'halaman'])->name('pengguna.halaman');
+        Route::get('/profil', [UserController::class, 'profil'])->name('pengguna.profil');
+        Route::patch('/updateprofil/{id}', [UserController::class, 'updateprofil'])->name('pengguna.updateprofil');
         Route::post('/upload_excel', [UserController::class, 'uploadExcel'])->name('pengguna.uploadExcel');
         Route::get('/hasil_import', [UserController::class, 'hasil_import'])->name('pengguna.hasil_import');
         Route::get('/get_data_pengguna', [UserController::class, 'get_data_pengguna'])->name('pengguna.get_data_pengguna');

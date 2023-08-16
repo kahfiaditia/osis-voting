@@ -278,4 +278,55 @@ class UserController extends Controller
             return back();
         }
     }
+
+    public function profil()
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'profil' => User::where('id', Auth::user()->id)->first()
+        ];
+
+        return view('user.profil')->with($data);
+    }
+
+
+    public function updateProfil(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required|max:50',
+            'email' => 'required|email|max:50',
+            'nis' => 'max:15',
+            'pin' => 'required|numeric|max:9999',
+            'role' => 'required|in:guru,siswa,Administrator',
+            'nik' => 'max:15',
+            'password' => 'nullable|max:60',
+            'alamat' => 'max:50',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $user = User::findOrFail($id);
+            $user->name = $request->nama;
+            $user->email = $request->email;
+            $user->nis = $request->nis;
+            $user->pin = $request->pin;
+            $user->roles = $request->role;
+            $user->nik = $request->nik;
+            if ($request->has('password')) {
+                $user->password = bcrypt($request->password);
+            }
+            $user->address = $request->alamat;
+            $user->save();
+
+            DB::commit();
+            AlertHelper::addAlert(true);
+            return redirect('/profil');
+        } catch (\Throwable $err) {
+            DB::rollback();
+            throw $err;
+            AlertHelper::addAlert(false);
+            return back();
+        }
+    }
 }
