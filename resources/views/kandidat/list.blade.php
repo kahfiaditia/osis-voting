@@ -13,12 +13,12 @@
                         </div>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-
-                                <a href="{{ route('kandidat.create') }}" type="button"
-                                    class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                    <i class="mdi mdi-plus me-1"></i> Tambah Calon Osis
-                                </a>
-
+                                @if (Auth::user()->id == 1)
+                                    <a href="{{ route('kandidat.create') }}" type="button"
+                                        class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
+                                        <i class="mdi mdi-plus me-1"></i> Tambah Calon Osis
+                                    </a>
+                                @endif
                             </ol>
                         </div>
                     </div>
@@ -64,8 +64,7 @@
                                                         <a href="{{ route('kandidat.edit', $id) }}" class="text-success">
                                                             <i class="mdi mdi-pencil font-size-18"></i>
                                                         </a>
-                                                    @endif
-                                                    @if (Auth::user()->id == 1)
+
                                                         <a href class="text-danger delete_confirm">
                                                             <i class="mdi mdi-delete font-size-18"></i>
                                                         </a>
