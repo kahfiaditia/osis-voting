@@ -60,12 +60,16 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="d-flex gap-3">
-                                                    <a href="{{ route('kandidat.edit', $id) }}" class="text-success">
-                                                        <i class="mdi mdi-pencil font-size-18"></i>
-                                                    </a>
-                                                    <a href class="text-danger delete_confirm">
-                                                        <i class="mdi mdi-delete font-size-18"></i>
-                                                    </a>
+                                                    @if (Auth::user()->id == 1)
+                                                        <a href="{{ route('kandidat.edit', $id) }}" class="text-success">
+                                                            <i class="mdi mdi-pencil font-size-18"></i>
+                                                        </a>
+                                                    @endif
+                                                    @if (Auth::user()->id == 1)
+                                                        <a href class="text-danger delete_confirm">
+                                                            <i class="mdi mdi-delete font-size-18"></i>
+                                                        </a>
+                                                    @endif
                                                 </div>
                                             </form>
                                         </td>
