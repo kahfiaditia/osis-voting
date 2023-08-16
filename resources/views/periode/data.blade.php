@@ -15,9 +15,9 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 @if (Auth::user()->id == 1)
-                                    <a href="{{ route('class.create') }}" type="button"
+                                    <a href="{{ route('periode.create') }}" type="button"
                                         class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                        <i class="mdi mdi-plus me-1"></i> Tambah Class
+                                        <i class="mdi mdi-plus me-1"></i> Tambah Periode
                                     </a>
                                 @endif
                             </ol>
@@ -44,8 +44,8 @@
                                     </h2>
 
                                     <div id="collapseOne" class="accordion-collapse collapse <?php
-                                    if (isset($_GET['class_name']) or isset($_GET['class_level'])) {
-                                        if ($_GET['class_name'] != null or $_GET['class_level'] != null) {
+                                    if (isset($_GET['periode_name']) or isset($_GET['flag'])) {
+                                        if ($_GET['periode_name'] != null or $_GET['flag'] != null) {
                                             echo 'show';
                                         }
                                     }
@@ -62,16 +62,16 @@
                                                         <div class="col-md-12">
                                                             <div class="row">
                                                                 <div class="col-md-2 mb-2">
-                                                                    <input type="text" name="class_name" id="class_name"
-                                                                        value="{{ isset($_GET['class_name']) ? $_GET['class_name'] : null }}"
-                                                                        class="form-control" placeholder="Kelas"
+                                                                    <input type="text" name="periode_name"
+                                                                        id="periode_name"
+                                                                        value="{{ isset($_GET['periode_name']) ? $_GET['periode_name'] : null }}"
+                                                                        class="form-control" placeholder="Periode"
                                                                         autocomplete="off">
                                                                 </div>
                                                                 <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="class_level"
-                                                                        id="class_level"
-                                                                        value="{{ isset($_GET['class_level']) ? $_GET['class_level'] : null }}"
-                                                                        class="form-control" placeholder="Subkelas"
+                                                                    <input type="text" name="flag" id="flag"
+                                                                        value="{{ isset($_GET['flag']) ? $_GET['flag'] : null }}"
+                                                                        class="form-control" placeholder="Flag"
                                                                         autocomplete="off">
                                                                 </div>
                                                             </div>
@@ -102,12 +102,12 @@
                                                         <div class="col-sm-10 mb-2">
                                                             <button type="submit"
                                                                 class="btn btn-primary w-md">Cari</button>
-                                                            <a href="{{ route('class.index') }}"
+                                                            <a href="{{ route('periode.index') }}"
                                                                 class="btn btn-secondary w-md">Batal</a>
-                                                            @if (isset($_GET['class_name']) or isset($_GET['like']))
+                                                            @if (isset($_GET['periode_name']) or isset($_GET['like']))
                                                                 <?php
-                                                                $class_name = $_GET['class_name'];
-                                                                $class_level = $_GET['class_level'];
+                                                                $periode_name = $_GET['periode_name'];
+                                                                $flag = $_GET['flag'];
                                                                 $search_manual = $_GET['search_manual'];
                                                                 if (isset($_GET['like'])) {
                                                                     $like = $_GET['like'];
@@ -117,20 +117,12 @@
                                                                 ?>
                                                                 <a href="{{ route(
                                                                     'pengguna.index',
-                                                                    'class_name=' .
-                                                                        $class_name .
-                                                                        '&class_level=' .
-                                                                        $class_level .
-                                                                        '&search_manual=' .
-                                                                        $search_manual .
-                                                                        '&like=' .
-                                                                        $like .
-                                                                        '',
+                                                                    'periode_name=' . $periode_name . '&flag=' . $flag . '&search_manual=' . $search_manual . '&like=' . $like . '',
                                                                 ) }}"
                                                                     class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
                                                                         class="bx bx-cloud-download me-1"></i>Unduh</a>
                                                             @else
-                                                                <a href="{{ route('pengguna.index') }}"
+                                                                <a href="{{ route('periode.index') }}"
                                                                     class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
                                                                         class="bx bx-cloud-download me-1"></i>Unduh</a>
                                                             @endif
@@ -146,8 +138,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Kelas</th>
-                                        <th>Subkelas</th>
+                                        <th>Periode</th>
+                                        <th>Flag</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -166,8 +158,8 @@
         function toggleCheckbox() {
             like = document.getElementById("like").checked;
             if (like == true) {
-                document.getElementById("class_name").value = null;
-                document.getElementById("class_level").value = null;
+                document.getElementById("periode_name").value = null;
+                document.getElementById("flag").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
                 document.getElementById("id_where").style.display = 'none';
@@ -183,8 +175,8 @@
         $(document).ready(function() {
             like = document.getElementById("like").checked;
             if (like == true) {
-                document.getElementById("class_name").value = null;
-                document.getElementById("class_level").value = null;
+                document.getElementById("periode_name").value = null;
+                document.getElementById("flag").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
                 document.getElementById("id_where").style.display = 'none';
@@ -204,17 +196,17 @@
                 serverSide: true,
                 responsive: true,
                 ajax: {
-                    url: "{{ route('class.data_kelas') }}",
+                    url: "{{ route('periode.data_periode') }}",
                     data: function(d) {
-                        d.class_name = (document.getElementById("class_name").value
+                        d.periode_name = (document.getElementById("periode_name").value
                                 .length != 0) ?
                             document
                             .getElementById(
-                                "class_name").value : null;
-                        d.class_level = (document.getElementById("class_level").value.length != 0) ?
+                                "periode_name").value : null;
+                        d.flag = (document.getElementById("flag").value.length != 0) ?
                             document
                             .getElementById(
-                                "class_level").value : null;
+                                "flag").value : null;
                         d.search_manual = (document.getElementById("search_manual").value
                                 .length != 0) ?
                             document
@@ -233,12 +225,12 @@
 
                     },
                     {
-                        data: 'class_name',
-                        name: 'class_name'
+                        data: 'periode_name',
+                        name: 'periode_name'
                     },
                     {
-                        data: 'class_level',
-                        name: 'class_level'
+                        data: 'flag',
+                        name: 'flag'
                     },
                     {
                         data: 'action',
