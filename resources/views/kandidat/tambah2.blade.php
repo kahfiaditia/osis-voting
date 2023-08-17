@@ -9,7 +9,6 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item">{{ ucwords($menu) }}</li>
-                                {{-- <li class="breadcrumb-item">{{ ucwords($submenu) }}</li> --}}
                             </ol>
                         </div>
                     </div>
@@ -83,7 +82,7 @@
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Periode
                                                 <code>*</code></label>
-                                            <select class="form-control" name="periode" id="periode">
+                                            <select class="form-control select select2" name="periode" id="periode">
                                                 <option value=""> -- Pilih --</option>
                                                 @foreach ($periode as $item)
                                                     <option value="{{ $item->id }}"> {{ $item->periode_name }}</option>

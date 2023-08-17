@@ -15,6 +15,7 @@ class DashboardController extends Controller
     {
         $Queryperiode = DB::table('periode')
             ->select('periode_name')
+            ->whereNull('deleted_at')
             ->orderBy('id', 'DESC')
             ->limit(1)
             ->get();
@@ -30,7 +31,7 @@ class DashboardController extends Controller
             ->join('periode', 'periode.id', '=', 'kandidat.id_periode')
             ->where('periode_name', $periode)
             ->groupBy('kandidat.id')
-            ->orderByRaw('kandidat.id ASC')
+            ->orderByRaw('kandidat.no_urut ASC')
             ->get();
         $data = [
             'title' => $this->title,

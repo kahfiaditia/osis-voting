@@ -9,7 +9,6 @@
                             <h4 class="mb-sm-0 font-size-18">{{ $label }}</h4>
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item">{{ ucwords($menu) }}</li>
-                                {{-- <li class="breadcrumb-item">{{ ucwords($submenu) }}</li> --}}
                             </ol>
                         </div>
                         <div class="page-title-right">
@@ -130,30 +129,6 @@
                                                                     $like = null;
                                                                 }
                                                                 ?>
-                                                                <a href="{{ route(
-                                                                    'pengguna.index',
-                                                                    'name=' .
-                                                                        $name .
-                                                                        '&email=' .
-                                                                        $email .
-                                                                        '&nis=' .
-                                                                        $nis .
-                                                                        '&class_id=' .
-                                                                        $class_id .
-                                                                        // '&name=' .
-                                                                        // $name .
-                                                                        '&search_manual=' .
-                                                                        $search_manual .
-                                                                        '&like=' .
-                                                                        $like .
-                                                                        '',
-                                                                ) }}"
-                                                                    class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
-                                                                        class="bx bx-cloud-download me-1"></i>Unduh</a>
-                                                            @else
-                                                                <a href="{{ route('pengguna.index') }}"
-                                                                    class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
-                                                                        class="bx bx-cloud-download me-1"></i>Unduh</a>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -163,6 +138,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <br>
                             <table id="datatable" class="table table-striped dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
@@ -280,8 +256,8 @@
                         name: 'nis'
                     },
                     {
-                        data: 'class_id',
-                        name: 'class_id'
+                        data: 'class',
+                        name: 'class'
                     },
                     {
                         data: 'action',

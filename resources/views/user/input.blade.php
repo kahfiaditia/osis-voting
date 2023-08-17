@@ -15,13 +15,9 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" action="{{ route('pengguna.store') }}" method="POST" novalidate>
+            <form class="needs-validation" action="{{ route('pengguna.store') }}" enctype="multipart/form-data"
+                method="POST" novalidate>
                 @csrf
-                <div class="row">
-                    <!-- Form fields here -->
-
-                </div>
-
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <a href="{{ route('pengguna.halaman') }}" type="button"
@@ -30,7 +26,6 @@
                         </a>
                     </ol>
                 </div>
-
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
@@ -77,7 +72,7 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="kelas" class="form-label">Kelas</label>
-                                            <select class="form-control" name="kelas" id="kelas">
+                                            <select class="form-control select2" name="kelas" id="kelas">
                                                 <option value=""> -- Pilih --</option>
                                                 @foreach ($kelas as $datakelas)
                                                     <option value="{{ $datakelas->id }}"> {{ $datakelas->class_name }}
@@ -127,7 +122,7 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">
-                                        <a href="{{ route('pengguna.index') }}"
+                                        <a href="{{ route('pengguna.alluser') }}"
                                             class="btn btn-secondary waves-effect">Batal</a>
                                         <button class="btn btn-primary" type="submit" style="float: right"
                                             id="submit">Simpan</button>

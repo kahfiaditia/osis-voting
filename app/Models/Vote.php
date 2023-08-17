@@ -21,4 +21,9 @@ class Vote extends Model
     {
         return $this->belongsTo(PeriodeModel::class, 'id_periode');
     }
+
+    public function siswa()
+    {
+        return $this->belongsTo(User::class, 'id_user_vote');
+    }
 }

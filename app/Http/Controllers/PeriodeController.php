@@ -36,7 +36,6 @@ class PeriodeController extends Controller
             ->whereNull('periode.deleted_at')
             ->orderBy('periode.id', 'DESC');
 
-
         if ($request->get('search_manual') != null) {
             $search = $request->get('search_manual');
             // $search_rak = str_replace(' ', '', $search);
@@ -102,7 +101,6 @@ class PeriodeController extends Controller
     {
         $validated = $request->validate([
             'periode' => 'required',
-            'flag' => 'required',
         ]);
 
         DB::beginTransaction();

@@ -9,7 +9,6 @@
                             <h4 class="mb-sm-0 font-size-18">{{ $label }}</h4>
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item">{{ ucwords($menu) }}</li>
-                                {{-- <li class="breadcrumb-item">{{ ucwords($submenu) }}</li> --}}
                             </ol>
                         </div>
                         <div class="page-title-right">
@@ -119,7 +118,7 @@
                                                         <div class="col-sm-10 mb-2">
                                                             <button type="submit"
                                                                 class="btn btn-primary w-md">Cari</button>
-                                                            <a href="{{ route('pengguna.index') }}"
+                                                            <a href="{{ route('pengguna.alluser') }}"
                                                                 class="btn btn-secondary w-md">Batal</a>
                                                             @if (isset($_GET['name']) or isset($_GET['like']))
                                                                 <?php
@@ -128,7 +127,6 @@
                                                                 $nis = $_GET['nis'];
                                                                 $nik = $_GET['nik'];
                                                                 $roles = $_GET['roles'];
-                                                                // $name = $_GET['name'];
                                                                 $search_manual = $_GET['search_manual'];
                                                                 if (isset($_GET['like'])) {
                                                                     $like = $_GET['like'];
@@ -136,32 +134,6 @@
                                                                     $like = null;
                                                                 }
                                                                 ?>
-                                                                <a href="{{ route(
-                                                                    'pengguna.index',
-                                                                    'name=' .
-                                                                        $name .
-                                                                        '&email=' .
-                                                                        $email .
-                                                                        '&nis=' .
-                                                                        $nis .
-                                                                        '&nik=' .
-                                                                        $nik .
-                                                                        '&roles=' .
-                                                                        $roles .
-                                                                        // '&name=' .
-                                                                        // $name .
-                                                                        '&search_manual=' .
-                                                                        $search_manual .
-                                                                        '&like=' .
-                                                                        $like .
-                                                                        '',
-                                                                ) }}"
-                                                                    class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
-                                                                        class="bx bx-cloud-download me-1"></i>Unduh</a>
-                                                            @else
-                                                                <a href="{{ route('pengguna.index') }}"
-                                                                    class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
-                                                                        class="bx bx-cloud-download me-1"></i>Unduh</a>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -171,6 +143,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <br>
                             <table id="datatable" class="table table-striped dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>

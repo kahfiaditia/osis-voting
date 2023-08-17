@@ -3,22 +3,6 @@
     <div class="page-content" style="margin-top: 10px;">
         <div class="container-fluid">
             <div class="row">
-                {{-- <div class="col-xl-12">
-                    <div class="card">
-                        <ul class="nav nav-tabs nav-tabs-custom justify-content-center pt-2" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('awal') }}" role="tab">
-                                    Slide
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('grafik') }}" role="tab">
-                                    Grafik
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div> --}}
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -151,21 +135,23 @@
                                         <h5 class="text-truncate font-size-15">
                                             <a href="javascript: void(0);" class="text-dark">
                                                 <span class="badge bg-{{ $color }}">Pasalon
-                                                    {{ $no }}</span>
+                                                    {{ $item->no_urut }}</span>
                                             </a>
                                         </h5>
                                         <p class="text-muted mb-4">{{ $item->ketua }} & {{ $item->wakil }}</p>
                                         <div class="avatar-group" style="padding-left: 20px;">
                                             <div class="avatar-group-item" style="margin-left: 10px;">
                                                 <a href="javascript: void(0);" class="d-inline-block">
-                                                    <img src="assets/images/users/{{ $item->foto_ketua }}" alt=""
-                                                        class="rounded-circle avatar-xs" style="height: 6rem;width: 6rem;">
+                                                    <img src="{{ URL::asset('avatar/' . $item->foto_ketua) }}"
+                                                        alt="" class="rounded-circle avatar-xs"
+                                                        style="height: 6rem;width: 6rem;">
                                                 </a>
                                             </div>
                                             <div class="avatar-group-item" style="margin-left: 10px;">
                                                 <a href="javascript: void(0);" class="d-inline-block">
-                                                    <img src="assets/images/users/{{ $item->foto_wakil }}" alt=""
-                                                        class="rounded-circle avatar-xs" style="height: 6rem;width: 6rem;">
+                                                    <img src="{{ URL::asset('avatar/' . $item->foto_wakil) }}"
+                                                        alt="" class="rounded-circle avatar-xs"
+                                                        style="height: 6rem;width: 6rem;">
                                                 </a>
                                             </div>
                                         </div>

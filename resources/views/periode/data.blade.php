@@ -134,6 +134,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <br>
                             <table id="datatable" class="table table-striped dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>

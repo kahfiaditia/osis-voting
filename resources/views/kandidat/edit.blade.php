@@ -10,7 +10,6 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item">{{ ucwords($menu) }}</li>
-                                {{-- <li class="breadcrumb-item">{{ ucwords($submenu) }}</li> --}}
                             </ol>
                         </div>
                     </div>
@@ -96,7 +95,7 @@
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Periode
                                                 <code>*</code></label>
-                                            <select class="form-control" name="periode" id="periode">
+                                            <select class="form-control select select2" name="periode" id="periode">
                                                 <option value=""> -- Pilih --</option>
                                                 @foreach ($periode as $item)
                                                     <option value="{{ $item->id }}"
@@ -118,17 +117,13 @@
                                             <select class="form-control select select2" name="urut" id="urut"
                                                 data-select2-id="urut">
                                                 <option value=""> -- Pilih --</option>
-                                                <option value="{{ $kandidat->no_urut }}"
-                                                    @if ($kandidat->nomor_urut == 1) selected @endif> 1
+                                                <option value="1" @if ($kandidat->no_urut == 1) selected @endif> 1
                                                 </option>
-                                                <option value="{{ $kandidat->no_urut }}"
-                                                    @if ($kandidat->no_urut == 2) selected @endif> 2
+                                                <option value="2" @if ($kandidat->no_urut == 2) selected @endif> 2
                                                 </option>
-                                                <option value="{{ $kandidat->no_urut }}"
-                                                    @if ($kandidat->no_urut == 3) selected @endif> 3
+                                                <option value="3" @if ($kandidat->no_urut == 3) selected @endif> 3
                                                 </option>
-                                                <option value="{{ $kandidat->no_urut }}"
-                                                    @if ($kandidat->no_urut == 4) selected @endif> 4
+                                                <option value="4" @if ($kandidat->no_urut == 4) selected @endif> 4
                                                 </option>
                                             </select>
                                             <div class="invalid-feedback">

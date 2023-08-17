@@ -4,7 +4,6 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="card">
-                    <!-- Nav tabs -->
                     <ul class="nav nav-tabs nav-tabs-custom justify-content-center pt-2" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-bs-toggle="tab" href="#all-post" role="tab">
@@ -17,17 +16,14 @@
                             </a>
                         </li>
                     </ul>
-
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body">
-
                                 <h4 class="card-title">With captions</h4>
                                 <p class="card-title-desc">Add captions to your slides easily with the
                                     <code>.carousel-caption</code> element within any
                                     <code>.carousel-item</code>.
                                 </p>
-
                                 <div id="carouselExampleCaption" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner" role="listbox">
                                         <div class="carousel-item active">
@@ -92,8 +88,6 @@
                     </div>
                 </div>
             </div>
-            <!-- end row -->
-
-        </div> <!-- container-fluid -->
+        </div>
     </div>
 @endsection

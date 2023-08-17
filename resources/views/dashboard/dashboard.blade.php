@@ -60,7 +60,6 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="row">
-
                         <div class="col-md-4">
                             <div class="card mini-stats-wid">
                                 <div class="card-body">
@@ -118,7 +117,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-12">
                             <div class="card mini-stats-wid">
                                 <div class="card-body">
@@ -143,8 +141,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- ini ganti --}}
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card overflow-hidden">
@@ -174,12 +170,12 @@
                                                                     </h5>
                                                                     <p class="text-muted mb-4">{{ $item->ketua }} &
                                                                         {{ $item->wakil }}</p>
-                                                                    <div class="avatar-group" style="padding-left: 50px;">
+                                                                    <div class="avatar-group">
                                                                         <div class="avatar-group-item"
                                                                             style="margin-left: 10px;">
                                                                             <a href="javascript: void(0);"
                                                                                 class="d-inline-block">
-                                                                                <img src="{{ URL::asset('assets/images/users/' . $item->foto_ketua) }}"
+                                                                                <img src="{{ URL::asset('avatar/' . $item->foto_ketua) }}"
                                                                                     alt=""
                                                                                     class="rounded-circle avatar-xs"
                                                                                     style="height: 6rem;width: 6rem;">
@@ -189,7 +185,7 @@
                                                                             style="margin-left: 10px;">
                                                                             <a href="javascript: void(0);"
                                                                                 class="d-inline-block">
-                                                                                <img src="{{ URL::asset('assets/images/users/' . $item->foto_wakil) }}"
+                                                                                <img src="{{ URL::asset('avatar/' . $item->foto_wakil) }}"
                                                                                     alt=""
                                                                                     class="rounded-circle avatar-xs"
                                                                                     style="height: 6rem;width: 6rem;">

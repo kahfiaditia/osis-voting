@@ -64,17 +64,25 @@
                                         <div class="mb-3">
                                             <label class="control-label">Role</label>
                                             <select class="form-control select select2 role" name="role" id="role">
-
-                                                <option value="{{ $profil->roles }}"
-                                                    @if ($profil->roles == 'guru') selected @endif> Guru
-                                                </option>
-                                                <option value="{{ $profil->roles }}"
-                                                    @if ($profil->roles == 'siswa') selected @endif> Siswa
-                                                </option>
-                                                <option value="{{ $profil->roles }}"
-                                                    @if ($profil->roles == 'Administrator') selected @endif> Adminitrator
-                                                </option>
-
+                                                @if (Auth::user()->roles == 'Administrator')
+                                                    <option value="{{ $profil->roles }}"
+                                                        @if ($profil->roles == 'guru') selected @endif> Guru
+                                                    </option>
+                                                    <option value="{{ $profil->roles }}"
+                                                        @if ($profil->roles == 'siswa') selected @endif> Siswa
+                                                    </option>
+                                                    <option value="{{ $profil->roles }}"
+                                                        @if ($profil->roles == 'Administrator') selected @endif> Adminitrator
+                                                    </option>
+                                                @elseif (Auth::user()->roles == 'guru')
+                                                    <option value="{{ $profil->roles }}"
+                                                        @if ($profil->roles == 'guru') selected @endif> Guru
+                                                    </option>
+                                                @elseif (Auth::user()->roles == 'siswa')
+                                                    <option value="{{ $profil->roles }}"
+                                                        @if ($profil->roles == 'siswa') selected @endif> Siswa
+                                                    </option>
+                                                @endif
                                             </select>
                                         </div>
                                         <div class="invalid-feedback">

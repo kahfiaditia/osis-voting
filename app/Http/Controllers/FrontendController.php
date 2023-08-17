@@ -27,6 +27,7 @@ class FrontendController extends Controller
     {
         $Queryperiode = DB::table('periode')
             ->select('periode_name')
+            ->whereNull('deleted_at')
             ->orderBy('id', 'DESC')
             ->limit(1)
             ->get();
@@ -37,7 +38,7 @@ class FrontendController extends Controller
         }
 
         $hasil_vote = DB::table('kandidat')
-            ->select('users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil', 'visi_misi')
+            ->select('users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil', 'visi_misi', 'no_urut')
             ->selectRaw('COUNT(vote.id) as jml')
             ->join('users', 'users.id', '=', 'kandidat.id_ketua')
             ->join('users as w', 'w.id', '=', 'kandidat.id_wakil')
@@ -45,7 +46,7 @@ class FrontendController extends Controller
             ->join('periode', 'periode.id', '=', 'kandidat.id_periode')
             ->where('periode_name', $periode)
             ->groupBy('kandidat.id')
-            ->orderByRaw('COUNT(vote.id) DESC')
+            ->orderByRaw('no_urut ASC')
             ->get();
 
         $jml_vote = DB::table('vote')

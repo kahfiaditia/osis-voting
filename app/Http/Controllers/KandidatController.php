@@ -228,7 +228,7 @@ class KandidatController extends Controller
             $editkelas->id_ketua = $request->ketua;
             $editkelas->id_wakil = $request->wakil;
             $editkelas->no_urut = $request->urut;
-            $editkelas->id_periode = $request->level;
+            $editkelas->id_periode = $request->periode;
             $editkelas->quote = $request->quote;
             $editkelas->visi_misi = $request->editor1;
             $editkelas->user_updated =  Auth::user()->id;

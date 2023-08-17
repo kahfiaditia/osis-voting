@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use Yajra\DataTables\Facades\DataTables;
+use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -68,60 +69,68 @@ class UserController extends Controller
     public function get_data_pengguna(Request $request)
     {
         $userdata = DB::table('users')
+            ->select('name', 'email', 'users.id', 'nis', 'roles', 'class_name', 'class_level')
+            ->leftJoin('clasess', 'clasess.id', 'users.class_id')
             ->where('roles', '=', 'siswa')
             ->whereNull('users.deleted_at')
             ->orderBy('users.id', 'DESC');
 
 
-        if ($request->get('search_manual') != null) {
-            $search = $request->get('search_manual');
-            // $search_rak = str_replace(' ', '', $search);
-            $userdata->where(function ($where) use ($search) {
-                $where
-                    ->orWhere('name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orWhere('nis', 'like', '%' . $search . '%')
-                    ->orWhere('roles', 'like', '%' . $search . '%');
-                // ->orWhere('id_supplier', 'like', '%' . $search . '%');
-            });
+        // if ($request->get('search_manual') != null) {
+        //     $search = $request->get('search_manual');
+        //     // $search_rak = str_replace(' ', '', $search);
+        //     $userdata->where(function ($where) use ($search) {
+        //         $where
+        //             ->orWhere('name', 'like', '%' . $search . '%')
+        //             ->orWhere('email', 'like', '%' . $search . '%')
+        //             ->orWhere('nis', 'like', '%' . $search . '%')
+        //             ->orWhere('roles', 'like', '%' . $search . '%');
+        //         // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+        //     });
 
-            $search = $request->get('search');
-            // $search_rak = str_replace(' ', '', $search);
-            if ($search != null) {
-                $userdata->where(function ($where) use ($search) {
-                    $where
-                        ->orWhere('name', 'like', '%' . $search . '%')
-                        ->orWhere('email', 'like', '%' . $search . '%')
-                        ->orWhere('nis', 'like', '%' . $search . '%')
-                        ->orWhere('roles', 'like', '%' . $search . '%');
-                    // ->orWhere('id_supplier', 'like', '%' . $search . '%');
-                });
-            }
-        } else {
-            if ($request->get('name') != null) {
-                $name = $request->get('name');
-                $userdata->where('name', '=', $name);
-            }
-            if ($request->get('email') != null) {
-                $email = $request->get('email');
-                $userdata->where('email', '=', $email);
-            }
-            if ($request->get('name') != null) {
-                $name = $request->get('name');
-                $userdata->where('name', '=', $name);
-            }
-        }
+        //     $search = $request->get('search');
+        //     // $search_rak = str_replace(' ', '', $search);
+        //     if ($search != null) {
+        //         $userdata->where(function ($where) use ($search) {
+        //             $where
+        //                 ->orWhere('name', 'like', '%' . $search . '%')
+        //                 ->orWhere('email', 'like', '%' . $search . '%')
+        //                 ->orWhere('nis', 'like', '%' . $search . '%')
+        //                 ->orWhere('roles', 'like', '%' . $search . '%');
+        //             // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+        //         });
+        //     }
+        // } else {
+        //     if ($request->get('name') != null) {
+        //         $name = $request->get('name');
+        //         $userdata->where('name', '=', $name);
+        //     }
+        //     if ($request->get('email') != null) {
+        //         $email = $request->get('email');
+        //         $userdata->where('email', '=', $email);
+        //     }
+        //     if ($request->get('name') != null) {
+        //         $name = $request->get('name');
+        //         $userdata->where('name', '=', $name);
+        //     }
+        // }
 
         return DataTables::of($userdata)
+            ->addColumn('class', function ($userdata) {
+                if ($userdata->class_name) {
+                    $class = $userdata->class_name . ' - ' . $userdata->class_level;
+                } else {
+                    $class = '-';
+                }
+                return $class;
+            })
             ->addColumn('action', 'user.akse')
             ->rawColumns(['action'])
             ->make(true);
     }
 
-
     public function index()
     {
-
         $data = [
             'title' => $this->title,
             'menu' => $this->siswa,
@@ -145,7 +154,6 @@ class UserController extends Controller
         $userdata = DB::table('users')
             ->whereNull('users.deleted_at')
             ->orderBy('users.id', 'DESC');
-
 
         if ($request->get('search_manual') != null) {
             $search = $request->get('search_manual');
@@ -229,9 +237,12 @@ class UserController extends Controller
             $osis = new User();
             $osis->name = $request->nama;
             $osis->email = $request->email;
-            // $osis->email_verified_at = $request->ketua;
+            if ($request->avatar) {
+                $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                $osis->avatar = $fileName;
+                $request->avatar->move(public_path('avatar'), $fileName);
+            }
             $osis->password =  bcrypt('12345');
-            // $osis->remember_token = $request->ketua;
             $osis->pin = 1234;
             $osis->nis = $request->nis ?? 0;
             $osis->nik = $request->nik ?? 0;
@@ -243,7 +254,11 @@ class UserController extends Controller
 
             DB::commit();
             AlertHelper::addAlert(true);
-            return redirect('/pengguna');
+            if ($request->flag == 'tambah_siswa') {
+                return redirect('/pengguna');
+            } else {
+                return redirect('/alluser');
+            }
         } catch (\Throwable $err) {
             DB::rollback();
             throw $err;
@@ -306,9 +321,12 @@ class UserController extends Controller
             $osis1 = User::findOrFail($id);
             $osis1->name = $request->nama;
             $osis1->email = $request->email;
-            // $osis->email_verified_at = $request->ketua;
             $osis1->password =  bcrypt('12345');
-            // $osis->remember_token = $request->ketua;
+            if ($request->avatar) {
+                $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                $osis1->avatar = $fileName;
+                $request->avatar->move(public_path('avatar'), $fileName);
+            }
             $osis1->pin =  1234;
             $osis1->nis = $request->nis;
             $osis1->nik = $request->nik;
@@ -320,7 +338,7 @@ class UserController extends Controller
 
             DB::commit();
             AlertHelper::addAlert(true);
-            return redirect('/pengguna');
+            return redirect('/alluser');
         } catch (\Throwable $err) {
             DB::rollback();
             throw $err;

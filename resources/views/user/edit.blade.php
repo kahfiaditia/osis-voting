@@ -15,16 +15,10 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" action="{{ route('pengguna.update', $data->id) }}" method="POST" novalidate>
+            <form class="needs-validation" action="{{ route('pengguna.update', $data->id) }}" enctype="multipart/form-data"
+                method="POST" novalidate>
                 @csrf
                 @method('PATCH')
-                <div class="row">
-                    <!-- Form fields here -->
-
-                </div>
-
-
-
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
@@ -74,7 +68,7 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="kelas" class="form-label">Kelas</label>
-                                            <select class="form-control" name="kelas" id="kelas">
+                                            <select class="form-control select2" name="kelas" id="kelas">
                                                 <option value=""> -- Pilih --</option>
                                                 @foreach ($kelas as $item)
                                                     <option value="{{ $item->id }}"
@@ -113,12 +107,20 @@
                                             <label for="avatar" class="form-label">Foto</label>
                                             <input type="file" class="form-control" name="avatar" id="avatar"
                                                 autocomplete="off">
+                                            @if ($data->avatar)
+                                                <a href="javascript:void(0)" data-id="" id="get_data"
+                                                    data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">
+                                                    <i
+                                                        class="mdi mdi-file-document font-size-16 align-middle text-primary me-2"></i>Lihat
+                                                    Dokumen
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">
-                                        <a href="{{ route('pengguna.index') }}"
+                                        <a href="{{ route('pengguna.alluser') }}"
                                             class="btn btn-secondary waves-effect">Batal</a>
                                         <button class="btn btn-primary" type="submit" style="float: right"
                                             id="submit">Simpan</button>
@@ -129,6 +131,20 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myExtraLargeModalLabel">Dokumen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ URL::asset('avatar/' . $data->avatar) }}" style="width: 100%">
+                </div>
+            </div>
         </div>
     </div>
 @endsection

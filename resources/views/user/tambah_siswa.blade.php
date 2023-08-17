@@ -15,13 +15,9 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" action="{{ route('pengguna.store') }}" method="POST" novalidate>
+            <form class="needs-validation" action="{{ route('pengguna.store') }}" enctype="multipart/form-data"
+                method="POST" novalidate>
                 @csrf
-                <div class="row">
-                    <!-- Form fields here -->
-
-                </div>
-
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <a href="{{ route('pengguna.halaman') }}" type="button"
@@ -30,7 +26,7 @@
                         </a>
                     </ol>
                 </div>
-
+                <input type="hidden" name="flag" value="tambah_siswa">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
@@ -64,10 +60,11 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="kelas" class="form-label">Kelas</label>
-                                            <select class="form-control" name="kelas" id="kelas">
+                                            <select class="form-control select2" name="kelas" id="kelas">
                                                 <option value=""> -- Pilih --</option>
                                                 @foreach ($kelas as $datakelas)
-                                                    <option value="{{ $datakelas->id }}"> {{ $datakelas->class_name }}
+                                                    <option value="{{ $datakelas->id }}">
+                                                        {{ $datakelas->class_name . ' - ' . $datakelas->class_level }}
                                                     </option>
                                                 @endforeach
                                             </select>

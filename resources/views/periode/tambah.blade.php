@@ -9,7 +9,6 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item">{{ ucwords($menu) }}</li>
-                                {{-- <li class="breadcrumb-item">{{ ucwords($submenu) }}</li> --}}
                             </ol>
                         </div>
                     </div>
@@ -29,7 +28,7 @@
                                             <input type="text" class="form-control" id="periode" name="periode"
                                                 onkeyup="this.value = this.value.toUpperCase();"
                                                 value="{{ old('periode') }}" autofocus required
-                                                placeholder="etc: 2009-2014">
+                                                placeholder="etc: 2023/2024">
                                             <div class="invalid-feedback">
                                                 Data wajib diisi.
                                             </div>
@@ -38,13 +37,12 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="validationCustom02" class="form-label">Flag
-                                                <code>*</code></label>
-                                            <input type="text" class="form-control" id="flag" name="flag"
-                                                onkeyup="this.value = this.value.toUpperCase();" value="{{ old('flag') }}"
-                                                autofocus required placeholder="flag" autocomplete="off">
+                                            <label for="validationCustom02" class="form-label">Flag</label>
+                                            <input type="number" class="form-control" id="flag" name="flag"
+                                                max="1" value="{{ old('flag') }}" autofocus placeholder="flag"
+                                                autocomplete="off">
                                             <div class="invalid-feedback">
-                                                Data wajib diisi.
+                                                Data 1 karakter.
                                             </div>
                                             {!! $errors->first('flag', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>

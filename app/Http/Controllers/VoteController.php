@@ -25,7 +25,21 @@ class VoteController extends Controller
     {
         if (Auth::user()->roles == 'Administrator') {
             $list = Vote::all();
+            $cek_vote = 0;
         } else {
+            $Queryperiode = DB::table('periode')
+                ->select('id')
+                ->whereNull('flag')
+                ->whereNull('deleted_at')
+                ->orderBy('id', 'DESC')
+                ->limit(1)
+                ->get();
+            if (count($Queryperiode) > 0) {
+                $periode = $Queryperiode[0]->id;
+            } else {
+                $periode = null;
+            }
+            $cek_vote = Vote::where('id_user_vote', Auth::user()->id)->where('id_periode', $periode)->count();
             $list = Vote::where('id_user_vote', Auth::user()->id)->get();
         }
         $data = [
@@ -34,6 +48,7 @@ class VoteController extends Controller
             'submenu' => 'Vote',
             'label' => 'Data Vote',
             'list' => $list,
+            'cek_vote' => $cek_vote,
         ];
         return view('vote.index')->with($data);
     }
@@ -47,6 +62,7 @@ class VoteController extends Controller
     {
         $Queryperiode = DB::table('periode')
             ->select('periode_name')
+            ->whereNull('deleted_at')
             ->orderBy('id', 'DESC')
             ->limit(1)
             ->get();
@@ -65,7 +81,7 @@ class VoteController extends Controller
             ->join('periode', 'periode.id', '=', 'kandidat.id_periode')
             ->where('periode_name', $periode)
             ->groupBy('kandidat.id')
-            ->orderByRaw('kandidat.id ASC')
+            ->orderByRaw('kandidat.no_urut ASC')
             ->get();
 
         $jml_vote = DB::table('vote')

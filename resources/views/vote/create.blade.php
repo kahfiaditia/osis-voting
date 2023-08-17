@@ -15,7 +15,6 @@
             </div>
             <form class="needs-validation" action="{{ route('vote.store') }}" method="POST" novalidate>
                 @csrf
-
                 <div class="row">
                     <?php $no = 0; ?>
                     @foreach ($hasil_vote as $item)
@@ -38,14 +37,14 @@
                                             <div class="avatar-group" style="padding-left: 50px;">
                                                 <div class="avatar-group-item" style="margin-left: 10px;">
                                                     <a href="javascript: void(0);" class="d-inline-block">
-                                                        <img src="{{ URL::asset('assets/images/users/' . $item->foto_ketua) }}"
+                                                        <img src="{{ URL::asset('avatar/' . $item->foto_ketua) }}"
                                                             alt="" class="rounded-circle avatar-xs"
                                                             style="height: 6rem;width: 6rem;">
                                                     </a>
                                                 </div>
                                                 <div class="avatar-group-item" style="margin-left: 10px;">
                                                     <a href="javascript: void(0);" class="d-inline-block">
-                                                        <img src="{{ URL::asset('assets/images/users/' . $item->foto_wakil) }}"
+                                                        <img src="{{ URL::asset('avatar/' . $item->foto_wakil) }}"
                                                             alt="" class="rounded-circle avatar-xs"
                                                             style="height: 6rem;width: 6rem;">
                                                     </a>
@@ -119,9 +118,9 @@
                                             <h4>Verifikasi PIN</h4>
                                             <form action="{{ route('vote.store') }}" method="POST">
                                                 @csrf
-                                                <input type="text" name="email" id="email"
+                                                <input type="hidden" name="email" id="email"
                                                     value="{{ Auth::user()->email }}">
-                                                <input type="text" name="id_kandidat" id="id_kandidat">
+                                                <input type="hidden" name="id_kandidat" id="id_kandidat">
                                                 <div class="row">
                                                     <div class="col-3">
                                                         <div class="mb-3">

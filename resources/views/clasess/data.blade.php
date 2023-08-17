@@ -42,7 +42,6 @@
                                             <b>Cari & Unduh Data</b>
                                         </button>
                                     </h2>
-
                                     <div id="collapseOne" class="accordion-collapse collapse <?php
                                     if (isset($_GET['class_name']) or isset($_GET['class_level'])) {
                                         if ($_GET['class_name'] != null or $_GET['class_level'] != null) {
@@ -115,24 +114,6 @@
                                                                     $like = null;
                                                                 }
                                                                 ?>
-                                                                <a href="{{ route(
-                                                                    'pengguna.index',
-                                                                    'class_name=' .
-                                                                        $class_name .
-                                                                        '&class_level=' .
-                                                                        $class_level .
-                                                                        '&search_manual=' .
-                                                                        $search_manual .
-                                                                        '&like=' .
-                                                                        $like .
-                                                                        '',
-                                                                ) }}"
-                                                                    class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
-                                                                        class="bx bx-cloud-download me-1"></i>Unduh</a>
-                                                            @else
-                                                                <a href="{{ route('pengguna.index') }}"
-                                                                    class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
-                                                                        class="bx bx-cloud-download me-1"></i>Unduh</a>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -142,6 +123,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <br>
                             <table id="datatable" class="table table-striped dt-responsive nowrap w-100">
                                 <thead>
                                     <tr>
