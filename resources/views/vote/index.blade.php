@@ -15,11 +15,13 @@
                             <ol class="breadcrumb m-0">
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        @if ($cek_vote == 0)
-                                            <a href="{{ route('vote.create') }}" type="button"
-                                                class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                                <i class="mdi mdi-plus me-1"></i> Vote Kandidat
-                                            </a>
+                                        @if ($flagPriode == 1)
+                                            @if ($cek_vote == 0)
+                                                <a href="{{ route('vote.create') }}" type="button"
+                                                    class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
+                                                    <i class="mdi mdi-plus me-1"></i> Vote Kandidat
+                                                </a>
+                                            @endif
                                         @endif
                                     </ol>
                                 </div>

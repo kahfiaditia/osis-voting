@@ -64,10 +64,12 @@
                             <div class="row">
                                 <div class="col-sm-9">
                                     <div class="">
-                                        <?php $no = 0; ?>
+                                        <?php
+                                        $no = 0;
+                                        ?>
                                         @foreach ($hasil_vote as $item)
                                             <?php
-                                            $no = $no + 1;
+                                            $no = $item->no_urut;
                                             if ($no == 1) {
                                                 $color = 'success';
                                                 $text = 'Pasalon ' . $no;
@@ -87,7 +89,7 @@
                                                     style="width: {{ round(($item->jml / $all_vote) * 100) }}%;"
                                                     aria-valuenow="{{ round(($item->jml / $all_vote) * 100) }}"
                                                     aria-valuemin="0" aria-valuemax="100">
-                                                    {{ round(($item->jml / $all_vote) * 100) }}%</div>
+                                                    {{ round(($item->jml / $all_vote) * 100, 2) }}%</div>
                                             </div>
                                         @endforeach
                                     </div>
@@ -96,7 +98,7 @@
                                     <div style="padding: 15%">
                                         <p class="text-muted mb-2 font-size-24">Data Masuk</p>
                                         <h1 style="font-weight: 600;">
-                                            {{ round(($jml_vote[0]->jml_vote / $all_vote) * 100) }}%</h1>
+                                            {{ round(($jml_vote[0]->jml_vote / $all_vote) * 100, 2) }}%</h1>
 
                                         <div class="mt-3">
                                             {{ number_format($jml_vote[0]->jml_vote) }} suara
@@ -109,10 +111,22 @@
                 </div>
             </div>
             <div class="row">
-                <?php $no = 0; ?>
+                <?php
+                $no = 0;
+                $persent = 0;
+                $king = 0;
+                ?>
                 @foreach ($hasil_vote as $item)
                     <?php
-                    $no = $no + 1;
+                    if ($item->jml > $persent) {
+                        $persent = $item->jml;
+                        $king = 1;
+                    } else {
+                        $persent = 0;
+                        $king = 0;
+                    }
+                    
+                    $no = $item->no_urut;
                     if ($no == 1) {
                         $color = 'success';
                         $text = 'Pasalon ' . $no;
@@ -161,10 +175,10 @@
                             <div class="px-4 py-3 border-top">
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item me-3 font-size-20" style="font-weight: 600;">
-                                        @if ($no == 1)
-                                            <i class="bx bx bxs-crown text-success"></i>
+                                        @if ($item->no_urut == $winner[0]->id_kandidat)
+                                            <i class="bx bx bxs-crown text-{{ $color }}"></i>
                                         @endif
-                                        {{ round(($item->jml / $all_vote) * 100) }}%
+                                        {{ round(($item->jml / $all_vote) * 100, 2) }}%
                                     </li>
                                     <li class="list-inline-item me-3">
                                         <a href="javascript(0)" data-bs-toggle="modal"

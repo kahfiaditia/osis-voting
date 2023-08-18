@@ -27,6 +27,7 @@ class VoteController extends Controller
         if (Auth::user()->roles == 'Administrator') {
             $list = Vote::all();
             $cek_vote = 0;
+            $flagPriode = null;
         } else {
             $Queryperiode = DB::table('periode')
                 ->select('id')
@@ -37,8 +38,10 @@ class VoteController extends Controller
                 ->get();
             if (count($Queryperiode) > 0) {
                 $periode = $Queryperiode[0]->id;
+                $flagPriode = 1;
             } else {
                 $periode = null;
+                $flagPriode = null;
             }
             $cek_vote = Vote::where('id_user_vote', Auth::user()->id)->where('id_periode', $periode)->count();
             $list = Vote::where('id_user_vote', Auth::user()->id)->get();
@@ -50,6 +53,7 @@ class VoteController extends Controller
             'label' => 'Data Vote',
             'list' => $list,
             'cek_vote' => $cek_vote,
+            'flagPriode' => $flagPriode,
         ];
         return view('vote.index')->with($data);
     }

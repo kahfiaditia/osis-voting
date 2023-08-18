@@ -38,7 +38,7 @@ class FrontendController extends Controller
         }
 
         $hasil_vote = DB::table('kandidat')
-            ->select('users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil', 'visi_misi', 'no_urut')
+            ->select('users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil', 'visi_misi', 'no_urut', 'vote.id_kandidat')
             ->selectRaw('COUNT(vote.id) as jml')
             ->join('users', 'users.id', '=', 'kandidat.id_ketua')
             ->join('users as w', 'w.id', '=', 'kandidat.id_wakil')
@@ -55,11 +55,21 @@ class FrontendController extends Controller
             ->join('kandidat', 'kandidat.id', '=', 'vote.id_kandidat')
             ->where('periode_name', $periode)
             ->get();
+
+        $winner = DB::table('vote')
+            ->select('id_kandidat')
+            ->join('periode', 'periode.id', '=', 'vote.id_periode')
+            ->where('periode_name', $periode)
+            ->groupBy('vote.id_kandidat')
+            ->orderByRaw('COUNT(vote.id) DESC')
+            ->limit(1)
+            ->get();
         $data = [
             'all_vote' => User::where('roles', '!=', 'Administrator')->count(),
             'hasil_vote' => $hasil_vote,
             'jml_vote' => $jml_vote,
             'periode' => $periode,
+            'winner' => $winner,
         ];
         return view('frontend.grafik', $data);
     }
