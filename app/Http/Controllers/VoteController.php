@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class VoteController extends Controller
 {
@@ -100,6 +101,59 @@ class VoteController extends Controller
             'periode' => $periode,
         ];
         return view('vote.create')->with($data);
+    }
+
+    public function data_voters(Request $request)
+    {
+        $hasil_vote = DB::table('vote')
+            ->whereNull('vote.deleted_at')
+            ->orderBy('vote.id', 'DESC');
+
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $hasil_vote->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('trx_number', 'like', '%' . $search . '%')
+                    ->orWhere('id_periode', 'like', '%' . $search . '%')
+                    ->orWhere('id_kandidat', 'like', '%' . $search . '%')
+                    ->orWhere('id_user_vote', 'like', '%' . $search . '%');
+            });
+
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $hasil_vote->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('trx_number', 'like', '%' . $search . '%')
+                        ->orWhere('id_periode', 'like', '%' . $search . '%')
+                        ->orWhere('id_kandidat', 'like', '%' . $search . '%')
+                        ->orWhere('id_user_vote', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('trx_number') != null) {
+                $trx_number = $request->get('trx_number');
+                $hasil_vote->where('trx_number', '=', $trx_number);
+            }
+            if ($request->get('id_periode') != null) {
+                $id_periode = $request->get('id_periode');
+                $hasil_vote->where('id_periode', '=', $id_periode);
+            }
+            if ($request->get('id_kandidat') != null) {
+                $id_kandidat = $request->get('id_kandidat');
+                $hasil_vote->where('id_kandidat', '=', $id_kandidat);
+            }
+            if ($request->get('id_user_vote') != null) {
+                $id_user_vote = $request->get('id_user_vote');
+                $hasil_vote->where('id_user_vote', '=', $id_user_vote);
+            }
+        }
+
+        return DataTables::of($hasil_vote)
+            ->addColumn('action', 'vote.button')
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     /**

@@ -46,6 +46,7 @@ Route::group(
         // vote
         Route::resource('/vote', VoteController::class);
         Route::get('/confirmasi', [VoteController::class, 'confirmasi'])->name('vote.confirmasi');
+        Route::get('/data_voters', [VoteController::class, 'data_voters'])->name('vote.data_voters');
         // menu
         Route::resource('/pengguna', UserController::class);
         Route::get('/halaman', [UserController::class, 'halaman'])->name('pengguna.halaman');
