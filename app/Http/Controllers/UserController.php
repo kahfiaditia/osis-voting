@@ -447,10 +447,10 @@ class UserController extends Controller
             $user = User::findOrFail($id);
             $user->name = $request->nama;
             $user->email = $request->email;
-            $user->nis = $request->nis;
+            $user->nis = $request->nis ?? 0;
             $user->pin = $request->pin;
             $user->roles = $request->role;
-            $user->nik = $request->nik;
+            $user->nik = $request->nik ?? 0;
             if ($request->has('password')) {
                 $user->password = bcrypt($request->password);
             }

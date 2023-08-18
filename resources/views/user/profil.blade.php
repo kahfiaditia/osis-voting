@@ -46,13 +46,24 @@
                                             {!! $errors->first('email', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                         <div class="mb-3">
+                                            <label for="identifier">NIS/NIK</label>
+                                            @if (Auth::user()->roles == 'guru' || Auth::user()->roles == 'administrator')
+                                                <input id="nik" name="nik" type="text" class="form-control"
+                                                    value="{{ $profil->nik }}" autocomplete="off" maxlength="15">
+                                            @endif
+                                            @if (Auth::user()->roles == 'siswa')
+                                                <input id="nis" name="nis" type="text" class="form-control"
+                                                    value="{{ $profil->nis }}" autocomplete="off" maxlength="15">
+                                            @endif
+                                        </div>
+                                        {{-- <div class="mb-3">
                                             <label for="manufacturername">Nis</label>
                                             <input id="nis" name="nis" type="text" class="form-control"
                                                 value="{{ $profil->nis }}" autocomplete="off" maxlenght="15">
-                                        </div>
+                                        </div> --}}
                                         <div class="mb-1">
                                             <label for="price">PIN</label>
-                                            <input id="pin" name="pin" type="number" value="{{ $profil->pin }}"
+                                            <input id="pin" name="pin" type="password" value="{{ $profil->pin }}"
                                                 class="form-control" maxlenght="4" required>
                                         </div>
                                         <div class="invalid-feedback">
@@ -89,11 +100,11 @@
                                             Data wajib diisi.
                                         </div>
                                         {!! $errors->first('roles', '<div class="invalid-validasi">:message</div>') !!}
-                                        <div class="mb-3">
+                                        {{-- <div class="mb-3">
                                             <label for="manufacturername">NIK</label>
                                             <input name="nik" id="nik" type="text" class="form-control"
                                                 value="{{ $profil->nik }}" autocomplete="off" maxlenght="15">
-                                        </div>
+                                        </div> --}}
                                         <div class="mb-3">
                                             <label for="productdesc">Password</label>
                                             <input id="password" name="password" type="password" {{ $profil->pssword }}
