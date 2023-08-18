@@ -87,6 +87,7 @@ class PeriodeController extends Controller
             // 'title' => $this->title,
             'menu' => $this->menu,
             'label' => $this->menu,
+            'aksi' => "Tambah",
         ];
         return view('periode.tambah')->with($data);
     }
@@ -146,6 +147,7 @@ class PeriodeController extends Controller
             'menu' => $this->menu,
             'submenu' => 'Periode',
             'label' => 'data Periode',
+            'aksi' => 'Edit',
             'edit' => PeriodeModel::findORFail(
                 $id
             )

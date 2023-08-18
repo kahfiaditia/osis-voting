@@ -56,6 +56,8 @@ Route::group(
         Route::get('/hasil_import', [UserController::class, 'hasil_import'])->name('pengguna.hasil_import');
         Route::get('/get_data_pengguna', [UserController::class, 'get_data_pengguna'])->name('pengguna.get_data_pengguna');
         Route::get('/tambah_siswa', [UserController::class, 'tambah_siswa'])->name('pengguna.tambah_siswa');
+        Route::get('/siswa/{id}/edit', [UserController::class, 'edit_siswa'])->name('pengguna.edit_siswa');
+        Route::patch('/update_edit_siswa', [UserController::class, 'update_edit_siswa'])->name('pengguna.update_edit_siswa');
         Route::get('/get_data_all', [UserController::class, 'get_data_all'])->name('pengguna.get_data_all');
         Route::resource('/class', ClasessController::class);
         Route::get('/data_kelas', [ClasessController::class, 'data_kelas'])->name('class.data_kelas');

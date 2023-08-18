@@ -87,7 +87,7 @@
                                                                 <div class="col-sm-2 mb-2">
                                                                     <input type="text" name="roles" id="roles"
                                                                         value="{{ isset($_GET['roles']) ? $_GET['roles'] : null }}"
-                                                                        class="form-control" placeholder="Jabatan"
+                                                                        class="form-control" placeholder="Roles"
                                                                         autocomplete="off">
                                                                 </div>
                                                             </div>
@@ -265,11 +265,25 @@
                     },
                     {
                         data: 'nis',
-                        name: 'nis'
+                        name: 'nis',
+                        render: function(data, type, row) {
+                            console.log("nis:", data); // Add this line to log the value
+                            if (data == 0) {
+                                return '';
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'nik',
-                        name: 'nik'
+                        name: 'nik',
+                        render: function(data, type, row) {
+                            console.log("nik:", data); // Add this line to log the value
+                            if (data == 0) {
+                                return '';
+                            }
+                            return data;
+                        }
                     },
                     {
                         data: 'roles',

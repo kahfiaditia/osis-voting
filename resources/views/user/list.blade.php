@@ -82,7 +82,7 @@
                                                                 <div class="col-sm-2 mb-2">
                                                                     <input type="text" name="class_id" id="class_id"
                                                                         value="{{ isset($_GET['class_id']) ? $_GET['class_id'] : null }}"
-                                                                        class="form-control" placeholder="Jabatan"
+                                                                        class="form-control" placeholder="Kelas"
                                                                         autocomplete="off">
                                                                 </div>
                                                             </div>

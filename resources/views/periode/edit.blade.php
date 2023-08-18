@@ -9,7 +9,7 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item">{{ ucwords($menu) }}</li>
-                                {{-- <li class="breadcrumb-item">{{ ucwords($submenu) }}</li> --}}
+                                <li class="breadcrumb-item">{{ $aksi }}</li>
                             </ol>
                         </div>
                     </div>

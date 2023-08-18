@@ -39,14 +39,10 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Subkelas
-                                                <code>*</code></label>
-                                            <input type="text" class="form-control" id="level" name="level"
+                                            </label>
+                                            <input type="text" class="form-control" id="level" name="Subkelas"
                                                 onkeyup="this.value = this.value.toUpperCase();"
-                                                value="{{ $edit->class_level }}" autofocus required placeholder="Level">
-                                            <div class="invalid-feedback">
-                                                Data wajib diisi.
-                                            </div>
-                                            {!! $errors->first('level', '<div class="invalid-validasi">:message</div>') !!}
+                                                value="{{ $edit->class_level }}" autofocus placeholder="Level">
                                         </div>
                                     </div>
                                 </div>

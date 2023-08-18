@@ -71,7 +71,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Qoute <code>*</code></label>
-                                            <textarea class="form-control" name="quote" id="quote"></textarea>
+                                            <textarea class="form-control" name="quote" id="quote" required></textarea>
                                         </div>
                                         <div class="invalid-feedback">
                                             Data wajib diisi.
@@ -82,7 +82,8 @@
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Periode
                                                 <code>*</code></label>
-                                            <select class="form-control select select2" name="periode" id="periode">
+                                            <select class="form-control select select2" name="periode" id="periode"
+                                                required>
                                                 <option value=""> -- Pilih --</option>
                                                 @foreach ($periode as $item)
                                                     <option value="{{ $item->id }}"> {{ $item->periode_name }}</option>
@@ -99,7 +100,7 @@
                                             <label for="validationCustom02" class="form-label">Nomor Urut Calon
                                                 <code>*</code></label>
                                             <select class="form-control select select2" name="urut" id="urut"
-                                                data-select2-id="urut">
+                                                data-select2-id="urut" required>
                                                 <option value=""> -- Pilih --</option>
                                                 <option value="1"> 1 </option>
                                                 <option value="2"> 2 </option>
@@ -119,7 +120,7 @@
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Deskripsi Visi dan Misi
                                                 <code>*</code></label>
-                                            <textarea name="editor1" id="editor1"></textarea>
+                                            <textarea name="editor1" id="editor1" required></textarea>
                                             <div class="invalid-feedback">
                                                 Data wajib diisi.
                                             </div>

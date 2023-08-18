@@ -24,7 +24,7 @@
                         <div class="card-body">
 
                             <h4 class="card-title">Import</h4>
-                            <p class="card-title-desc">Upload Data Opname by Excel</p>
+                            <p class="card-title-desc">Upload Data Siswa, Guru, dan Admin by Excel</p>
                             <form action="{{ route('pengguna.uploadExcel') }}" method="post" class="dropzone"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -47,6 +47,12 @@
                                 </div>
                             </form>
                         </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-sm-12">
+                        <a href="{{ route('pengguna.alluser') }}" class="btn btn-secondary waves-effect">Batal</a>
+                        <button class="btn btn-primary" type="submit" style="float: right" id="submit">Simpan</button>
                     </div>
                 </div> <!-- end col -->
             </div> <!-- end row -->

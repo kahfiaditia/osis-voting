@@ -30,7 +30,7 @@ class UserController extends Controller
             'title' => $this->title,
             'menu' => $this->menu,
             'submenu' => 'Upload User',
-            'label' => 'User Import',
+            'label' => 'User, Siswa Import',
         ];
         return view('user.halaman')->with($data);
     }
@@ -307,6 +307,52 @@ class UserController extends Controller
         return view('user.edit')->with($data);
     }
 
+    public function edit_siswa($id)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => 'Siswa',
+            'label' => 'Siswa',
+            'data' => User::findOrFail($id),
+            'kelas' => ClasessModel::all(),
+        ];
+        return view('user.edit_siswa')->with($data);
+    }
+
+    public function update_edit_siswa(Request $request, $id)
+    {
+
+        DB::beginTransaction();
+        try {
+            $osis1 = User::findOrFail($id);
+            $osis1->name = $request->nama;
+            $osis1->email = $request->email;
+            $osis1->password =  bcrypt('12345');
+            if ($request->avatar) {
+                $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                $osis1->avatar = $fileName;
+                $request->avatar->move(public_path('avatar'), $fileName);
+            }
+            $osis1->pin =  1234;
+            $osis1->nis =  $request->nis ?? 0;
+            $osis1->nik =  $request->nik ?? 0;
+            $osis1->address = $request->alamat;
+            $osis1->phone = $request->telepon;
+            $osis1->roles = $request->role;
+            $osis1->class_id = $request->kelas;
+            $osis1->save();
+
+            DB::commit();
+            AlertHelper::addAlert(true);
+            return redirect('/pengguna');
+        } catch (\Throwable $err) {
+            DB::rollback();
+            throw $err;
+            AlertHelper::addAlert(false);
+            return back();
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -328,8 +374,8 @@ class UserController extends Controller
                 $request->avatar->move(public_path('avatar'), $fileName);
             }
             $osis1->pin =  1234;
-            $osis1->nis = $request->nis;
-            $osis1->nik = $request->nik;
+            $osis1->nis =  $request->nis ?? 0;
+            $osis1->nik =  $request->nik ?? 0;
             $osis1->address = $request->alamat;
             $osis1->phone = $request->telepon;
             $osis1->roles = $request->role;
