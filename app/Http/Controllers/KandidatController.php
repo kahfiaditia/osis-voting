@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class KandidatController extends Controller
 {
@@ -114,6 +115,93 @@ class KandidatController extends Controller
         ];
         return view('kandidat.list')->with($data);
     }
+
+    public function data_kandidat(Request $request)
+    {
+        // $userdata = DB::table('kandidat')
+        //     ->whereNull('kandidat.deleted_at')
+        //     ->orderBy('kandidat.id', 'DESC');
+
+        $userdata = DB::table('kandidat')
+            ->select(
+                'kandidat.id',
+                'kandidat.id_ketua as ketua',
+                'u1.name as ketua_name',
+                'kandidat.id_wakil as wakil',
+                'u2.name as wakil_name',
+                'kandidat.no_urut',
+                'kandidat.id_periode as periode',
+                'p.periode_name as periode_name',
+                'kandidat.quote',
+                'kandidat.visi_misi'
+            )
+            ->leftJoin('users as u1', 'kandidat.id_ketua', '=', 'u1.id')
+            ->leftJoin('users as u2', 'kandidat.id_wakil', '=', 'u2.id')
+            ->join('periode as p', 'kandidat.id_periode', '=', 'p.id')
+            ->whereNull('kandidat.deleted_at')
+            ->orderBy('kandidat.id', 'DESC')
+            ->get();
+
+
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $userdata->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('ketua_name', 'like', '%' . $search . '%')
+                    ->orWhere('wakil_name', 'like', '%' . $search . '%')
+                    ->orWhere('no_urut', 'like', '%' . $search . '%')
+                    ->orWhere('periode_name', 'like', '%' . $search . '%')
+                    ->orWhere('quote', 'like', '%' . $search . '%')
+                    ->orWhere('visi_misi', 'like', '%' . $search . '%');
+            });
+
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $userdata->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('ketua_name', 'like', '%' . $search . '%')
+                        ->orWhere('wakil_name', 'like', '%' . $search . '%')
+                        ->orWhere('no_urut', 'like', '%' . $search . '%')
+                        ->orWhere('periode_name', 'like', '%' . $search . '%')
+                        ->orWhere('quote', 'like', '%' . $search . '%')
+                        ->orWhere('visi_misi', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('ketua_name') != null) {
+                $ketua_name = $request->get('ketua_name');
+                $userdata->where('ketua_name', '=', $ketua_name);
+            }
+            if ($request->get('wakil_name') != null) {
+                $wakil_name = $request->get('wakil_name');
+                $userdata->where('wakil_name', '=', $wakil_name);
+            }
+            if ($request->get('no_urut') != null) {
+                $no_urut = $request->get('no_urut');
+                $userdata->where('no_urut', '=', $no_urut);
+            }
+            if ($request->get('periode_name') != null) {
+                $periode_name = $request->get('periode_name');
+                $userdata->where('periode_name', '=', $periode_name);
+            }
+            if ($request->get('quote') != null) {
+                $quote = $request->get('quote');
+                $userdata->where('quote', '=', $quote);
+            }
+            if ($request->get('visi_misi') != null) {
+                $visi_misi = $request->get('visi_misi');
+                $userdata->where('visi_misi', '=', $visi_misi);
+            }
+        }
+
+        return DataTables::of($userdata)
+            ->addColumn('action', 'kandidat.button')
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -104,7 +104,7 @@
                                                                 class="btn btn-primary w-md">Cari</button>
                                                             <a href="{{ route('periode.index') }}"
                                                                 class="btn btn-secondary w-md">Batal</a>
-                                                            @if (isset($_GET['periode_name']) or isset($_GET['like']))
+                                                            {{-- @if (isset($_GET['periode_name']) or isset($_GET['like']))
                                                                 <?php
                                                                 $periode_name = $_GET['periode_name'];
                                                                 $flag = $_GET['flag'];
@@ -125,7 +125,7 @@
                                                                 <a href="{{ route('periode.index') }}"
                                                                     class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
                                                                         class="bx bx-cloud-download me-1"></i>Unduh</a>
-                                                            @endif
+                                                            @endif --}}
                                                         </div>
                                                     </div>
                                                 </form>

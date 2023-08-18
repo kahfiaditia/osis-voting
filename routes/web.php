@@ -64,6 +64,7 @@ Route::group(
         Route::resource('/periode', PeriodeController::class);
         Route::get('/data_periode', [PeriodeController::class, 'data_periode'])->name('periode.data_periode');
         Route::resource('/kandidat', KandidatController::class);
+        Route::get('/data_kandidat', [KandidatController::class, 'data_kandidat'])->name('kandidat.data_kandidat');
         Route::post('/get_calonketua', [KandidatController::class, 'get_calonketua'])->name('kandidat.get_calonketua');
         Route::post('/get_calonwakil', [KandidatController::class, 'get_calonwakil'])->name('kandidat.get_calonwakil');
         Route::post('/edit_get_nisketua', [KandidatController::class, 'edit_get_nisketua'])->name('kandidat.edit_get_nisketua');
