@@ -55,6 +55,9 @@ Route::group(
         Route::get('/alluser', [UserController::class, 'alluser'])->name('pengguna.alluser');
         Route::post('/upload_excel', [UserController::class, 'uploadExcel'])->name('pengguna.uploadExcel');
         Route::get('/hasil_import', [UserController::class, 'hasil_import'])->name('pengguna.hasil_import');
+        Route::get('/gagal_import', [UserController::class, 'gagal_import'])->name('pengguna.gagal_import');
+        Route::get('/hapus_semua', [UserController::class, 'hapus_semua'])->name('pengguna.hapus_semua');
+        Route::post('/simpan_user_ajax', [UserController::class, 'simpanUserAjax'])->name('pengguna.simpanUserAjax');
         Route::get('/get_data_pengguna', [UserController::class, 'get_data_pengguna'])->name('pengguna.get_data_pengguna');
         Route::get('/tambah_siswa', [UserController::class, 'tambah_siswa'])->name('pengguna.tambah_siswa');
         Route::get('/siswa/{id}/edit', [UserController::class, 'edit_siswa'])->name('pengguna.edit_siswa');

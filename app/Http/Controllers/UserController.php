@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helper\AlertHelper;
 use App\Imports\UserImport;
 use App\Models\ClasessModel;
+use App\Models\TemporaryModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,40 +31,113 @@ class UserController extends Controller
             'title' => $this->title,
             'menu' => $this->menu,
             'submenu' => 'Upload User',
-            'label' => 'User, Siswa Import',
+            'label' => 'Siswa Import',
         ];
         return view('user.halaman')->with($data);
     }
 
+    public function gagal_import()
+    {
+        return view('user.gagal');
+    }
+
     public function uploadExcel(Request $request)
     {
-        $request->validate([
-            'excelFile' => 'required|mimes:xls,xlsx',
-        ]);
 
+        try {
+            $request->validate([
+                'excelFile' => 'required|mimes:xls,xlsx',
+            ]);
 
-        $file = $request->file('excel_file'); // 'excel_file' is the name attribute of the input file
-        dd($file);
+            $file = $request->file('excelFile');
 
-        $import = new UserImport;
-        Excel::import($import, $file, null, \Maatwebsite\Excel\Excel::XLSX);
+            $import = new UserImport();
+            $hasil = $import->toArray($file);
 
-        // dd($file);
+            DB::beginTransaction();
 
-        return view('user.data_import');
+            for ($rowIndex = 1; $rowIndex < count($hasil[0]); $rowIndex++) {
+                $name = $hasil[0][$rowIndex][1];
+                $email = $hasil[0][$rowIndex][2];
+                $nis = $hasil[0][$rowIndex][5];
+                $nik = $hasil[0][$rowIndex][6];
+                $alamat = $hasil[0][$rowIndex][7];
+                $tlp = $hasil[0][$rowIndex][8];
+
+                TemporaryModel::create([
+                    'name' => $name,
+                    'email' => $email,
+                    'nis' => $nis,
+                    'nik' => $nik,
+                    'address' => $alamat,
+                    'phone' => $tlp,
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->route('pengguna.hasil_import');
+        } catch (\Throwable $err) {
+            DB::rollBack();
+            return redirect()->route('pengguna.gagal_import');
+        }
     }
 
     public function hasil_import()
     {
+        $importedData = TemporaryModel::all();
+
         $data = [
             'title' => $this->title,
             'menu' => $this->menu,
-            'submenu' => 'Bursa Opname',
+            'submenu' => 'Siswa',
             'label' => 'Hasil Import',
-            'produkexcel' => User::all()
+            'importedData' => $importedData
         ];
 
         return view('user.data_import')->with($data);
+    }
+
+    public function hapus_semua()
+    {
+        TemporaryModel::truncate(); // Menghapus semua data dari TemporaryModel
+        return redirect()->route('pengguna.halaman')->with('success', 'Semua data berhasil dihapus');
+    }
+
+    public function simpanUserAjax(Request $request)
+    {
+        // dd($request->datasiswa);
+        $datasiswa = $request->datasiswa;
+        DB::beginTransaction();
+        try {
+            foreach ($datasiswa as $item) {
+                DB::table('users')->insert([
+                    'name' => $item['nama'],
+                    'pin' => $item['pin'],
+                    'password' => bcrypt($item['password']),
+                    'email' => $item['email'],
+                    'nis' => $item['nis'],
+                    'nik' => $item['nik'],
+                    'address' => $item['address'],
+                    'phone' => $item['phone'],
+                    'roles' => "siswa",
+                ]);
+            }
+
+            TemporaryModel::truncate();
+
+            DB::commit();
+            return response()->json([
+                'code' => 200,
+                'message' => 'Berhasil Input Data',
+            ]);
+        } catch (\Throwable $err) {
+            DB::rollBack();
+            throw $err;
+            return response()->json([
+                'code' => 404,
+                'message' => 'Gagal Input Data',
+            ]);
+        }
     }
 
     public function get_data_pengguna(Request $request)
@@ -75,45 +149,44 @@ class UserController extends Controller
             ->whereNull('users.deleted_at')
             ->orderBy('users.id', 'DESC');
 
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $userdata->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('roles', 'like', '%' . $search . '%');
+                // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+            });
 
-        // if ($request->get('search_manual') != null) {
-        //     $search = $request->get('search_manual');
-        //     // $search_rak = str_replace(' ', '', $search);
-        //     $userdata->where(function ($where) use ($search) {
-        //         $where
-        //             ->orWhere('name', 'like', '%' . $search . '%')
-        //             ->orWhere('email', 'like', '%' . $search . '%')
-        //             ->orWhere('nis', 'like', '%' . $search . '%')
-        //             ->orWhere('roles', 'like', '%' . $search . '%');
-        //         // ->orWhere('id_supplier', 'like', '%' . $search . '%');
-        //     });
-
-        //     $search = $request->get('search');
-        //     // $search_rak = str_replace(' ', '', $search);
-        //     if ($search != null) {
-        //         $userdata->where(function ($where) use ($search) {
-        //             $where
-        //                 ->orWhere('name', 'like', '%' . $search . '%')
-        //                 ->orWhere('email', 'like', '%' . $search . '%')
-        //                 ->orWhere('nis', 'like', '%' . $search . '%')
-        //                 ->orWhere('roles', 'like', '%' . $search . '%');
-        //             // ->orWhere('id_supplier', 'like', '%' . $search . '%');
-        //         });
-        //     }
-        // } else {
-        //     if ($request->get('name') != null) {
-        //         $name = $request->get('name');
-        //         $userdata->where('name', '=', $name);
-        //     }
-        //     if ($request->get('email') != null) {
-        //         $email = $request->get('email');
-        //         $userdata->where('email', '=', $email);
-        //     }
-        //     if ($request->get('name') != null) {
-        //         $name = $request->get('name');
-        //         $userdata->where('name', '=', $name);
-        //     }
-        // }
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $userdata->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('nis', 'like', '%' . $search . '%')
+                        ->orWhere('roles', 'like', '%' . $search . '%');
+                    // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+            if ($request->get('email') != null) {
+                $email = $request->get('email');
+                $userdata->where('email', '=', $email);
+            }
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+        }
 
         return DataTables::of($userdata)
             ->addColumn('class', function ($userdata) {
