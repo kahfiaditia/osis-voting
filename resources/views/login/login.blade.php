@@ -79,11 +79,11 @@
                                     novalidate>
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="validationCustom02" class="form-label">Email</label>
-                                        <input type="email" class="form-control" name="email" id="email"
-                                            placeholder="Email" autocomplete="off" autofocus required>
+                                        <label for="validationCustom02" class="form-label">NIS / NIK</label>
+                                        <input type="number" class="form-control" name="nis" id="nis"
+                                            placeholder="Nis / Nik" autocomplete="off" autofocus required>
                                         <div class="invalid-feedback">
-                                            Please Enter Email
+                                            Please Enter Nis / Nik
                                         </div>
                                     </div>
                                     <div class="mb-3">

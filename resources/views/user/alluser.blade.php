@@ -150,8 +150,8 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Email</th>
-                                        <th>Nis</th>
-                                        <th>Nik</th>
+                                        <th>Nis / NIK</th>
+                                        {{-- <th>Nik</th> --}}
                                         <th>Roles</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -230,10 +230,10 @@
                             document
                             .getElementById(
                                 "nis").value : null;
-                        d.nik = (document.getElementById("nik").value.length != 0) ?
-                            document
-                            .getElementById(
-                                "nik").value : null;
+                        // d.nik = (document.getElementById("nik").value.length != 0) ?
+                        //     document
+                        //     .getElementById(
+                        //         "nik").value : null;
                         d.roles = (document.getElementById("roles").value.length != 0) ?
                             document
                             .getElementById(
@@ -274,17 +274,17 @@
                             return data;
                         }
                     },
-                    {
-                        data: 'nik',
-                        name: 'nik',
-                        render: function(data, type, row) {
-                            console.log("nik:", data); // Add this line to log the value
-                            if (data == 0) {
-                                return '';
-                            }
-                            return data;
-                        }
-                    },
+                    // {
+                    //     data: 'nik',
+                    //     name: 'nik',
+                    //     render: function(data, type, row) {
+                    //         console.log("nik:", data); // Add this line to log the value
+                    //         if (data == 0) {
+                    //             return '';
+                    //         }
+                    //         return data;
+                    //     }
+                    // },
                     {
                         data: 'roles',
                         name: 'roles'

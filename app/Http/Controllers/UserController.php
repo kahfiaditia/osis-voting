@@ -18,8 +18,10 @@ use Illuminate\Support\Str;
 class UserController extends Controller
 {
     protected $title = 'Evoting';
+    protected $menu = 'Evoting';
     protected $siswa = 'Siswa';
-    protected $menu = 'User';
+    protected $guru = 'Guru';
+    protected $admin = 'administrator';
     /**
      * Display a listing of the resource.
      *
@@ -140,12 +142,12 @@ class UserController extends Controller
         }
     }
 
-    public function get_data_pengguna(Request $request)
+    public function get_data_guru(Request $request)
     {
         $userdata = DB::table('users')
-            ->select('name', 'email', 'users.id', 'nis', 'roles', 'class_name', 'class_level')
-            ->leftJoin('clasess', 'clasess.id', 'users.class_id')
-            ->where('roles', '=', 'siswa')
+            // ->select('name', 'email', 'users.id', 'nis', 'roles', 'class_name', 'class_level')
+            // ->leftJoin('clasess', 'clasess.id', 'users.class_id')
+            ->where('roles', '=', 'guru')
             ->whereNull('users.deleted_at')
             ->orderBy('users.id', 'DESC');
 
@@ -156,7 +158,7 @@ class UserController extends Controller
                 $where
                     ->orWhere('name', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('nik', 'like', '%' . $search . '%')
                     ->orWhere('roles', 'like', '%' . $search . '%');
                 // ->orWhere('id_supplier', 'like', '%' . $search . '%');
             });
@@ -168,7 +170,7 @@ class UserController extends Controller
                     $where
                         ->orWhere('name', 'like', '%' . $search . '%')
                         ->orWhere('email', 'like', '%' . $search . '%')
-                        ->orWhere('nis', 'like', '%' . $search . '%')
+                        ->orWhere('nik', 'like', '%' . $search . '%')
                         ->orWhere('roles', 'like', '%' . $search . '%');
                     // ->orWhere('id_supplier', 'like', '%' . $search . '%');
                 });
@@ -189,9 +191,64 @@ class UserController extends Controller
         }
 
         return DataTables::of($userdata)
-            ->addColumn('class', function ($userdata) {
-                if ($userdata->class_name) {
-                    $class = $userdata->class_name . ' - ' . $userdata->class_level;
+            ->addColumn('action', 'user.buttonguru')
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+
+    public function get_data_siswa(Request $request)
+    {
+        $usersiswa = DB::table('users')
+            ->select('name', 'email', 'users.id', 'nis', 'roles', 'class_name', 'class_level')
+            ->leftJoin('clasess', 'clasess.id', 'users.class_id')
+            ->where('roles', '=', 'siswa')
+            ->whereNull('users.deleted_at')
+            ->orderBy('users.id', 'DESC');
+
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $usersiswa->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('roles', 'like', '%' . $search . '%');
+                // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+            });
+
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $usersiswa->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('nis', 'like', '%' . $search . '%')
+                        ->orWhere('roles', 'like', '%' . $search . '%');
+                    // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $usersiswa->where('name', '=', $name);
+            }
+            if ($request->get('email') != null) {
+                $email = $request->get('email');
+                $usersiswa->where('email', '=', $email);
+            }
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $usersiswa->where('name', '=', $name);
+            }
+        }
+
+        return DataTables::of($usersiswa)
+            ->addColumn('class', function ($usersiswa) {
+                if ($usersiswa->class_name) {
+                    $class = $usersiswa->class_name . ' - ' . $usersiswa->class_level;
                 } else {
                     $class = '-';
                 }
@@ -202,27 +259,61 @@ class UserController extends Controller
             ->make(true);
     }
 
-    public function index()
+    public function get_data_administrator(Request $request)
     {
-        $data = [
-            'title' => $this->title,
-            'menu' => $this->siswa,
-            'label' => $this->siswa,
-        ];
-        return view('user.list')->with($data);
+        $userdata = DB::table('users')
+            ->where('roles', '=', 'administrator')
+            ->whereNull('users.deleted_at')
+            ->orderBy('users.id', 'DESC');
+
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $userdata->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('nik', 'like', '%' . $search . '%')
+                    ->orWhere('roles', 'like', '%' . $search . '%');
+                // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+            });
+
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $userdata->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('nis', 'like', '%' . $search . '%')
+                        ->orWhere('nik', 'like', '%' . $search . '%')
+                        ->orWhere('roles', 'like', '%' . $search . '%');
+                    // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+            if ($request->get('email') != null) {
+                $email = $request->get('email');
+                $userdata->where('email', '=', $email);
+            }
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+        }
+
+        return DataTables::of($userdata)
+            ->addColumn('action', 'user.aksiall')
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
-    public function alluser()
-    {
-        $data = [
-            'title' => $this->title,
-            'menu' => $this->menu,
-            'label' => $this->menu,
-        ];
-        return view('user.alluser')->with($data);
-    }
-
-    public function get_data_all(Request $request)
+    public function cari_data_all(Request $request)
     {
         $userdata = DB::table('users')
             ->whereNull('users.deleted_at')
@@ -275,6 +366,29 @@ class UserController extends Controller
             ->make(true);
     }
 
+    public function index()
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->siswa,
+            'label' => $this->siswa,
+        ];
+        return view('user.list')->with($data);
+    }
+
+    public function alluser()
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'label' => $this->menu,
+        ];
+        // return view('user.alluser')->with($data);
+        return view('user.list_data_all')->with($data);
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -285,7 +399,7 @@ class UserController extends Controller
         $data = [
             'title' => $this->title,
             'menu' => $this->menu,
-            'label' => $this->menu,
+            'label' => $this->guru,
             'kelas' => ClasessModel::All()
         ];
         return view('user.input')->with($data);
@@ -317,7 +431,7 @@ class UserController extends Controller
             }
             $osis->password =  bcrypt('12345');
             $osis->pin = 1234;
-            $osis->nis = $request->nis ?? 0;
+            $osis->nis = $request->nik ?? 0;
             $osis->nik = $request->nik ?? 0;
             $osis->address = $request->alamat;
             $osis->phone = $request->telepon;
@@ -351,6 +465,16 @@ class UserController extends Controller
         return view('user.tambah_siswa')->with($data);
     }
 
+    public function tambah_administrator(Request $request)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->admin,
+            'label' => $this->admin,
+            'kelas' => ClasessModel::All()
+        ];
+        return view('user.tambah_administrator')->with($data);
+    }
     /**
      * Display the specified resource.
      *

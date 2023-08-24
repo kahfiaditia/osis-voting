@@ -8,15 +8,24 @@
                         <div class="page-title-left">
                             <h4 class="mb-sm-0 font-size-18">{{ $label }}</h4>
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item">{{ ucwords($menu) }}</li>
+                                <li class="breadcrumb-item">User</li>
+                                <li class="breadcrumb-item">List Data User</li>
                             </ol>
                         </div>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                @if (Auth::user()->id == 1)
+                                @if (Auth::user()->roles == 'Administrator')
+                                    <a href="{{ route('pengguna.create') }}" type="button"
+                                        class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
+                                        <i class="mdi mdi-plus me-1"></i>Guru
+                                    </a>
                                     <a href="{{ route('pengguna.tambah_siswa') }}" type="button"
                                         class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                        <i class="mdi mdi-plus me-1"></i> Tambah Siswa
+                                        <i class="mdi mdi-plus me-1"></i> Siswa
+                                    </a>
+                                    <a href="{{ route('pengguna.tambah_administrator') }}" type="button"
+                                        class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
+                                        <i class="mdi mdi-plus me-1"></i> Administrator
                                     </a>
                                 @endif
                             </ol>
@@ -28,7 +37,27 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="accordion" id="accordionExample">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#guru" role="tab">
+                                        Data Guru
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#siswa" role="tab">
+                                        Data Siswa
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#administrator" role="tab">
+                                        Administrator
+                                    </a>
+                                </li>
+                            </ul>
+
+                            {{-- Search and Filter --}}
+                            {{-- <div class="accordion mt-3" id="accordionExample">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne">
                                         <button class="accordion-button fw-medium <?php if (isset($_GET['name'])) {
@@ -43,8 +72,8 @@
                                     </h2>
 
                                     <div id="collapseOne" class="accordion-collapse collapse <?php
-                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['class_id'])) {
-                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['class_id'] != null) {
+                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['roles'])) {
+                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['roles'] != null) {
                                             echo 'show';
                                         }
                                     }
@@ -80,8 +109,8 @@
                                                                 </div>
 
                                                                 <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="class_id" id="class_id"
-                                                                        value="{{ isset($_GET['class_id']) ? $_GET['class_id'] : null }}"
+                                                                    <input type="text" name="roles" id="roles"
+                                                                        value="{{ isset($_GET['roles']) ? $_GET['roles'] : null }}"
                                                                         class="form-control" placeholder="Kelas"
                                                                         autocomplete="off">
                                                                 </div>
@@ -113,14 +142,14 @@
                                                         <div class="col-sm-10 mb-2">
                                                             <button type="submit"
                                                                 class="btn btn-primary w-md">Cari</button>
-                                                            <a href="{{ route('pengguna.index') }}"
+                                                            <a href="{{ route('pengguna.alluser') }}"
                                                                 class="btn btn-secondary w-md">Batal</a>
                                                             @if (isset($_GET['name']) or isset($_GET['like']))
                                                                 <?php
                                                                 $name = $_GET['name'];
                                                                 $email = $_GET['email'];
                                                                 $nis = $_GET['nis'];
-                                                                $class_id = $_GET['class_id'];
+                                                                $roles = $_GET['roles'];
                                                                 // $name = $_GET['name'];
                                                                 $search_manual = $_GET['search_manual'];
                                                                 if (isset($_GET['like'])) {
@@ -137,40 +166,73 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div> --}}
+
+                            <!-- Tab content -->
+                            <div class="tab-content">
+                                <div class="tab-pane" id="guru">
+                                    <table id="tableGuru" class="table table-striped dt-responsive nowrap w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Guru</th>
+                                                <th>Email</th>
+                                                <th>NIK</th>
+                                                <th>Roles</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+
+                                <div class="tab-pane" id="siswa">
+                                    <table id="tableSiswa" class="table table-striped dt-responsive nowrap w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Siswa</th>
+                                                <th>Email</th>
+                                                <th>NIS</th>
+                                                <th>Roles</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="administrator">
+                                    <table id="tableAdministrator" class="table table-striped dt-responsive nowrap w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Admin</th>
+                                                <th>Email</th>
+                                                <th>Nis / Nik</th>
+                                                <th>Roles</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
                             </div>
-                            <br>
-                            <table id="datatable" class="table table-striped dt-responsive nowrap w-100">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Nis</th>
-                                        <th>Kelas</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/alert.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
     <script>
         function toggleCheckbox() {
-            like = document.getElementById("like").checked;
-            if (like == true) {
+            var like = document.getElementById("like").checked;
+            if (like) {
                 document.getElementById("name").value = null;
                 document.getElementById("email").value = null;
                 document.getElementById("nis").value = null;
-                document.getElementById("class_id").value = null;
-                // document.getElementById("name").value = null;
-                $('#type').val("").trigger('change')
+                document.getElementById("nik").value = null;
+                document.getElementById("roles").value = null;
+                $('#type').val("").trigger('change');
                 document.getElementById("id_where").style.display = 'none';
                 document.getElementById("id_like").style.display = 'block';
             } else {
@@ -182,58 +244,27 @@
         }
 
         $(document).ready(function() {
-            like = document.getElementById("like").checked;
-            if (like == true) {
-                document.getElementById("name").value = null;
-                document.getElementById("email").value = null;
-                document.getElementById("nis").value = null;
-                document.getElementById("class_id").value = null;
-                // document.getElementById("name").value = null;
-                $('#type').val("").trigger('change')
-                document.getElementById("id_where").style.display = 'none';
-                document.getElementById("id_like").style.display = 'block';
-            } else {
-                document.getElementById("search_manual").value = null;
-                document.getElementById("like").checked = false;
-                document.getElementById("id_like").style.display = 'none';
-                document.getElementById("id_where").style.display = 'block';
-            }
+            // var like = document.getElementById("like").checked;
+            // if (like) {
+            //     document.getElementById("name").value = null;
+            //     document.getElementById("email").value = null;
+            //     document.getElementById("nis").value = null;
+            //     document.getElementById("nik").value = null;
+            //     document.getElementById("roles").value = null;
+            //     $('#type').val("").trigger('change');
+            //     document.getElementById("id_where").style.display = 'none';
+            //     document.getElementById("id_like").style.display = 'block';
+            // } else {
+            //     document.getElementById("search_manual").value = null;
+            //     document.getElementById("like").checked = false;
+            //     document.getElementById("id_like").style.display = 'none';
+            //     document.getElementById("id_where").style.display = 'block';
+            // }
 
-            // var i = document.getElementById("kode_transaksi").value = null;
-            // console.log(i);
-
-            $('#datatable').DataTable({
+            $('#tableGuru').DataTable({
                 processing: true,
                 serverSide: true,
-                responsive: true,
-                ajax: {
-                    url: "{{ route('pengguna.get_data_siswa') }}",
-                    data: function(d) {
-                        d.name = (document.getElementById("name").value
-                                .length != 0) ?
-                            document
-                            .getElementById(
-                                "name").value : null;
-                        d.email = (document.getElementById("email").value.length != 0) ?
-                            document
-                            .getElementById(
-                                "email").value : null;
-                        d.nis = (document.getElementById("nis").value.length != 0) ?
-                            document
-                            .getElementById(
-                                "nis").value : null;
-                        d.class_id = (document.getElementById("class_id").value.length != 0) ?
-                            document
-                            .getElementById(
-                                "class_id").value : null;
-                        d.search_manual = (document.getElementById("search_manual").value
-                                .length != 0) ?
-                            document
-                            .getElementById(
-                                "search_manual").value : null;
-                        d.search = $('input[type="search"]').val()
-                    }
-                },
+                ajax: "{{ route('pengguna.get_data_guru') }}",
                 columns: [{
                         data: null,
                         sortable: false,
@@ -241,7 +272,6 @@
                         render: function(data, type, row, meta) {
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
-
                     },
                     {
                         data: 'name',
@@ -256,18 +286,73 @@
                         name: 'nis'
                     },
                     {
-                        data: 'class',
-                        name: 'class'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
+                        data: 'roles',
+                        name: 'roles'
                     },
                 ]
             });
 
+            $('#tableSiswa').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('pengguna.get_data_siswa') }}",
+                columns: [{
+                        data: null,
+                        sortable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'nis',
+                        name: 'nis'
+                    },
+                    {
+                        data: 'roles',
+                        name: 'roles'
+                    },
+                ]
+            });
+
+            $('#tableAdministrator').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('pengguna.get_data_administrator') }}",
+                columns: [{
+                        data: null,
+                        sortable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'nis',
+                        name: 'nis'
+                    },
+                    {
+                        data: 'roles',
+                        name: 'roles'
+                    },
+                ]
+            });
         });
     </script>
 @endsection
