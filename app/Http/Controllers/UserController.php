@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
@@ -726,5 +727,23 @@ class UserController extends Controller
             AlertHelper::addAlert(false);
             return back();
         }
+    }
+
+    public function reset_password(Request $request, $id)
+    {
+        $user = User::find($request->id);
+        // dd($user);
+
+        if (!$user) {
+            return response()->json(['message' => 'User tidak ditemukan.'], 404);
+        }
+
+        $newPassword = $user->nis . now()->format('dm');
+        // dd($newPassword);
+        $user->update([
+            'password' => Hash::make($newPassword)
+        ]);
+
+        return response()->json(['message' => 'Password reset berhasil.']);
     }
 }

@@ -88,13 +88,13 @@
                                                                 <div class="col-sm-2 mb-2">
                                                                     <input type="text" name="address" id="address"
                                                                         value="{{ isset($_GET['address']) ? $_GET['address'] : null }}"
-                                                                        class="form-control" placeholder="Kelas"
+                                                                        class="form-control" placeholder="Alamat"
                                                                         autocomplete="off">
                                                                 </div>
                                                                 <div class="col-sm-2 mb-2">
                                                                     <input type="text" name="phone" id="phone"
                                                                         value="{{ isset($_GET['phone']) ? $_GET['phone'] : null }}"
-                                                                        class="form-control" placeholder="Kelas"
+                                                                        class="form-control" placeholder="Telepon"
                                                                         autocomplete="off">
                                                                 </div>
                                                             </div>
@@ -305,5 +305,71 @@
             });
 
         });
+
+
+        function showResetForm(id) {
+            Swal.fire({
+                title: 'Konfirmasi Reset Password',
+                text: "Anda yakin ingin mereset password siswa ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Reset!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Menampilkan formulir reset password
+                    const formHtml = `
+                    <form id="reset-form-${id}">
+                        @csrf
+                        <input type="hidden" name="student_id" value="${id}">
+                        <input type="password" name="new_password" placeholder="Password baru" required>
+                        <button type="submit">Reset Password</button>
+                    </form>
+                `;
+
+                    Swal.fire({
+                        title: 'Reset Password',
+                        html: formHtml,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+
+                    // Submit form saat diisi
+                    const resetForm = document.getElementById(`reset-form-${id}`);
+                    resetForm.addEventListener('submit', (event) => {
+                        event.preventDefault();
+                        resetPassword(id, resetForm.new_password.value);
+                    });
+                }
+            });
+        }
+
+        function resetPassword(id, newPassword) {
+            // Kirim permintaan AJAX untuk mereset password
+            axios.post(`/reset-password/${id}`, {
+                    new_password: newPassword
+                })
+                .then(response => {
+                    Swal.fire(
+                        'Berhasil!',
+                        'Password siswa berhasil di-reset.',
+                        'success'
+                    ).then(() => {
+                        // Refresh halaman atau lakukan tindakan lain yang sesuai
+                        location.reload();
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                    Swal.fire(
+                        'Gagal!',
+                        'Terjadi kesalahan saat mereset password.',
+                        'error'
+                    );
+                });
+        }
     </script>
 @endsection

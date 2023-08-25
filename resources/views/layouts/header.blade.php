@@ -2,23 +2,26 @@
     <div class="navbar-header">
         <div class="d-flex">
             <div class="navbar-brand-box">
-                <a href="{{ route('dashboard') }}" class="logo logo-dark  mt-5">
-                    <span class="logo-sm mt-4">
-                        <img src="{{ URL::asset('assets/images/brands/logo123.png') }}" alt="" height="100">
+                <a href="{{ route('dashboard') }}" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="{{ URL::asset('assets/images/brands/sman1.png') }}" alt="" height="25">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('assets/images/brands/logo123.png') }}" alt="" height="100">
+                        <img src="{{ URL::asset('assets/images/brands/sman1.png') }}" alt="" height="40">
                     </span>
                 </a>
-                <a href="{{ route('dashboard') }}" class="logo logo-light  mt-5">
+                <a href="{{ route('dashboard') }}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ URL::asset('assets/images/brands/logo123.png') }}" alt="" height="100">
+                        <img src="{{ URL::asset('assets/images/brands/sman1.png') }}" alt="" height="25">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('assets/images/brands/logo123.png') }}" alt="" height="100">
+                        <img src="{{ URL::asset('assets/images/brands/sman1.png') }}" alt="" height="50">
                     </span>
                 </a>
             </div>
+            <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
+                <i class="fa fa-fw fa-bars"></i>
+            </button>
         </div>
         <div class="d-flex">
             <div class="dropdown d-none d-lg-inline-block ms-1">

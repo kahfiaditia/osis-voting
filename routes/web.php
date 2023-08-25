@@ -70,6 +70,7 @@ Route::group(
         Route::get('/siswa/{id}/edit', [UserController::class, 'edit_siswa'])->name('pengguna.edit_siswa');
         Route::get('/admin/{id}/edit', [UserController::class, 'edit_admin'])->name('pengguna.edit_admin');
         Route::patch('/update_edit_siswa', [UserController::class, 'update_edit_siswa'])->name('pengguna.update_edit_siswa');
+        Route::post('/reset_password/{id}', [UserController::class, 'reset_password'])->name('pengguna.reset_password');
         Route::resource('/class', ClasessController::class);
         Route::get('/data_kelas', [ClasessController::class, 'data_kelas'])->name('class.data_kelas');
         Route::resource('/periode', PeriodeController::class);
