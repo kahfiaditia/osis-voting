@@ -25,6 +25,18 @@
                          </a>
                      </li>
                      <li>
+                         <a href="{{ route('pengguna.admin') }}" class="waves-effect">
+                             <i class="bx bx-aperture"></i>
+                             <span key="t-icons">Administrator</span>
+                         </a>
+                     </li>
+                     <li>
+                         <a href="{{ route('pengguna.data_guru') }}" class="waves-effect">
+                             <i class="bx bx-task"></i>
+                             <span key="t-task-list">Data Guru</span>
+                         </a>
+                     </li>
+                     <li>
                          <a href="{{ route('pengguna.index') }}" class="waves-effect">
                              <i class="bx bxs-user-detail"></i>
                              <span key="t-chat">Data Siswa</span>

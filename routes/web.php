@@ -53,6 +53,8 @@ Route::group(
         Route::get('/profil', [UserController::class, 'profil'])->name('pengguna.profil');
         Route::patch('/updateprofil/{id}', [UserController::class, 'updateprofil'])->name('pengguna.updateprofil');
         Route::get('/alluser', [UserController::class, 'alluser'])->name('pengguna.alluser');
+        Route::get('/data_guru', [UserController::class, 'data_guru'])->name('pengguna.data_guru');
+        Route::get('/admin', [UserController::class, 'admin'])->name('pengguna.admin');
         Route::post('/upload_excel', [UserController::class, 'uploadExcel'])->name('pengguna.uploadExcel');
         Route::get('/hasil_import', [UserController::class, 'hasil_import'])->name('pengguna.hasil_import');
         Route::get('/gagal_import', [UserController::class, 'gagal_import'])->name('pengguna.gagal_import');
@@ -60,11 +62,13 @@ Route::group(
         Route::post('/simpan_user_ajax', [UserController::class, 'simpanUserAjax'])->name('pengguna.simpanUserAjax');
         Route::get('/get_data_siswa', [UserController::class, 'get_data_siswa'])->name('pengguna.get_data_siswa');
         Route::get('/get_data_guru', [UserController::class, 'get_data_guru'])->name('pengguna.get_data_guru');
+        Route::get('/guru/{id}/edit', [UserController::class, 'edit_guru'])->name('pengguna.edit_guru');
         Route::get('/get_data_administrator', [UserController::class, 'get_data_administrator'])->name('pengguna.get_data_administrator');
         Route::get('/cari_data_all', [UserController::class, 'cari_data_all'])->name('pengguna.cari_data_all');
         Route::get('/tambah_siswa', [UserController::class, 'tambah_siswa'])->name('pengguna.tambah_siswa');
         Route::get('/tambah_administrator', [UserController::class, 'tambah_administrator'])->name('pengguna.tambah_administrator');
         Route::get('/siswa/{id}/edit', [UserController::class, 'edit_siswa'])->name('pengguna.edit_siswa');
+        Route::get('/admin/{id}/edit', [UserController::class, 'admin'])->name('pengguna.edit_admin');
         Route::patch('/update_edit_siswa', [UserController::class, 'update_edit_siswa'])->name('pengguna.update_edit_siswa');
         Route::resource('/class', ClasessController::class);
         Route::get('/data_kelas', [ClasessController::class, 'data_kelas'])->name('class.data_kelas');

@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">
-                                        <a href="{{ route('pengguna.alluser') }}"
+                                        <a href="{{ route('pengguna.admin') }}"
                                             class="btn btn-secondary waves-effect">Batal</a>
                                         <button class="btn btn-primary" type="submit" style="float: right"
                                             id="submit">Simpan</button>

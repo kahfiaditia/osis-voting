@@ -191,7 +191,7 @@ class UserController extends Controller
         }
 
         return DataTables::of($userdata)
-            ->addColumn('action', 'user.buttonguru')
+            ->addColumn('action', 'user.guru.buttonguru')
             ->rawColumns(['action'])
             ->make(true);
     }
@@ -254,7 +254,7 @@ class UserController extends Controller
                 }
                 return $class;
             })
-            ->addColumn('action', 'user.akse')
+            ->addColumn('action', 'user.siswa.akse')
             ->rawColumns(['action'])
             ->make(true);
     }
@@ -308,7 +308,7 @@ class UserController extends Controller
         }
 
         return DataTables::of($userdata)
-            ->addColumn('action', 'user.aksiall')
+            ->addColumn('action', 'user.administrator.aksiall')
             ->rawColumns(['action'])
             ->make(true);
     }
@@ -373,7 +373,7 @@ class UserController extends Controller
             'menu' => $this->siswa,
             'label' => $this->siswa,
         ];
-        return view('user.list')->with($data);
+        return view('user.siswa.list')->with($data);
     }
 
     public function alluser()
@@ -387,6 +387,39 @@ class UserController extends Controller
         return view('user.list_data_all')->with($data);
     }
 
+    public function data_guru()
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'label' => "Data Guru",
+        ];
+
+        return view('user.guru.data_guru')->with($data);
+    }
+
+    public function edit_guru($id)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => 'Guru',
+            'label' => 'Edit Guru',
+            'data' => User::findOrFail($id),
+
+        ];
+        return view('user.guru.edit_guru')->with($data);
+    }
+
+    public function admin()
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'label' => "Data Admin",
+        ];
+
+        return view('user.administrator.admin')->with($data);
+    }
 
 
     /**
@@ -402,8 +435,19 @@ class UserController extends Controller
             'label' => $this->guru,
             'kelas' => ClasessModel::All()
         ];
-        return view('user.input')->with($data);
+        return view('user.guru.input_guru')->with($data);
     }
+
+    // public function tambah_admin(Request $request)
+    // {
+    //     $data = [
+    //         'title' => $this->title,
+    //         'menu' => "Admin",
+    //         'label' => "Admin",
+
+    //     ];
+    //     return view('user.administrator.tambah_administrator')->with($data);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -462,18 +506,17 @@ class UserController extends Controller
             'label' => $this->siswa,
             'kelas' => ClasessModel::All()
         ];
-        return view('user.tambah_siswa')->with($data);
+        return view('user.siswa.tambah_siswa')->with($data);
     }
 
     public function tambah_administrator(Request $request)
     {
         $data = [
             'title' => $this->title,
-            'menu' => $this->admin,
-            'label' => $this->admin,
-            'kelas' => ClasessModel::All()
+            'menu' => "admin",
+            'label' => "admin",
         ];
-        return view('user.tambah_administrator')->with($data);
+        return view('user.administrator.tambah_administrator')->with($data);
     }
     /**
      * Display the specified resource.
@@ -504,6 +547,18 @@ class UserController extends Controller
         return view('user.edit')->with($data);
     }
 
+    public function edit_admin($id)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => 'Administrator',
+            'label' => 'Administrator',
+            'data' => User::findOrFail($id),
+
+        ];
+        return view('user.administrator.edit_admin')->with($data);
+    }
+
     public function edit_siswa($id)
     {
         $data = [
@@ -513,7 +568,7 @@ class UserController extends Controller
             'data' => User::findOrFail($id),
             'kelas' => ClasessModel::all(),
         ];
-        return view('user.edit_siswa')->with($data);
+        return view('user.siswa.edit_siswa')->with($data);
     }
 
     public function update_edit_siswa(Request $request, $id)
