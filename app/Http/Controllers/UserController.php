@@ -275,6 +275,8 @@ class UserController extends Controller
                     ->orWhere('email', 'like', '%' . $search . '%')
                     ->orWhere('nis', 'like', '%' . $search . '%')
                     ->orWhere('nik', 'like', '%' . $search . '%')
+                    ->orWhere('address', 'like', '%' . $search . '%')
+                    ->orWhere('phone', 'like', '%' . $search . '%')
                     ->orWhere('roles', 'like', '%' . $search . '%');
                 // ->orWhere('id_supplier', 'like', '%' . $search . '%');
             });
@@ -288,6 +290,8 @@ class UserController extends Controller
                         ->orWhere('email', 'like', '%' . $search . '%')
                         ->orWhere('nis', 'like', '%' . $search . '%')
                         ->orWhere('nik', 'like', '%' . $search . '%')
+                        ->orWhere('address', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%')
                         ->orWhere('roles', 'like', '%' . $search . '%');
                     // ->orWhere('id_supplier', 'like', '%' . $search . '%');
                 });
@@ -677,7 +681,7 @@ class UserController extends Controller
             'profil' => User::where('id', Auth::user()->id)->first()
         ];
 
-        return view('user.profil')->with($data);
+        return view('user.profil.profil')->with($data);
     }
 
 

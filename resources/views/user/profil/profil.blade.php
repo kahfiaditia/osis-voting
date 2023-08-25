@@ -30,7 +30,7 @@
                                         <div class="mb-3">
                                             <label for="productname">Nama</label>
                                             <input name="nama" id="nama" type="text" value="{{ $profil->name }}"
-                                                class="form-control" autocomplete="off" maxlenght="50">
+                                                class="form-control" autocomplete="off" maxlenght="50" readonly>
                                             <div class="invalid-feedback">
                                                 Data wajib diisi.
                                             </div>
@@ -45,22 +45,7 @@
                                             </div>
                                             {!! $errors->first('email', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="identifier">NIS/NIK</label>
-                                            @if (Auth::user()->roles == 'guru' || Auth::user()->roles == 'administrator')
-                                                <input id="nik" name="nik" type="text" class="form-control"
-                                                    value="{{ $profil->nik }}" autocomplete="off" maxlength="15">
-                                            @endif
-                                            @if (Auth::user()->roles == 'siswa')
-                                                <input id="nis" name="nis" type="text" class="form-control"
-                                                    value="{{ $profil->nis }}" autocomplete="off" maxlength="15">
-                                            @endif
-                                        </div>
-                                        {{-- <div class="mb-3">
-                                            <label for="manufacturername">Nis</label>
-                                            <input id="nis" name="nis" type="text" class="form-control"
-                                                value="{{ $profil->nis }}" autocomplete="off" maxlenght="15">
-                                        </div> --}}
+
                                         <div class="mb-1">
                                             <label for="price">PIN</label>
                                             <input id="pin" name="pin" type="password" value="{{ $profil->pin }}"
@@ -70,49 +55,27 @@
                                             Data wajib diisi.
                                         </div>
                                         {!! $errors->first('pin', '<div class="invalid-validasi">:message</div>') !!}
+                                        <div class="mb-3">
+                                            <label for="productdesc">Alamat</label>
+                                            <textarea class="form-control" id="alamat" name="alamat" rows="2" maxlenght="50" readonly>{{ $profil->address }}</textarea>
+                                        </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="control-label">Role</label>
-                                            <select class="form-control select select2 role" name="role" id="role">
-                                                @if (Auth::user()->roles == 'Administrator')
-                                                    <option value="{{ $profil->roles }}"
-                                                        @if ($profil->roles == 'guru') selected @endif> Guru
-                                                    </option>
-                                                    <option value="{{ $profil->roles }}"
-                                                        @if ($profil->roles == 'siswa') selected @endif> Siswa
-                                                    </option>
-                                                    <option value="{{ $profil->roles }}"
-                                                        @if ($profil->roles == 'Administrator') selected @endif> Adminitrator
-                                                    </option>
-                                                @elseif (Auth::user()->roles == 'guru')
-                                                    <option value="{{ $profil->roles }}"
-                                                        @if ($profil->roles == 'guru') selected @endif> Guru
-                                                    </option>
-                                                @elseif (Auth::user()->roles == 'siswa')
-                                                    <option value="{{ $profil->roles }}"
-                                                        @if ($profil->roles == 'siswa') selected @endif> Siswa
-                                                    </option>
-                                                @endif
-                                            </select>
+                                            <input id="text" name="role" type="role" value="{{ $profil->roles }}"
+                                                class="form-control" autocomplete="off" maxlenght="60" readonly>
                                         </div>
-                                        <div class="invalid-feedback">
-                                            Data wajib diisi.
-                                        </div>
-                                        {!! $errors->first('roles', '<div class="invalid-validasi">:message</div>') !!}
-                                        {{-- <div class="mb-3">
+
+                                        <div class="mb-3">
                                             <label for="manufacturername">NIK</label>
                                             <input name="nik" id="nik" type="text" class="form-control"
-                                                value="{{ $profil->nik }}" autocomplete="off" maxlenght="15">
-                                        </div> --}}
+                                                value="{{ $profil->nis }}" autocomplete="off" maxlenght="15" readonly>
+                                        </div>
                                         <div class="mb-3">
                                             <label for="productdesc">Password</label>
                                             <input id="password" name="password" type="password" {{ $profil->pssword }}
                                                 class="form-control" autocomplete="off" maxlenght="60">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="productdesc">Alamat</label>
-                                            <textarea class="form-control" id="alamat" name="alamat" rows="2" maxlenght="50">{{ $profil->address }}</textarea>
                                         </div>
                                     </div>
                                 </div>

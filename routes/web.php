@@ -68,7 +68,7 @@ Route::group(
         Route::get('/tambah_siswa', [UserController::class, 'tambah_siswa'])->name('pengguna.tambah_siswa');
         Route::get('/tambah_administrator', [UserController::class, 'tambah_administrator'])->name('pengguna.tambah_administrator');
         Route::get('/siswa/{id}/edit', [UserController::class, 'edit_siswa'])->name('pengguna.edit_siswa');
-        Route::get('/admin/{id}/edit', [UserController::class, 'admin'])->name('pengguna.edit_admin');
+        Route::get('/admin/{id}/edit', [UserController::class, 'edit_admin'])->name('pengguna.edit_admin');
         Route::patch('/update_edit_siswa', [UserController::class, 'update_edit_siswa'])->name('pengguna.update_edit_siswa');
         Route::resource('/class', ClasessController::class);
         Route::get('/data_kelas', [ClasessController::class, 'data_kelas'])->name('class.data_kelas');

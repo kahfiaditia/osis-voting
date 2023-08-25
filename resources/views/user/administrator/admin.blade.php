@@ -43,8 +43,8 @@
                                     </h2>
 
                                     <div id="collapseOne" class="accordion-collapse collapse <?php
-                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['nik']) or isset($_GET['roles'])) {
-                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['nik'] != null or $_GET['roles'] != null) {
+                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['nik']) or isset($_GET['address']) or isset($_GET['phone']) or isset($_GET['roles'])) {
+                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['nik'] != null or $_GET['address'] != null or $_GET['phone'] != null or $_GET['roles'] != null) {
                                             echo 'show';
                                         }
                                     }
@@ -82,6 +82,18 @@
                                                                     <input type="text" name="nik" id="nik"
                                                                         value="{{ isset($_GET['nik']) ? $_GET['nik'] : null }}"
                                                                         class="form-control" placeholder="Nik"
+                                                                        autocomplete="off">
+                                                                </div>
+                                                                <div class="col-sm-2 mb-2">
+                                                                    <input type="text" name="address" id="address"
+                                                                        value="{{ isset($_GET['address']) ? $_GET['address'] : null }}"
+                                                                        class="form-control" placeholder="Alamat"
+                                                                        autocomplete="off">
+                                                                </div>
+                                                                <div class="col-sm-2 mb-2">
+                                                                    <input type="text" name="phone" id="phone"
+                                                                        value="{{ isset($_GET['phone']) ? $_GET['phone'] : null }}"
+                                                                        class="form-control" placeholder="telepon"
                                                                         autocomplete="off">
                                                                 </div>
                                                                 <div class="col-sm-2 mb-2">
@@ -126,6 +138,8 @@
                                                                 $email = $_GET['email'];
                                                                 $nis = $_GET['nis'];
                                                                 $nik = $_GET['nik'];
+                                                                $address = $_GET['address'];
+                                                                $phone = $_GET['phone'];
                                                                 $roles = $_GET['roles'];
                                                                 $search_manual = $_GET['search_manual'];
                                                                 if (isset($_GET['like'])) {
@@ -150,7 +164,9 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Email</th>
-                                        <th>NIK</th>
+                                        <th>Nik</th>
+                                        <th>Alamat</th>
+                                        <th>Telepon</th>
                                         {{-- <th>Nik</th> --}}
                                         <th>Roles</th>
                                         <th>Aksi</th>
@@ -175,6 +191,8 @@
                 document.getElementById("email").value = null;
                 document.getElementById("nis").value = null;
                 document.getElementById("nik").value = null;
+                document.getElementById("address").value = null;
+                document.getElementById("phone").value = null;
                 document.getElementById("roles").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
@@ -195,6 +213,8 @@
                 document.getElementById("email").value = null;
                 document.getElementById("nis").value = null;
                 document.getElementById("nik").value = null;
+                document.getElementById("address").value = null;
+                document.getElementById("phone").value = null;
                 document.getElementById("roles").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
@@ -230,10 +250,14 @@
                             document
                             .getElementById(
                                 "nis").value : null;
-                        // d.nik = (document.getElementById("nik").value.length != 0) ?
-                        //     document
-                        //     .getElementById(
-                        //         "nik").value : null;
+                        d.address = (document.getElementById("address").value.length != 0) ?
+                            document
+                            .getElementById(
+                                "address").value : null;
+                        d.phone = (document.getElementById("phone").value.length != 0) ?
+                            document
+                            .getElementById(
+                                "phone").value : null;
                         d.roles = (document.getElementById("roles").value.length != 0) ?
                             document
                             .getElementById(
@@ -274,17 +298,14 @@
                             return data;
                         }
                     },
-                    // {
-                    //     data: 'nik',
-                    //     name: 'nik',
-                    //     render: function(data, type, row) {
-                    //         console.log("nik:", data); // Add this line to log the value
-                    //         if (data == 0) {
-                    //             return '';
-                    //         }
-                    //         return data;
-                    //     }
-                    // },
+                    {
+                        data: 'address',
+                        name: 'address'
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone'
+                    },
                     {
                         data: 'roles',
                         name: 'roles'
