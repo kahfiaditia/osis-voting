@@ -33,7 +33,7 @@
                                                     @if ($data->roles == 'guru') selected @endif> Guru
                                                 </option>
                                                 <option value="{{ $data->roles }}"
-                                                    @if ($data->roles == 'Adminitrator') selected @endif> Adminitrator
+                                                    @if ($data->roles == 'Administrator') selected @endif> Adminitrator
                                                 </option>
 
                                             </select>
