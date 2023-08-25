@@ -77,6 +77,15 @@
                                             <input id="password" name="password" type="password" {{ $profil->pssword }}
                                                 class="form-control" autocomplete="off" maxlenght="60">
                                         </div>
+                                        <div class="mb-1">
+                                            <label for="price">PIN</label>
+                                            <input id="phone" name="phone" type="number" value="{{ $profil->phone }}"
+                                                class="form-control" maxlenght="4" required>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Data wajib diisi.
+                                        </div>
+                                        {!! $errors->first('pin', '<div class="invalid-validasi">:message</div>') !!}
                                     </div>
                                 </div>
                                 <div class="d-flex flex-wrap gap-2">

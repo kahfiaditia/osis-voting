@@ -62,6 +62,18 @@
                          <li><a href="{{ route('vote.index') }}" key="t-orders">Voting</a></li>
                      </ul>
                  </li>
+                 <li>
+                     <a href="javascript: void(0);" class="has-arrow waves-effect">
+                         <i class="bx bx-label"></i>
+                         <span key="t-ecommerce">Ekstra Kulikuler</span>
+                     </a>
+                     <ul class="sub-menu" aria-expanded="false">
+                         <li><a class="inactive-link" key="t-products">Kegiatan</a></li>
+                         <li><a class="inactive-link" key="t-product-detail">Jadwal</a></li>
+                         <li><a class="inactive-link" key="t-orders">Follow</a></li>
+                         <li><a class="inactive-link" key="t-orders">Absensi</a></li>
+                     </ul>
+                 </li>
              </ul>
          </div>
      </div>

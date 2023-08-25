@@ -711,6 +711,7 @@ class UserController extends Controller
             $user->nis = $request->nis ?? 0;
             $user->pin = $request->pin;
             $user->roles = $request->role;
+            $user->phone = $request->phone;
             $user->nik = 0;
             if ($request->has('password')) {
                 $user->password = bcrypt($request->password);
