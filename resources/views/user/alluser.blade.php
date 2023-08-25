@@ -150,7 +150,7 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Email</th>
-                                        <th>Nis / NIK</th>
+                                        <th>Nik</th>
                                         {{-- <th>Nik</th> --}}
                                         <th>Roles</th>
                                         <th>Aksi</th>

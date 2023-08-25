@@ -69,7 +69,7 @@
 
                                         <div class="mb-3">
                                             <label for="manufacturername">NIK</label>
-                                            <input name="nik" id="nik" type="text" class="form-control"
+                                            <input name="nis" id="nis" type="text" class="form-control"
                                                 value="{{ $profil->nis }}" autocomplete="off" maxlenght="15" readonly>
                                         </div>
                                         <div class="mb-3">

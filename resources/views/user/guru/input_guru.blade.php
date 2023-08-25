@@ -51,8 +51,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="nik" class="form-label">NIK </label>
-                                            <input type="text" class="form-control" name="nik" id="nik"
+                                            <label for="nis" class="form-label">NIK </label>
+                                            <input type="text" class="form-control" name="nis" id="nis"
                                                 autocomplete="off" maxlength="15">
                                         </div>
                                     </div>

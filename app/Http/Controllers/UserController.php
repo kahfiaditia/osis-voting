@@ -484,8 +484,8 @@ class UserController extends Controller
             }
             $osis->password =  bcrypt('12345');
             $osis->pin = 1234;
-            $osis->nis = $request->nik ?? 0;
-            $osis->nik = $request->nik ?? 0;
+            $osis->nis = $request->nis ?? 0;
+            $osis->nik = 0;
             $osis->address = $request->alamat;
             $osis->phone = $request->telepon;
             $osis->roles = $request->role;
@@ -636,7 +636,7 @@ class UserController extends Controller
             }
             $osis1->pin =  1234;
             $osis1->nis =  $request->nis ?? 0;
-            $osis1->nik =  $request->nik ?? 0;
+            $osis1->nik =  0;
             $osis1->address = $request->alamat;
             $osis1->phone = $request->telepon;
             $osis1->roles = $request->role;
@@ -698,7 +698,7 @@ class UserController extends Controller
             'nis' => 'max:15',
             'pin' => 'required|numeric|max:9999',
             'role' => 'required|in:guru,siswa,Administrator',
-            'nik' => 'max:15',
+            'nis' => 'max:15',
             'password' => 'nullable|max:60',
             'alamat' => 'max:50',
         ]);
@@ -711,7 +711,7 @@ class UserController extends Controller
             $user->nis = $request->nis ?? 0;
             $user->pin = $request->pin;
             $user->roles = $request->role;
-            $user->nik = $request->nik ?? 0;
+            $user->nik = 0;
             if ($request->has('password')) {
                 $user->password = bcrypt($request->password);
             }

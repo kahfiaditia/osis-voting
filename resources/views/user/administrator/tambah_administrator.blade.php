@@ -27,8 +27,8 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="role" class="form-label">Role <code>*</code></label>
-                                            <input type="text" class="form-control" name="nama" id="nama"
-                                                value="administrator" autocomplete="off" maxlength="30" readonly>
+                                            <input type="text" class="form-control" name="role" id="role"
+                                                value="Administrator" autocomplete="off" maxlength="30" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -44,8 +44,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="nik" class="form-label">NIK </label>
-                                            <input type="text" class="form-control" name="nik" id="nik"
+                                            <label for="nis" class="form-label">NIK </label>
+                                            <input type="text" class="form-control" name="nis" id="nis"
                                                 autocomplete="off" maxlength="15">
                                         </div>
                                     </div>
