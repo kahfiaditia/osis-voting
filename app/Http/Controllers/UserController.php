@@ -200,7 +200,7 @@ class UserController extends Controller
     public function get_data_siswa(Request $request)
     {
         $usersiswa = DB::table('users')
-            ->select('name', 'email', 'users.id', 'nis', 'roles', 'class_name', 'class_level')
+            ->select('name', 'email', 'address', 'phone', 'users.id', 'nis', 'roles', 'class_name', 'class_level')
             ->leftJoin('clasess', 'clasess.id', 'users.class_id')
             ->where('roles', '=', 'siswa')
             ->whereNull('users.deleted_at')
@@ -214,6 +214,8 @@ class UserController extends Controller
                     ->orWhere('name', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%')
                     ->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('address', 'like', '%' . $search . '%')
+                    ->orWhere('phone', 'like', '%' . $search . '%')
                     ->orWhere('roles', 'like', '%' . $search . '%');
                 // ->orWhere('id_supplier', 'like', '%' . $search . '%');
             });
@@ -226,6 +228,8 @@ class UserController extends Controller
                         ->orWhere('name', 'like', '%' . $search . '%')
                         ->orWhere('email', 'like', '%' . $search . '%')
                         ->orWhere('nis', 'like', '%' . $search . '%')
+                        ->orWhere('address', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%')
                         ->orWhere('roles', 'like', '%' . $search . '%');
                     // ->orWhere('id_supplier', 'like', '%' . $search . '%');
                 });

@@ -43,8 +43,8 @@
                                     </h2>
 
                                     <div id="collapseOne" class="accordion-collapse collapse <?php
-                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['class_id'])) {
-                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['class_id'] != null) {
+                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['class_id']) or isset($_GET['address']) or isset($_GET['phone'])) {
+                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['class_id'] != null or $_GET['address'] != null or $_GET['phone'] != null) {
                                             echo 'show';
                                         }
                                     }
@@ -85,6 +85,18 @@
                                                                         class="form-control" placeholder="Kelas"
                                                                         autocomplete="off">
                                                                 </div>
+                                                                <div class="col-sm-2 mb-2">
+                                                                    <input type="text" name="address" id="address"
+                                                                        value="{{ isset($_GET['address']) ? $_GET['address'] : null }}"
+                                                                        class="form-control" placeholder="Kelas"
+                                                                        autocomplete="off">
+                                                                </div>
+                                                                <div class="col-sm-2 mb-2">
+                                                                    <input type="text" name="phone" id="phone"
+                                                                        value="{{ isset($_GET['phone']) ? $_GET['phone'] : null }}"
+                                                                        class="form-control" placeholder="Kelas"
+                                                                        autocomplete="off">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -121,6 +133,8 @@
                                                                 $email = $_GET['email'];
                                                                 $nis = $_GET['nis'];
                                                                 $class_id = $_GET['class_id'];
+                                                                $address = $_GET['address'];
+                                                                $phone = $_GET['phone'];
                                                                 // $name = $_GET['name'];
                                                                 $search_manual = $_GET['search_manual'];
                                                                 if (isset($_GET['like'])) {
@@ -147,6 +161,8 @@
                                         <th>Email</th>
                                         <th>Nis</th>
                                         <th>Kelas</th>
+                                        <th>Alamat</th>
+                                        <th>Telepon</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -169,6 +185,8 @@
                 document.getElementById("email").value = null;
                 document.getElementById("nis").value = null;
                 document.getElementById("class_id").value = null;
+                document.getElementById("address").value = null;
+                document.getElementById("phone").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
                 document.getElementById("id_where").style.display = 'none';
@@ -188,6 +206,8 @@
                 document.getElementById("email").value = null;
                 document.getElementById("nis").value = null;
                 document.getElementById("class_id").value = null;
+                document.getElementById("address").value = null;
+                document.getElementById("phone").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
                 document.getElementById("id_where").style.display = 'none';
@@ -226,6 +246,14 @@
                             document
                             .getElementById(
                                 "class_id").value : null;
+                        d.address = (document.getElementById("address").value.length != 0) ?
+                            document
+                            .getElementById(
+                                "address").value : null;
+                        d.phone = (document.getElementById("phone").value.length != 0) ?
+                            document
+                            .getElementById(
+                                "phone").value : null;
                         d.search_manual = (document.getElementById("search_manual").value
                                 .length != 0) ?
                             document
@@ -258,6 +286,14 @@
                     {
                         data: 'class',
                         name: 'class'
+                    },
+                    {
+                        data: 'address',
+                        name: 'address'
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone'
                     },
                     {
                         data: 'action',
