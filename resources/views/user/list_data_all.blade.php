@@ -40,7 +40,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#guru" role="tab">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#guru" role="tab">
                                         Data Guru
                                     </a>
                                 </li>
@@ -55,6 +55,7 @@
                                     </a>
                                 </li>
                             </ul>
+                            <br>
 
                             {{-- Search and Filter --}}
                             {{-- <div class="accordion mt-3" id="accordionExample">
@@ -170,7 +171,7 @@
 
                             <!-- Tab content -->
                             <div class="tab-content">
-                                <div class="tab-pane" id="guru">
+                                <div class="tab-pane active show" id="guru">
                                     <table id="tableGuru" class="table table-striped dt-responsive nowrap w-100">
                                         <thead>
                                             <tr>

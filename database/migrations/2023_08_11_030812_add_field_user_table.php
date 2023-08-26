@@ -16,8 +16,7 @@ class AddFieldUserTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('pin', 4)->nullable()->after('remember_token');
             $table->string('nis', 15)->after('pin');
-            $table->string('nik', 15)->after('nis');
-            $table->string('address', 50)->nullable()->after('nik');
+            $table->string('address', 50)->nullable()->after('nis');
             $table->string('phone', 20)->nullable()->after('address');
             $table->string('avatar', 64)->nullable()->after('phone');
             $table->string('roles', 15)->nullable()->after('phone');
@@ -35,7 +34,6 @@ class AddFieldUserTable extends Migration
             $table->dropColumn('avatar');
             $table->dropColumn('pin');
             $table->dropColumn('nis');
-            $table->dropColumn('nik');
             $table->dropColumn('address');
             $table->dropColumn('phone');
             $table->dropColumn('roles');

@@ -140,7 +140,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Periode</th>
-                                        <th>Flag</th>
+                                        <th>Flag Pemilihan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>

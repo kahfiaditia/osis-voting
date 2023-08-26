@@ -175,8 +175,10 @@
                             <div class="px-4 py-3 border-top">
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item me-3 font-size-20" style="font-weight: 600;">
-                                        @if ($item->no_urut == $winner[0]->id_kandidat)
-                                            <i class="bx bx bxs-crown text-{{ $color }}"></i>
+                                        @if (count($winner) > 0)
+                                            @if ($item->no_urut == $winner[0]->id_kandidat)
+                                                <i class="bx bx bxs-crown text-{{ $color }}"></i>
+                                            @endif
                                         @endif
                                         {{ round(($item->jml / $all_vote) * 100, 2) }}%
                                     </li>
@@ -211,7 +213,21 @@
                         </div>
                     </div>
                 @endforeach
+                <input type="hidden" id="flag" value="{{ $flag }}">
             </div>
         </div>
     </div>
 @endsection
+<script script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        flag = document.getElementById("flag").value;
+        console.log(flag);
+        if (flag == '') {
+            setTimeout(function() {
+                location.reload();
+            }, 5000);
+            // 1000 (1 detik)
+        }
+    });
+</script>

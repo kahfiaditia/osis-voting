@@ -38,8 +38,6 @@ class LoginController extends Controller
 
         // login password harus bcrpt baru bisa masuk auth::attempt
         if (Auth::attempt($credentials)) {
-
-
             if (Auth::user()->roles == 'Administrator') {
                 $request->session()->regenerate();
                 return redirect()->intended('dashboard');

@@ -26,15 +26,17 @@ class FrontendController extends Controller
     public function grafik()
     {
         $Queryperiode = DB::table('periode')
-            ->select('periode_name')
+            ->select('periode_name', 'flag')
             ->whereNull('deleted_at')
             ->orderBy('id', 'DESC')
             ->limit(1)
             ->get();
         if (count($Queryperiode) > 0) {
             $periode = $Queryperiode[0]->periode_name;
+            $flag = $Queryperiode[0]->flag;
         } else {
             $periode = null;
+            $flag = null;
         }
 
         $hasil_vote = DB::table('kandidat')
@@ -69,6 +71,7 @@ class FrontendController extends Controller
             'hasil_vote' => $hasil_vote,
             'jml_vote' => $jml_vote,
             'periode' => $periode,
+            'flag' => $flag,
             'winner' => $winner,
         ];
         return view('frontend.grafik', $data);

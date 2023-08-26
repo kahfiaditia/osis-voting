@@ -38,7 +38,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="validationCustom02" class="form-label">Flag</label>
+                                            <label for="validationCustom02" class="form-label">Flag Pemilihan (Isi apapun
+                                                jika pemilihan OSIS sudah selesai)</label>
                                             <input type="number" class="form-control" id="flag" name="flag"
                                                 max='1' onkeyup="this.value = this.value.toUpperCase();"
                                                 value="{{ $edit->flag }}" autofocus placeholder="Flag">

@@ -119,7 +119,6 @@ class UserController extends Controller
                     'password' => bcrypt($item['password']),
                     'email' => $item['email'],
                     'nis' => $item['nis'],
-                    'nik' => $item['nik'],
                     'address' => $item['address'],
                     'phone' => $item['phone'],
                     'roles' => "siswa",
@@ -484,8 +483,7 @@ class UserController extends Controller
             }
             $osis->password =  bcrypt('12345');
             $osis->pin = 1234;
-            $osis->nis = $request->nis ?? 0;
-            $osis->nik = 0;
+            $osis->nis = $request->nis ?? null;
             $osis->address = $request->alamat;
             $osis->phone = $request->telepon;
             $osis->roles = $request->role;
@@ -595,8 +593,7 @@ class UserController extends Controller
                 $request->avatar->move(public_path('avatar'), $fileName);
             }
             $osis1->pin =  1234;
-            $osis1->nis =  $request->nis ?? 0;
-            $osis1->nik =  $request->nik ?? 0;
+            $osis1->nis =  $request->nis ?? null;
             $osis1->address = $request->alamat;
             $osis1->phone = $request->telepon;
             $osis1->roles = $request->role;
@@ -635,8 +632,7 @@ class UserController extends Controller
                 $request->avatar->move(public_path('avatar'), $fileName);
             }
             $osis1->pin =  1234;
-            $osis1->nis =  $request->nis ?? 0;
-            $osis1->nik =  0;
+            $osis1->nis =  $request->nis ?? null;
             $osis1->address = $request->alamat;
             $osis1->phone = $request->telepon;
             $osis1->roles = $request->role;
