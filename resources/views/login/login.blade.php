@@ -80,11 +80,12 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label for="validationCustom02" class="form-label">NIS / NIK</label>
-                                        <input type="number" class="form-control" name="nis" id="nis"
+                                        <input type="text" class="form-control" name="nis" id="nis"
                                             placeholder="Nis / Nik" autocomplete="off" autofocus required>
                                         <div class="invalid-feedback">
                                             Please Enter Nis / Nik
                                         </div>
+                                        {{-- {!! $errors->first('nis', '<div class="invalid-validasi" style="color:red">:message</div>') !!} --}}
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Password</label>
@@ -103,24 +104,12 @@
                                         <button class="btn btn-primary waves-effect waves-light" type="submit">Log
                                             In</button>
                                     </div>
-                                    <div class="mt-4 text-center">
-                                        <a href="{{ route('recovery') }}" class="text-muted"><i
-                                                class="mdi mdi-lock me-1"></i> Forgot your password?</a>
-                                        &nbsp;
-                                        &nbsp;
-                                        &nbsp;
-                                        {{-- <a href="{{ route('reverify') }}" class="text-muted"><i
-                                                class="mdi mdi-email-alert-outline me-1"></i> Reverify?</a> --}}
-                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="mt-2 text-center">
                         <div>
-                            {{-- <p>Don't have an account ? <a href="{{ route('register') }}"
-                                    class="fw-medium text-primary"> Signup now </a> </p>
-                            <p>© --}}
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>. Created By {{ strtoupper($title) }} Team

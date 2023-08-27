@@ -222,7 +222,6 @@
 <script>
     $(document).ready(function() {
         flag = document.getElementById("flag").value;
-        console.log(flag);
         if (flag == '') {
             setTimeout(function() {
                 location.reload();
