@@ -51,7 +51,7 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col-sm-12">
-                        <a href="{{ route('pengguna.index') }}" class="btn btn-secondary waves-effect">Batal</a>
+                        <a href="{{ route('pengguna.alluser') }}" class="btn btn-secondary waves-effect">Batal</a>
 
                     </div>
                 </div> <!-- end col -->

@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" action="{{ route('pengguna.store') }}" enctype="multipart/form-data"
+            <form class="needs-validation" action="{{ route('pengguna.storelistuser') }}" enctype="multipart/form-data"
                 method="POST" novalidate>
                 @csrf
                 <div class="page-title-right">
@@ -114,7 +114,7 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">
-                                        <a href="{{ route('pengguna.index') }}"
+                                        <a href="{{ route('pengguna.alluser') }}"
                                             class="btn btn-secondary waves-effect">Batal</a>
                                         <button class="btn btn-primary" type="submit" style="float: right"
                                             id="submit">Simpan</button>

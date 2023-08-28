@@ -78,7 +78,7 @@
                                                 class="form-control" autocomplete="off" maxlenght="60">
                                         </div>
                                         <div class="mb-1">
-                                            <label for="price">PIN</label>
+                                            <label for="price">Telepon</label>
                                             <input id="phone" name="phone" type="number" value="{{ $profil->phone }}"
                                                 class="form-control" maxlenght="4" required>
                                         </div>

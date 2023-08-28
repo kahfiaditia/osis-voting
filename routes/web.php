@@ -71,6 +71,28 @@ Route::group(
         Route::get('/admin/{id}/edit', [UserController::class, 'edit_admin'])->name('pengguna.edit_admin');
         Route::patch('/update_edit_siswa', [UserController::class, 'update_edit_siswa'])->name('pengguna.update_edit_siswa');
         Route::post('/reset_password/{id}', [UserController::class, 'reset_password'])->name('pengguna.reset_password');
+
+        //list_user_all//
+        Route::get('/get_list_user_siswa', [UserController::class, 'get_list_user_siswa'])->name('pengguna.get_list_user_siswa');
+        Route::get('/get_list_user_guru', [UserController::class, 'get_list_user_guru'])->name('pengguna.get_list_user_guru');
+        Route::get('/get_list_user_administrator', [UserController::class, 'get_list_user_administrator'])->name('pengguna.get_list_user_administrator');
+        Route::get('/data-guru', [UserController::class, 'listDataGuru'])->name('list_data_guru');
+        Route::get('/data-administrator', [UserController::class, 'listDataAdministrator'])->name('list_data_administrator');
+        Route::get('/siswa-list_user/{id}/edit', [UserController::class, 'edit_siswa_list_user'])->name('pengguna.edit_siswa_list_user');
+        Route::patch('/pengguna/update-siswa-listuser/{id}', [UserController::class, 'updateSiswa'])->name('pengguna.update_siswa_listuser');
+        Route::get('/tambah_siswa_listuser', [UserController::class, 'tambah_siswa_listuser'])->name('pengguna.tambah_siswa_listuser');
+        Route::post('/pengguna/storelistuser', [UserController::class, 'storeListUser'])->name('pengguna.storelistuser');
+        Route::get('/guru-list_user/{id}/edit', [UserController::class, 'edit_guru_list_user'])->name('pengguna.edit_guru_list_user');
+        Route::patch('/pengguna/update-guru-listuser/{id}', [UserController::class, 'updateGuru'])->name('pengguna.update_guru_listuser');
+        Route::get('/tambah_guru_listuser', [UserController::class, 'tambah_guru_listuser'])->name('pengguna.tambah_guru_listuser');
+        Route::post('/pengguna/storelistguru', [UserController::class, 'storelistguru'])->name('pengguna.storelistguru');
+
+        Route::get('/admin-list_user/{id}/edit', [UserController::class, 'edit_admin_list_user'])->name('pengguna.edit_admin_list_user');
+        Route::patch('/pengguna/update-admin-listuser/{id}', [UserController::class, 'updateAdmin'])->name('pengguna.update_admin_listuser');
+        Route::get('/tambah_admin_listuser', [UserController::class, 'tambah_admin_listuser'])->name('pengguna.tambah_admin_listuser');
+        Route::post('/pengguna/storelistadmin', [UserController::class, 'storelistadmin'])->name('pengguna.storelistadmin');
+        //list_user_all//
+
         Route::resource('/class', ClasessController::class);
         Route::get('/data_kelas', [ClasessController::class, 'data_kelas'])->name('class.data_kelas');
         Route::resource('/periode', PeriodeController::class);

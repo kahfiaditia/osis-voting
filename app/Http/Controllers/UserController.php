@@ -392,7 +392,7 @@ class UserController extends Controller
             'label' => $this->menu,
         ];
         // return view('user.alluser')->with($data);
-        return view('user.list_data_all')->with($data);
+        return view('user.list_user.siswa_user')->with($data);
     }
 
     public function data_guru()
@@ -742,5 +742,480 @@ class UserController extends Controller
         ]);
 
         return response()->json(['message' => 'Password reset berhasil.']);
+    }
+
+    public function get_list_user_siswa(Request $request)
+    {
+        $userdata = DB::table('users')
+            ->select('name', 'email', 'users.id', 'nis', 'roles', 'class_name', 'class_level')
+            ->leftJoin('clasess', 'clasess.id', 'users.class_id')
+            ->where('roles', '=', 'siswa')
+            ->whereNull('users.deleted_at')
+            ->orderBy('users.id', 'DESC');
+
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $userdata->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('roles', 'like', '%' . $search . '%');
+                // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+            });
+
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $userdata->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('nis', 'like', '%' . $search . '%')
+                        ->orWhere('roles', 'like', '%' . $search . '%');
+                    // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+            if ($request->get('email') != null) {
+                $email = $request->get('email');
+                $userdata->where('email', '=', $email);
+            }
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+        }
+
+        return DataTables::of($userdata)
+            ->addColumn('action', 'user.list_user.siswabutton')
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function edit_siswa_list_user($id)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => 'Siswa List User',
+            'label' => 'Siswa List User',
+            'data' => User::findOrFail($id),
+            'kelas' => ClasessModel::all(),
+        ];
+        return view('user.list_user.siswaeditlist')->with($data);
+    }
+
+    public function tambah_siswa_listuser(Request $request)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => 'List User Tambah',
+            'label' => 'User Tambah List',
+            'kelas' => ClasessModel::All()
+        ];
+        return view('user.list_user.siswatambah')->with($data);
+    }
+
+    public function storeListUser(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required',
+            'email' => 'required|unique:users,email',
+            'telepon' => 'required|unique:users,phone',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $osis = new User();
+            $osis->name = $request->nama;
+            $osis->email = $request->email;
+            if ($request->avatar) {
+                $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                $osis->avatar = $fileName;
+                $request->avatar->move(public_path('avatar'), $fileName);
+            }
+            $osis->password =  bcrypt('12345');
+            $osis->pin = 1234;
+            $osis->nis = $request->nis ?? null;
+            $osis->address = $request->alamat;
+            $osis->phone = $request->telepon;
+            $osis->roles = $request->role;
+            $osis->class_id = $request->kelas;
+            $osis->save();
+
+            DB::commit();
+            AlertHelper::addAlert(true);
+            if ($request->flag == 'tambah_siswa_listuser') {
+                return redirect('/alluser');
+            } else {
+                return redirect('/alluser');
+            }
+        } catch (\Throwable $err) {
+            DB::rollback();
+            throw $err;
+            AlertHelper::addAlert(false);
+            return back();
+        }
+    }
+
+    public function updateSiswa(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $osis1 = User::findOrFail($id);
+            $osis1->name = $request->nama;
+            $osis1->email = $request->email;
+            if ($request->avatar) {
+                $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                $osis1->avatar = $fileName;
+                $request->avatar->move(public_path('avatar'), $fileName);
+            }
+            $osis1->nis =  $request->nis;
+            $osis1->address = $request->alamat;
+            $osis1->phone = $request->telepon;
+            $osis1->roles = $request->role;
+            $osis1->class_id = $request->kelas;
+            $osis1->save();
+
+            DB::commit();
+            AlertHelper::addAlert(true);
+            return redirect('/alluser');
+        } catch (\Throwable $err) {
+            DB::rollback();
+            throw $err;
+            AlertHelper::addAlert(false);
+            return back();
+        }
+    }
+
+
+    public function listDataGuru(Request $request)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'label' => $this->menu,
+        ];
+
+        return view('user.list_user.guru_index')->with($data);
+    }
+
+    public function get_list_user_guru(Request $request)
+    {
+        $userdata = DB::table('users')
+            ->where('roles', '=', 'guru')
+            ->whereNull('users.deleted_at')
+            ->orderBy('users.id', 'DESC');
+
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $userdata->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('nik', 'like', '%' . $search . '%')
+                    ->orWhere('address', 'like', '%' . $search . '%')
+                    ->orWhere('phone', 'like', '%' . $search . '%')
+                    ->orWhere('roles', 'like', '%' . $search . '%');
+                // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+            });
+
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $userdata->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('nis', 'like', '%' . $search . '%')
+                        ->orWhere('nik', 'like', '%' . $search . '%')
+                        ->orWhere('address', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%')
+                        ->orWhere('roles', 'like', '%' . $search . '%');
+                    // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+            if ($request->get('email') != null) {
+                $email = $request->get('email');
+                $userdata->where('email', '=', $email);
+            }
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+        }
+
+        return DataTables::of($userdata)
+            ->addColumn('action', 'user.list_user.gurubutton')
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function edit_guru_list_user($id)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => 'Guru List',
+            'label' => 'Edit Guru List',
+            'data' => User::findOrFail($id),
+
+        ];
+        return view('user.list_user.gurueditlist')->with($data);
+    }
+
+    public function updateGuru(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $guru = User::findOrFail($id);
+            $guru->name = $request->nama;
+            $guru->email = $request->email;
+            if ($request->avatar) {
+                $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                $guru->avatar = $fileName;
+                $request->avatar->move(public_path('avatar'), $fileName);
+            }
+            $guru->nis =  $request->nis;
+            $guru->address = $request->alamat;
+            $guru->phone = $request->telepon;
+            $guru->roles = $request->role;
+            $guru->save();
+
+            DB::commit();
+            AlertHelper::addAlert(true);
+            return redirect('/data-guru');
+        } catch (\Throwable $err) {
+            DB::rollback();
+            throw $err;
+            AlertHelper::addAlert(false);
+            return back();
+        }
+    }
+
+    public function tambah_guru_listuser(Request $request)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => 'List User Tambah Guru',
+            'label' => 'User Guru Tambah List',
+            'kelas' => ClasessModel::All()
+        ];
+        return view('user.list_user.gurutambah')->with($data);
+    }
+
+    public function storeListGuru(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required',
+            'email' => 'required|unique:users,email',
+            'nis' => 'required|unique:users,nis',
+            'telepon' => 'required|unique:users,phone',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $osis = new User();
+            $osis->name = $request->nama;
+            $osis->email = $request->email;
+            if ($request->avatar) {
+                $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                $osis->avatar = $fileName;
+                $request->avatar->move(public_path('avatar'), $fileName);
+            }
+            $osis->password =  bcrypt('12345');
+            $osis->pin = 1234;
+            $osis->nis = $request->nis ?? null;
+            $osis->address = $request->alamat;
+            $osis->phone = $request->telepon;
+            $osis->roles = $request->role;
+            $osis->save();
+
+            DB::commit();
+            AlertHelper::addAlert(true);
+            if ($request->flag == 'tambah_guru_listuser') {
+                return redirect('/data-guru');
+            } else {
+                return redirect('/data-guru');
+            }
+        } catch (\Throwable $err) {
+            DB::rollback();
+            throw $err;
+            AlertHelper::addAlert(false);
+            return back();
+        }
+    }
+
+    public function listDataAdministrator(Request $request)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'label' => $this->menu,
+        ];
+
+        return view('user.list_user.admin_data')->with($data);
+    }
+
+    public function get_list_user_administrator(Request $request)
+    {
+        $userdata = DB::table('users')
+            ->where('roles', '=', 'Administrator')
+            ->whereNull('users.deleted_at')
+            ->orderBy('users.id', 'DESC');
+
+        if ($request->get('search_manual') != null) {
+            $search = $request->get('search_manual');
+            // $search_rak = str_replace(' ', '', $search);
+            $userdata->where(function ($where) use ($search) {
+                $where
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('nik', 'like', '%' . $search . '%')
+                    ->orWhere('address', 'like', '%' . $search . '%')
+                    ->orWhere('phone', 'like', '%' . $search . '%')
+                    ->orWhere('roles', 'like', '%' . $search . '%');
+                // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+            });
+
+            $search = $request->get('search');
+            // $search_rak = str_replace(' ', '', $search);
+            if ($search != null) {
+                $userdata->where(function ($where) use ($search) {
+                    $where
+                        ->orWhere('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('nis', 'like', '%' . $search . '%')
+                        ->orWhere('nik', 'like', '%' . $search . '%')
+                        ->orWhere('address', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%')
+                        ->orWhere('roles', 'like', '%' . $search . '%');
+                    // ->orWhere('id_supplier', 'like', '%' . $search . '%');
+                });
+            }
+        } else {
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+            if ($request->get('email') != null) {
+                $email = $request->get('email');
+                $userdata->where('email', '=', $email);
+            }
+            if ($request->get('name') != null) {
+                $name = $request->get('name');
+                $userdata->where('name', '=', $name);
+            }
+        }
+
+        return DataTables::of($userdata)
+            ->addColumn('action',  'user.list_user.adminbutton')
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function edit_admin_list_user($id)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => 'Admin List',
+            'label' => 'Edit Admin List',
+            'data' => User::findOrFail($id),
+
+        ];
+        return view('user.list_user.admineditlist')->with($data);
+    }
+
+    public function updateAdmin(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $guru = User::findOrFail($id);
+            $guru->name = $request->nama;
+            $guru->email = $request->email;
+            if ($request->avatar) {
+                $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                $guru->avatar = $fileName;
+                $request->avatar->move(public_path('avatar'), $fileName);
+            }
+            $guru->nis =  $request->nis;
+            $guru->address = $request->alamat;
+            $guru->phone = $request->telepon;
+            $guru->roles = $request->role;
+            $guru->save();
+
+            DB::commit();
+            AlertHelper::addAlert(true);
+            return redirect('/data-administrator');
+        } catch (\Throwable $err) {
+            DB::rollback();
+            throw $err;
+            AlertHelper::addAlert(false);
+            return back();
+        }
+    }
+
+    public function tambah_admin_listuser(Request $request)
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => 'List User Tambah Administrator',
+            'label' => 'User Administrator Tambah List',
+        ];
+        return view('user.list_user.admintambah')->with($data);
+    }
+
+    public function storeListAdmin(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required',
+            'email' => 'required|unique:users,email',
+            'nis' => 'required|unique:users,nis',
+            'telepon' => 'required|unique:users,phone',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $osis = new User();
+            $osis->name = $request->nama;
+            $osis->email = $request->email;
+            if ($request->avatar) {
+                $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                $osis->avatar = $fileName;
+                $request->avatar->move(public_path('avatar'), $fileName);
+            }
+            $osis->password =  bcrypt('12345');
+            $osis->pin = 1234;
+            $osis->nis = $request->nis ?? null;
+            $osis->address = $request->alamat;
+            $osis->phone = $request->telepon;
+            $osis->roles = $request->role;
+            $osis->save();
+
+            DB::commit();
+            AlertHelper::addAlert(true);
+            if ($request->flag == 'tambah_guru_listuser') {
+                return redirect('/data-administrator');
+            } else {
+                return redirect('/data-administrator');
+            }
+        } catch (\Throwable $err) {
+            DB::rollback();
+            throw $err;
+            AlertHelper::addAlert(false);
+            return back();
+        }
     }
 }

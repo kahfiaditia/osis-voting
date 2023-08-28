@@ -37,15 +37,15 @@
                          </a>
                      </li>
                      <li>
-                         <a href="{{ route('pengguna.index') }}" class="waves-effect">
-                             <i class="bx bxs-user-detail"></i>
-                             <span key="t-chat">Data Siswa</span>
-                         </a>
-                     </li>
-                     <li>
                          <a href="{{ route('class.index') }}" class="waves-effect">
                              <i class="bx bx-receipt"></i>
                              <span key="t-invoice-list">Data Kelas</span>
+                         </a>
+                     </li>
+                     <li>
+                         <a href="{{ route('pengguna.index') }}" class="waves-effect">
+                             <i class="bx bxs-user-detail"></i>
+                             <span key="t-chat">Data Siswa</span>
                          </a>
                      </li>
                  @endif

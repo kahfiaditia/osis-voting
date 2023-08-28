@@ -6,11 +6,11 @@
     <div class="d-flex gap-3">
 
         @if (Auth::user()->id == 1)
-            <a href="{{ route('pengguna.edit_siswa', $id) }}" class="text-success" data-toggle="tooltip"
+            <a href="{{ route('pengguna.edit_siswa_list_user', $id) }}" class="text-success" data-toggle="tooltip"
                 data-placement="top" title="Edit Data"><i class="mdi mdi-pencil font-size-18"></i></a>
-            {{-- <a href="#" class="text-warning reset_confirm" data-user-id="{{ $id }}"
+            <a href="#" class="text-warning reset_confirm" data-user-id="{{ $id }}"
                 data-toggle="tooltip" data-placement="top" title="Reset Password"><i
-                    class="mdi mdi-key font-size-18"></i></a> --}}
+                    class="mdi mdi-key font-size-18"></i></a>
             <a href="#" class="text-danger delete_confirm"><i class="mdi mdi-delete font-size-18"></i></a>
         @endif
 

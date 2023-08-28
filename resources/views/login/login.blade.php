@@ -79,9 +79,10 @@
                                     novalidate>
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="validationCustom02" class="form-label">NIS / NIK</label>
+                                        <label for="validationCustom02" class="form-label">Username</label>
                                         <input type="text" class="form-control" name="nis" id="nis"
-                                            placeholder="Nis / Nik" autocomplete="off" autofocus required>
+                                            placeholder="Nis / Nik" autocomplete="off" autofocus
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                                         <div class="invalid-feedback">
                                             Please Enter Nis / Nik
                                         </div>

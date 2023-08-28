@@ -1,4 +1,5 @@
 @extends('layouts.main')
+
 @section('evoting')
     <div class="page-content">
         <div class="container-fluid">
@@ -14,18 +15,17 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" action="{{ route('pengguna.store') }}" enctype="multipart/form-data"
+            <form class="needs-validation" action="{{ route('pengguna.storelistguru') }}" enctype="multipart/form-data"
                 method="POST" novalidate>
                 @csrf
-                <div class="page-title-right">
+                {{-- <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <a href="{{ route('pengguna.halaman') }}" type="button"
                             class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
                             <i class="mdi mdi-plus me-1"></i> Upload Excel
                         </a>
                     </ol>
-                </div>
-                <input type="hidden" name="flag" value="tambah_siswa">
+                </div> --}}
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
@@ -35,7 +35,7 @@
                                         <div class="mb-3">
                                             <label for="role" class="form-label">Role <code>*</code></label>
                                             <input type="text" class="form-control" name="role" id="role"
-                                                value="siswa" readonly>
+                                                value="guru" autocomplete="off" maxlength="30" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -51,30 +51,11 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="nis" class="form-label">Nis </label>
+                                            <label for="nis" class="form-label">NIK </label>
                                             <input type="text" class="form-control" name="nis" id="nis"
-                                                autocomplete="off" maxlength="15" required>
-                                            <div class="invalid-feedback">
-                                                Data wajib diisi.
-                                            </div>
-                                            {!! $errors->first('nis', '<div class="invalid-validasi">:message</div>') !!}
+                                                autocomplete="off" maxlength="15">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="mb-3">
-                                            <label for="kelas" class="form-label">Kelas</label>
-                                            <select class="form-control select2" name="kelas" id="kelas">
-                                                <option value=""> -- Pilih --</option>
-                                                @foreach ($kelas as $datakelas)
-                                                    <option value="{{ $datakelas->id }}">
-                                                        {{ $datakelas->class_name . ' - ' . $datakelas->class_level }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email <code>*</code></label>
@@ -86,6 +67,9 @@
                                             {!! $errors->first('email', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
+
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="alamat" class="form-label">Alamat</label>
@@ -112,9 +96,13 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+
+                                </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">
-                                        <a href="{{ route('pengguna.index') }}"
+                                        <a href="{{ route('list_data_guru') }}"
                                             class="btn btn-secondary waves-effect">Batal</a>
                                         <button class="btn btn-primary" type="submit" style="float: right"
                                             id="submit">Simpan</button>
