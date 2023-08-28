@@ -106,11 +106,23 @@ class UserController extends Controller
 
     public function simpanUserAjax(Request $request)
     {
-        // dd($request->datasiswa);
         $datasiswa = $request->datasiswa;
+
         DB::beginTransaction();
         try {
             foreach ($datasiswa as $item) {
+                // Cek apakah NIS sudah ada dalam database
+                $nisExists = DB::table('users')->where('nis', $item['nis'])->exists();
+
+                if ($nisExists) {
+                    TemporaryModel::truncate();
+                    DB::rollBack();
+                    return response()->json([
+                        'code' => 400,
+                        'message' => 'NIS sudah ada dalam database',
+                    ]);
+                }
+
                 DB::table('users')->insert([
                     'name' => $item['nama'],
                     'pin' => $item['pin'],
@@ -132,7 +144,6 @@ class UserController extends Controller
             ]);
         } catch (\Throwable $err) {
             DB::rollBack();
-            throw $err;
             return response()->json([
                 'code' => 404,
                 'message' => 'Gagal Input Data',

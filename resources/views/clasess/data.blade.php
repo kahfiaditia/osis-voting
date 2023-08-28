@@ -61,6 +61,12 @@
                                                         <div class="col-md-12">
                                                             <div class="row">
                                                                 <div class="col-md-2 mb-2">
+                                                                    <input type="text" name="id" id="id"
+                                                                        value="{{ isset($_GET['id']) ? $_GET['id'] : null }}"
+                                                                        class="form-control" placeholder="Id"
+                                                                        autocomplete="off">
+                                                                </div>
+                                                                <div class="col-md-2 mb-2">
                                                                     <input type="text" name="class_name" id="class_name"
                                                                         value="{{ isset($_GET['class_name']) ? $_GET['class_name'] : null }}"
                                                                         class="form-control" placeholder="Kelas"
@@ -105,6 +111,7 @@
                                                                 class="btn btn-secondary w-md">Batal</a>
                                                             @if (isset($_GET['class_name']) or isset($_GET['like']))
                                                                 <?php
+                                                                $id = $_GET['id'];
                                                                 $class_name = $_GET['class_name'];
                                                                 $class_level = $_GET['class_level'];
                                                                 $search_manual = $_GET['search_manual'];
@@ -128,6 +135,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>ID Class</th>
                                         <th>Kelas</th>
                                         <th>Subkelas</th>
                                         <th>Aksi</th>
@@ -148,6 +156,7 @@
         function toggleCheckbox() {
             like = document.getElementById("like").checked;
             if (like == true) {
+                document.getElementById("id").value = null;
                 document.getElementById("class_name").value = null;
                 document.getElementById("class_level").value = null;
                 // document.getElementById("name").value = null;
@@ -165,6 +174,7 @@
         $(document).ready(function() {
             like = document.getElementById("like").checked;
             if (like == true) {
+                document.getElementById("id").value = null;
                 document.getElementById("class_name").value = null;
                 document.getElementById("class_level").value = null;
                 // document.getElementById("name").value = null;
@@ -188,6 +198,11 @@
                 ajax: {
                     url: "{{ route('class.data_kelas') }}",
                     data: function(d) {
+                        d.id = (document.getElementById("id").value
+                                .length != 0) ?
+                            document
+                            .getElementById(
+                                "id").value : null;
                         d.class_name = (document.getElementById("class_name").value
                                 .length != 0) ?
                             document
@@ -213,6 +228,10 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
 
+                    },
+                    {
+                        data: 'id',
+                        name: 'id'
                     },
                     {
                         data: 'class_name',
