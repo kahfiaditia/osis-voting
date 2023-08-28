@@ -8,8 +8,8 @@
         @if (Auth::user()->roles == 'Administrator')
             <a href="{{ route('pengguna.edit_admin', $id) }}" class="text-success"><i
                     class="mdi mdi-pencil font-size-18"></i></a>
-            <a href="#" class="text-warning reset_confirm" data-user-id="{{ $id }}" data-toggle="tooltip"
-                data-placement="top" title="Reset Password"><i class="mdi mdi-key font-size-18"></i></a>
+            {{-- <a href="#" class="text-warning reset_confirm" data-user-id="{{ $id }}" data-toggle="tooltip"
+                data-placement="top" title="Reset Password"><i class="mdi mdi-key font-size-18"></i></a> --}}
             <a href="#" class="text-danger delete_confirm"><i class="mdi mdi-delete font-size-18"></i></a>
         @endif
 
