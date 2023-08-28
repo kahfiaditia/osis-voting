@@ -1216,4 +1216,11 @@ class UserController extends Controller
             return back();
         }
     }
+
+    public function template()
+    {
+        $filePath = public_path('dokumen');
+
+        return response()->download($filePath, 'template_upload.xlsx');
+    }
 }

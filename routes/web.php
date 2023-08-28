@@ -103,5 +103,6 @@ Route::group(
         Route::post('/get_calonwakil', [KandidatController::class, 'get_calonwakil'])->name('kandidat.get_calonwakil');
         Route::post('/edit_get_nisketua', [KandidatController::class, 'edit_get_nisketua'])->name('kandidat.edit_get_nisketua');
         Route::post('/edit_get_niswakil', [KandidatController::class, 'edit_get_niswakil'])->name('kandidat.edit_get_niswakil');
+        Route::get('pengguna/download-template', [UserController::class, 'template'])->name('pengguna.template');
     }
 );

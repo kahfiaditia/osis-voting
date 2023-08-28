@@ -25,10 +25,14 @@
 
                             <h4 class="card-title">Import</h4>
                             <p class="card-title-desc">Upload Data Siswa</p>
+                            <a href="{{ route('pengguna.template') }}" class="btn btn-primary waves-effect"
+                                target="_blank">Download
+                                Excel Template</a>
+
                             <form action="{{ route('pengguna.uploadExcel') }}" method="post" class="dropzone"
                                 enctype="multipart/form-data">
                                 @csrf
-                                <div>
+                                <div class="mt-4">
                                     <div class="fallback">
                                         <input type="file" name="excelFile" id="excelFile" multiple="multiple"
                                             accept=".xls,.xlsx">
@@ -57,28 +61,6 @@
                 </div> <!-- end col -->
             </div> <!-- end row -->
 
-
-
-            {{-- <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title mb-4">Upload Data Proyek</h4>
-                            <form action="{{ route('bursa_opname.uploadExcel') }}" method="post" class="dropzone"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="excelFile">Select Excel File:</label>
-                                    <input type="file" class="form-control" name="excelFile" id="excelFile"
-                                        accept=".xls,.xlsx">
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">Upload</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
 @endsection
