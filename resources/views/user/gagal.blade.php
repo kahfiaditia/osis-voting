@@ -18,12 +18,21 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="mb-sm-0 font-size-18">Pastikan Email dan NIK tidak ada yang sama dan harus Unik</h4>
+                            <h4 class="mb-sm-0 font-size-18">Pastikan Email dan NIS tidak ada yang sama dan harus Unik</h4>
                             <div class="alert alert-warning mt-3" role="alert">
                                 Gagal Upload data Siswa <a href="javascript: void(0);" class="alert-link">an example
                                     link</a>. Pastikan Data Email dan Nis tidak ada yang sama dan belum pernah diupload.
                             </div>
+                            <div class="row mt-4">
+                                <div class="col-sm-12">
+                                    <a href="{{ route('pengguna.halaman') }}"
+                                        class="btn btn-secondary waves-effect">Ulangi</a>
+                                    {{-- <button class="btn btn-primary" type="submit" style="float: right"
+                                        id="submit">Simpan</button> --}}
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>

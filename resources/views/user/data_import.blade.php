@@ -40,8 +40,6 @@
                                                     value="1234" hidden>
                                                 <input type="text" class="form-control" name="password[]" id="password[]"
                                                     value="12345" hidden>
-                                                <input type="text" class="form-control" name="nik[]" id="nik[]"
-                                                    value="0" hidden>
                                                 <input type="hidden" name="url" id="url"
                                                     value="{{ $item->id }}">
                                                 <input type="hidden" name="roles" id="roles" value="siswa">
@@ -89,7 +87,6 @@
                 var roles = $(this).find('input[name="roles[]"]').val();
                 var email = $(this).find('input[name="email[]"]').val();
                 var nis = $(this).find('input[name="nis[]"]').val();
-                var nik = $(this).find('input[name="nik[]"]').val();
                 var address = $(this).find('input[name="address[]"]').val();
                 var phone = $(this).find('input[name="phone[]"]').val();
                 var roles = $(this).find('input[name="roles[]"]').val();
@@ -101,7 +98,6 @@
                     roles: roles,
                     email: email,
                     nis: nis,
-                    nik: nik,
                     address: address,
                     phone: phone,
                 });

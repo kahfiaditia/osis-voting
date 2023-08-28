@@ -63,15 +63,13 @@ class UserController extends Controller
                 $name = $hasil[0][$rowIndex][1];
                 $email = $hasil[0][$rowIndex][2];
                 $nis = $hasil[0][$rowIndex][5];
-                $nik = $hasil[0][$rowIndex][6];
-                $alamat = $hasil[0][$rowIndex][7];
-                $tlp = $hasil[0][$rowIndex][8];
+                $alamat = $hasil[0][$rowIndex][6];
+                $tlp = $hasil[0][$rowIndex][7];
 
                 TemporaryModel::create([
                     'name' => $name,
                     'email' => $email,
                     'nis' => $nis,
-                    'nik' => $nik,
                     'address' => $alamat,
                     'phone' => $tlp,
                 ]);
@@ -445,17 +443,6 @@ class UserController extends Controller
         ];
         return view('user.guru.input_guru')->with($data);
     }
-
-    // public function tambah_admin(Request $request)
-    // {
-    //     $data = [
-    //         'title' => $this->title,
-    //         'menu' => "Admin",
-    //         'label' => "Admin",
-
-    //     ];
-    //     return view('user.administrator.tambah_administrator')->with($data);
-    // }
 
     /**
      * Store a newly created resource in storage.
