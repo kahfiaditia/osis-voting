@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <div class="page-title-left">
-                            <h4 class="mb-sm-0 font-size-18">{{ $label }}</h4>
+                            <h4 class="mb-sm-0 font-size-18">List User</h4>
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item">User</li>
                                 <li class="breadcrumb-item">List Data User</li>

@@ -22,7 +22,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Periode
                                                 <code>*</code></label>
@@ -36,7 +36,7 @@
                                             {!! $errors->first('periode', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Flag</label>
                                             <input type="number" class="form-control" id="flag" name="flag"
@@ -47,7 +47,7 @@
                                             </div>
                                             {!! $errors->first('flag', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">

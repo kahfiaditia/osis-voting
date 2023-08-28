@@ -140,7 +140,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Periode</th>
-                                        <th>Flag Pemilihan</th>
+                                        <th>Aktif</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -231,7 +231,14 @@
                     },
                     {
                         data: 'flag',
-                        name: 'flag'
+                        name: 'flag',
+                        render: function(data, type, row) {
+                            if (data === null) {
+                                return '<span class="badge bg-success">Active</span>';
+                            } else {
+                                return '<span class="badge bg-danger">Inactive</span>';
+                            }
+                        }
                     },
                     {
                         data: 'action',

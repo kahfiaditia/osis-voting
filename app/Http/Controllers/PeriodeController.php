@@ -164,11 +164,13 @@ class PeriodeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $flag = $request->has('flag') ? null : 1;
+
         DB::beginTransaction();
         try {
             $editkelas = PeriodeModel::findOrFail($id);
             $editkelas->periode_name = $request->periode;
-            $editkelas->flag = $request->flag;
+            $editkelas->flag = $flag;
             $editkelas->user_updated =  Auth::user()->id;
             $editkelas->save();
 

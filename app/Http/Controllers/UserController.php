@@ -897,7 +897,7 @@ class UserController extends Controller
     public function listDataGuru(Request $request)
     {
         $data = [
-            'title' => $this->title,
+            'title' => 'List User',
             'menu' => $this->menu,
             'label' => $this->menu,
         ];

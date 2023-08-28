@@ -38,15 +38,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="validationCustom02" class="form-label">Flag Pemilihan (Isi apapun
-                                                jika pemilihan OSIS sudah selesai)</label>
-                                            <input type="number" class="form-control" id="flag" name="flag"
-                                                max='1' onkeyup="this.value = this.value.toUpperCase();"
-                                                value="{{ $edit->flag }}" autofocus placeholder="Flag">
-                                            <div class="invalid-feedback">
-                                                Data 1 karakter.
-                                            </div>
-                                            {!! $errors->first('flag', '<div class="invalid-validasi">:message</div>') !!}
+                                            <label for="flag" class="form-label">Aktif ? <code>*</code></label>
+                                            <br>
+                                            <input type="checkbox" name="flag" id="flagSwitch" switch="none"
+                                                {{ $edit->flag === null ? 'checked' : '' }} />
+                                            <label for="flagSwitch" data-on-label="On" data-off-label="Off"></label>
                                         </div>
                                     </div>
                                 </div>
