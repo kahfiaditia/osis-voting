@@ -84,7 +84,7 @@
                                             placeholder="Nis / Nik" autocomplete="off" autofocus
                                             oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                                         <div class="invalid-feedback">
-                                            Please Enter Nis / Nik
+                                            Mohon masukan NIK atau NISN anda!
                                         </div>
                                         {{-- {!! $errors->first('nis', '<div class="invalid-validasi" style="color:red">:message</div>') !!} --}}
                                     </div>
@@ -92,12 +92,13 @@
                                         <label class="form-label">Password</label>
                                         <div class="input-group auth-pass-inputgroup">
                                             <input type="password" name="password" minlength="5" class="form-control"
-                                                placeholder="Enter password" aria-label="Password"
+                                                placeholder="Password" aria-label="Password"
                                                 aria-describedby="password-addon" required>
                                             <button class="btn btn-light" type="button" id="password-addon"><i
                                                     class="mdi mdi-eye-outline"></i></button>
                                             <div class="invalid-feedback">
-                                                Please Enter Password and It should have 5 characters or more.
+                                                Silahkan Masukan kata Sandi dan kata Sandi harus terdiri dari 5 karakter
+                                                atau lebih!
                                             </div>
                                         </div>
                                     </div>
@@ -113,7 +114,7 @@
                         <div>
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script>. Created By {{ strtoupper($title) }} Team
+                            </script> | SMA Negeri 1 Kota Gajah
                             </p>
                         </div>
                     </div>
