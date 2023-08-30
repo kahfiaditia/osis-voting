@@ -4,10 +4,10 @@
             <div class="navbar-brand-box">
                 <a href="{{ route('dashboard') }}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ URL::asset('assets/images/brands/logo123.png') }}" alt="" height="25">
+                        <img src="{{ URL::asset('assets/images/brands/abcd.png') }}" alt="" height="25">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('assets/images/brands/sman1.png') }}" alt="" height="40">
+                        <img src="{{ URL::asset('assets/images/brands/abcd.png') }}" alt="" height="40">
                     </span>
                 </a>
             </div>
