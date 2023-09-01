@@ -51,10 +51,14 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="nis" class="form-label">NIK </label>
+                                            <label for="nis" class="form-label">NIK<code>*</code> </label>
                                             <input type="text" class="form-control" name="nis" id="nis"
-                                                autocomplete="off" maxlength="15">
+                                                autocomplete="off" maxlength="15" required>
                                         </div>
+                                        <div class="invalid-feedback">
+                                            Data wajib diisi.
+                                        </div>
+                                        {!! $errors->first('nis', '<div class="invalid-validasi">:message</div>') !!}
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">

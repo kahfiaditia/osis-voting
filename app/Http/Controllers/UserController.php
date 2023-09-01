@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class UserController extends Controller
 {
@@ -1214,8 +1215,13 @@ class UserController extends Controller
 
     public function template()
     {
-        $filePath = public_path('dokumen');
+        // $filePath = public_path('dokumen/submenu.xlsx'); // Ganti dengan path file yang sesuai
+        // $fileName = 'template_upload.xlsx';
+        // dd($fileName);
+        // return response()->download($filePath, $fileName);
 
-        return response()->download($filePath, 'template_upload.xlsx');
+        $filePath = public_path('dokumen/template_upload.xlsx');
+
+        return response()->file($filePath);
     }
 }

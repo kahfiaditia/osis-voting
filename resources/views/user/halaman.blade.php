@@ -25,8 +25,7 @@
 
                             <h4 class="card-title">Import</h4>
                             <p class="card-title-desc">Upload Data Siswa</p>
-                            <a href="{{ route('pengguna.template') }}" class="btn btn-primary waves-effect"
-                                target="_blank">Download
+                            <a href="{{ route('template') }}" class="btn btn-primary waves-effect" target="_blank">Download
                                 Excel Template</a>
 
                             <form action="{{ route('pengguna.uploadExcel') }}" method="post" class="dropzone"
