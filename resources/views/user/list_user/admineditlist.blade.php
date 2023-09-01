@@ -28,17 +28,15 @@
                                         <div class="mb-3">
                                             <label for="role" class="form-label">Role <code>*</code></label>
                                             <select class="form-control select select2 role" name="role" id="role">
-                                                <option value=""> -- Pilih --</option>
-                                                <option value="{{ $data->roles }}"
-                                                    @if ($data->roles == 'siswa') selected @endif> Siswa
+                                                <option value="siswa" @if ($data->roles == 'siswa') selected @endif>
+                                                    Siswa
                                                 </option>
-                                                <option value="{{ $data->roles }}"
-                                                    @if ($data->roles == 'guru') selected @endif> Guru
+                                                <option value="guru" @if ($data->roles == 'guru') selected @endif>
+                                                    Guru
                                                 </option>
-                                                <option value="{{ $data->roles }}"
+                                                <option value="Administrator"
                                                     @if ($data->roles == 'Administrator') selected @endif> Adminitrator
                                                 </option>
-
                                             </select>
                                         </div>
                                     </div>

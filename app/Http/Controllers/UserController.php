@@ -972,6 +972,8 @@ class UserController extends Controller
 
     public function updateGuru(Request $request, $id)
     {
+        // dd($request);
+
         DB::beginTransaction();
         try {
             $guru = User::findOrFail($id);
@@ -1029,7 +1031,7 @@ class UserController extends Controller
             }
             $osis->password =  bcrypt('12345');
             $osis->pin = 1234;
-            $osis->nis = $request->nis ?? null;
+            $osis->nis = $request->nis;
             $osis->address = $request->alamat;
             $osis->phone = $request->telepon;
             $osis->roles = $request->role;
