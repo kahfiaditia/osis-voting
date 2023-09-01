@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="nis" class="form-label">Nis </label>
+                                            <label for="nis" class="form-label">Nis <code>*</code></label>
                                             <input type="text" class="form-control" name="nis" id="nis"
                                                 autocomplete="off" maxlength="15" required>
                                             <div class="invalid-feedback">
@@ -98,9 +98,10 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="avatar" class="form-label">Foto</label>
+                                            <label for="avatar" class="form-label">Foto (.jpg, .jpeg,
+                                                .png) max 2048</label>
                                             <input type="file" class="form-control" name="avatar" id="avatar"
-                                                autocomplete="off">
+                                                autocomplete="off" accept=".jpg, .jpeg, .png">
                                         </div>
                                     </div>
                                 </div>

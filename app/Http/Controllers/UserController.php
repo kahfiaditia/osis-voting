@@ -467,6 +467,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'nama' => 'required',
             'nis' => 'required|unique:users,nis',
+            'avatar' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ]);
 
         DB::beginTransaction();
@@ -823,6 +824,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'nama' => 'required',
             'nis' => 'required|unique:users,nis',
+            'avatar' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ]);
 
         DB::beginTransaction();
@@ -1018,6 +1020,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'nama' => 'required',
             'nis' => 'required|unique:users,nis',
+            'avatar' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ]);
 
         DB::beginTransaction();
@@ -1178,6 +1181,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'nama' => 'required',
             'nis' => 'required|unique:users,nis',
+            'avatar' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ]);
 
         DB::beginTransaction();
@@ -1215,10 +1219,6 @@ class UserController extends Controller
 
     public function template()
     {
-        // $filePath = public_path('dokumen/submenu.xlsx'); // Ganti dengan path file yang sesuai
-        // $fileName = 'template_upload.xlsx';
-        // dd($fileName);
-        // return response()->download($filePath, $fileName);
 
         $filePath = public_path('dokumen/template_upload.xlsx');
 
