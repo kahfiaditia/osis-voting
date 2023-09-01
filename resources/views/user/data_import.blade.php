@@ -130,7 +130,7 @@
                             'error'
                         ).then(() => {
                             var APP_URL = {!! json_encode(url('/')) !!}
-                            window.location = APP_URL + '/user/gagal';
+                            window.location = APP_URL + '/halaman';
                         });
                     }
                 },
