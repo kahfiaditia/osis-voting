@@ -465,8 +465,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required',
-            'email' => 'required|unique:users,email',
-            'telepon' => 'required|unique:users,phone',
+            'nis' => 'required|unique:users,nis',
         ]);
 
         DB::beginTransaction();
@@ -591,7 +590,7 @@ class UserController extends Controller
                 $request->avatar->move(public_path('avatar'), $fileName);
             }
             $osis1->pin =  1234;
-            $osis1->nis =  $request->nis ?? null;
+            $osis1->nis =  $request->nis;
             $osis1->address = $request->alamat;
             $osis1->phone = $request->telepon;
             $osis1->roles = $request->role;
@@ -630,7 +629,7 @@ class UserController extends Controller
                 $request->avatar->move(public_path('avatar'), $fileName);
             }
             $osis1->pin =  1234;
-            $osis1->nis =  $request->nis ?? null;
+            $osis1->nis =  $request->nis;
             $osis1->address = $request->alamat;
             $osis1->phone = $request->telepon;
             $osis1->roles = $request->role;
@@ -688,13 +687,12 @@ class UserController extends Controller
     {
         $request->validate([
             'nama' => 'required|max:50',
-            'email' => 'required|email|max:50',
+            'email' => 'nullable|email|max:50',
             'nis' => 'max:15',
             'pin' => 'required|numeric|max:9999',
             'role' => 'required|in:guru,siswa,Administrator',
-            'nis' => 'max:15',
             'password' => 'nullable|max:60',
-            'alamat' => 'max:50',
+            'alamat' => 'nullable|max:50',
         ]);
 
         DB::beginTransaction();
@@ -702,7 +700,7 @@ class UserController extends Controller
             $user = User::findOrFail($id);
             $user->name = $request->nama;
             $user->email = $request->email;
-            $user->nis = $request->nis ?? 0;
+            $user->nis = $request->nis;
             $user->pin = $request->pin;
             $user->roles = $request->role;
             $user->phone = $request->phone;
@@ -823,8 +821,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required',
-            'email' => 'required|unique:users,email',
-            'telepon' => 'required|unique:users,phone',
+            'nis' => 'required|unique:users,nis',
         ]);
 
         DB::beginTransaction();
@@ -839,7 +836,7 @@ class UserController extends Controller
             }
             $osis->password =  bcrypt('12345');
             $osis->pin = 1234;
-            $osis->nis = $request->nis ?? null;
+            $osis->nis = $request->nis;
             $osis->address = $request->alamat;
             $osis->phone = $request->telepon;
             $osis->roles = $request->role;
@@ -1017,9 +1014,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required',
-            'email' => 'required|unique:users,email',
             'nis' => 'required|unique:users,nis',
-            'telepon' => 'required|unique:users,phone',
         ]);
 
         DB::beginTransaction();
@@ -1179,9 +1174,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required',
-            'email' => 'required|unique:users,email',
             'nis' => 'required|unique:users,nis',
-            'telepon' => 'required|unique:users,phone',
         ]);
 
         DB::beginTransaction();

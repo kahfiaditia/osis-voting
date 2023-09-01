@@ -58,13 +58,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Email <code>*</code></label>
+                                            <label for="email" class="form-label">Email</label>
                                             <input class="form-control" type="text" id="email" name="email"
-                                                value="" autocomplete="off" maxlength="50" required>
-                                            <div class="invalid-feedback">
-                                                Data wajib diisi.
-                                            </div>
-                                            {!! $errors->first('email', '<div class="invalid-validasi">:message</div>') !!}
+                                                value="" autocomplete="off" maxlength="50">
                                         </div>
                                     </div>
                                 </div>
@@ -79,13 +75,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="telepon" class="form-label">Phone <code>*</code></label>
+                                            <label for="telepon" class="form-label">Phone </label>
                                             <input type="text" class="form-control" name="telepon" id="telepon"
-                                                autocomplete="off" maxlength="20" required>
-                                            <div class="invalid-feedback">
-                                                Data wajib diisi.
-                                            </div>
-                                            {!! $errors->first('telepon', '<div class="invalid-validasi">:message</div>') !!}
+                                                autocomplete="off" maxlength="20">
                                         </div>
                                     </div>
                                     <div class="col-md-3">

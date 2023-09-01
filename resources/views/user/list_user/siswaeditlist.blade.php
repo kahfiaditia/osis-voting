@@ -51,16 +51,16 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="nis" class="form-label">NIS </label>
+                                            <label for="nis" class="form-label">NIS<code>*</code></label>
                                             <input type="text" class="form-control" name="nis" id="nis"
                                                 value="{{ $data->nis }}" autocomplete="off" required>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Email <code>*</code></label>
+                                            <label for="email" class="form-label">Email </label>
                                             <input class="form-control" type="text" id="email" name="email"
-                                                value="{{ $data->email }}" value="" autocomplete="off" required>
+                                                value="{{ $data->email }}" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -72,9 +72,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="telepon" class="form-label">Phone <code>*</code></label>
+                                            <label for="telepon" class="form-label">Phone </label>
                                             <input type="text" class="form-control" name="telepon" id="telepon"
-                                                value="{{ $data->phone }}" autocomplete="off" required>
+                                                value="{{ $data->phone }}" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
