@@ -25,9 +25,24 @@
 
                             <h4 class="card-title">Import</h4>
                             <p class="card-title-desc">Upload Data Siswa</p>
-                            <a href="{{ route('template') }}" class="btn btn-primary waves-effect mb-3"
+                            <div class="alert alert-warning" role="alert">
+                                Sebelum Upload, klik <a href="{{ route('pengguna.hapus_semua') }}" class="alert-link">DI
+                                    SINI</a>
+                                dibawah terlebih dahulu agar upload berjalan lancar
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{{ route('template') }}" class="btn btn-primary waves-effect mb-3"
+                                    target="_blank">Download Excel Template</a>
+                                <button type="button" class="btn btn-success waves-effect waves-light"
+                                    data-bs-toggle="modal" data-bs-target=".bs-example-modal-sm">Panduan Upload</button>
+                            </div>
+                            {{-- <a href="{{ route('template') }}" class="btn btn-primary waves-effect mb-3"
                                 target="_blank">Download
                                 Excel Template</a>
+
+                            <button type="button" class="btn btn-success waves-effect waves-light" data-bs-toggle="modal"
+                                data-bs-target=".bs-example-modal-sm">Panduan Upload</button> --}}
 
                             <form action="{{ route('pengguna.uploadExcel') }}" method="post" class="dropzone"
                                 enctype="multipart/form-data">
@@ -73,11 +88,32 @@
                 <div class="row mt-4">
                     <div class="col-sm-12">
                         <a href="{{ route('pengguna.alluser') }}" class="btn btn-secondary waves-effect">Batal</a>
-                        <a href="{{ route('pengguna.hapus_semua') }}" class="btn btn-secondary waves-effect">Clear Cache</a>
+                        {{-- <a href="{{ route('pengguna.hapus_semua') }}" class="btn btn-secondary waves-effect">Clear Cache</a> --}}
                     </div>
                 </div> <!-- end col -->
             </div> <!-- end row -->
 
         </div>
     </div>
+
+    <!--  Small modal example -->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mySmallModalLabel">Panduan Upload</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>1. Tekan Tomobol Pembersihan Data Temporary dengan klik Tulisan <b>DI SINI</b></p>
+                    <p>2. Pastikan Download Template Upload dan sesuaikan</p>
+                    <p>3. Kelas bisa dilihat di menu kelas dengan memasukan ID Kelas pada menu kelas</p>
+                    <p>4. Nis, Email dan Phone <b>harus unik atau berbeda</b> dengan yang lainnya</p>
+                    <p>5. Nama dan Nis dan roles Harus/Wajib <b>diisi</b></p>
+                    <p>6. Roles harus diisi dengan kata "siswa" <b>(Hilangkan tanda petik)</b></p>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 @endsection
