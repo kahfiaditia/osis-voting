@@ -21,6 +21,30 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Informasi User</h4>
+                            <div class="d-flex mt-4">
+                                <div class="flex-shrink-0 me-4">
+                                    {{-- <img src="assets/images/companies/img-1.png" alt="" class="avatar-sm"> --}}
+                                    @if ($profil->avatar != null)
+                                        <img src="{{ URL::asset('avatar/' . $profil->avatar) }}" class="avatar-sm"
+                                            alt="" />
+                                    @endif
+                                    @if ($profil->avatar == null)
+                                        <img src="assets/images/companies/img-1.png" alt="" class="avatar-sm">
+                                    @endif
+
+                                </div>
+
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h5 class="text-truncate font-size-15">{{ $profil->name }}</h5>
+                                    @if (Auth::user()->roles == 'siswa')
+                                        <p class="text-muted">Nis {{ $profil->nis }}</p>
+                                    @endif
+                                    @if (Auth::user()->roles == 'guru' || Auth::user()->roles == 'Administrator')
+                                        <p class="text-muted">Nik {{ $profil->nis }}</p>
+                                    @endif
+                                </div>
+                            </div>
+
                             <form class="needs-validation" action="{{ route('pengguna.updateprofil', $profil->id) }}"
                                 method="POST" novalidate>
                                 @csrf
@@ -79,8 +103,9 @@
                                         </div>
                                         <div class="mb-1">
                                             <label for="price">Telepon</label>
-                                            <input id="phone" name="phone" type="number" value="{{ $profil->phone }}"
-                                                class="form-control" maxlenght="4" required>
+                                            <input id="phone" name="phone" type="number"
+                                                value="{{ $profil->phone }}" class="form-control" maxlenght="4"
+                                                required>
                                         </div>
                                         <div class="invalid-feedback">
                                             Data wajib diisi.
