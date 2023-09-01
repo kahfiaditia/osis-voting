@@ -28,7 +28,7 @@
                             <div class="alert alert-warning" role="alert">
                                 Sebelum Upload, klik <a href="{{ route('pengguna.hapus_semua') }}" class="alert-link">DI
                                     SINI</a>
-                                dibawah terlebih dahulu agar upload berjalan lancar
+                                terlebih dahulu agar upload berjalan lancar
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">
