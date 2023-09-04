@@ -22,12 +22,12 @@
                             <table id="uploadsiswa" class="table table-bordered dt-responsive  nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Nis</th>
-                                        <th>Roles</th>
-                                        <th>Email</th>
-                                        <th>Kelas</th>
+                                        <th style="width: 5%;">No</th>
+                                        <th style="width: 20%;">Nama</th>
+                                        <th style="width: 20%;">Nis</th>
+                                        <th style="width: 20%;">Roles</th>
+                                        <th style="width: 20%;">Email</th>
+                                        <th style="width: 20%;">Kelas</th>
                                         {{-- <th>Phone</th> --}}
                                         {{-- <th>Alamat</th> --}}
 
@@ -36,16 +36,16 @@
                                 <tbody>
                                     @foreach ($importedData as $item)
                                         <tr>
-                                            <td style="width: 5%;">{{ $loop->iteration }}</td>
-                                            <td style="width: 25%;"><input type="text" class="form-control"
-                                                    name="name[]" id="name[]" value="{{ $item->name }}"></td>
-                                            <td style="width: 25%;"><input type="text" class="form-control"
-                                                    name="nis[]" id="nis[]" value="{{ $item->nis }}"></td>
-                                            <td style="width: 5%;"><input type="text" name="roles[]" id="roles[]"
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td><input type="text" class="form-control" name="name[]" id="name[]"
+                                                    value="{{ $item->name }}"></td>
+                                            <td><input type="text" class="form-control" name="nis[]" id="nis[]"
+                                                    value="{{ $item->nis }}"></td>
+                                            <td><input type="text" class="form-control" name="roles[]" id="roles[]"
                                                     value="{{ $item->roles }}"></td>
-                                            <td style="width: 5%;"><input type="text" name="email[]" id="email[]"
+                                            <td><input type="text" class="form-control" name="email[]" id="email[]"
                                                     value="{{ $item->email }}"></td>
-                                            <td style="width: 5%;"><input type="text" name="class_id[]" id="class_id[]"
+                                            <td><input type="text" class="form-control" name="class_id[]" id="class_id[]"
                                                     value="{{ $item->class_id }}">
                                                 <input type="text" class="form-control" name="phone[]" id="phone[]"
                                                     value="{{ $item->phone }}" hidden>
@@ -81,7 +81,7 @@
 
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script>
         $(document).on('click', '#simpansiswa', function() {
             var datasiswa = [];
