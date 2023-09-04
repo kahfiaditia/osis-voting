@@ -16,10 +16,10 @@ class TemporraryFileTableUpload extends Migration
         Schema::create('temporary_file', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable();
             $table->string('nis')->unique()->nullable();
             $table->string('address')->nullable();
-            $table->string('phone')->unique()->nullable();
+            $table->string('phone')->nullable();
             $table->string('roles')->nullable();
             $table->string('class_id')->nullable();
             $table->timestamps();

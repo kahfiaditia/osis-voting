@@ -24,34 +24,40 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Email</th>
                                         <th>Nis</th>
-                                        <th>Alamat</th>
-                                        <th>Phone</th>
+                                        <th>Roles</th>
+                                        <th>Email</th>
+                                        <th>Kelas</th>
+                                        {{-- <th>Phone</th> --}}
+                                        {{-- <th>Alamat</th> --}}
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($importedData as $item)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td><input type="text" class="form-control" name="name[]" id="name[]"
-                                                    value="{{ $item->name }}">
+                                            <td style="width: 5%;">{{ $loop->iteration }}</td>
+                                            <td style="width: 25%;"><input type="text" class="form-control"
+                                                    name="name[]" id="name[]" value="{{ $item->name }}"></td>
+                                            <td style="width: 25%;"><input type="text" class="form-control"
+                                                    name="nis[]" id="nis[]" value="{{ $item->nis }}"></td>
+                                            <td style="width: 5%;"><input type="text" name="roles[]" id="roles[]"
+                                                    value="{{ $item->roles }}"></td>
+                                            <td style="width: 5%;"><input type="text" name="email[]" id="email[]"
+                                                    value="{{ $item->email }}"></td>
+                                            <td style="width: 5%;"><input type="text" name="class_id[]" id="class_id[]"
+                                                    value="{{ $item->class_id }}">
+                                                <input type="text" class="form-control" name="phone[]" id="phone[]"
+                                                    value="{{ $item->phone }}" hidden>
                                                 <input type="text" class="form-control" name="pin[]" id="pin[]"
                                                     value="1234" hidden>
                                                 <input type="text" class="form-control" name="password[]" id="password[]"
                                                     value="12345" hidden>
-                                                <input type="hidden" name="url" id="url"
-                                                    value="{{ $item->id }}">
-                                                <input type="hidden" name="roles" id="roles" value="siswa">
+                                                <input type="text" name="address[]" id="address[]"
+                                                    value="{{ $item->address }}" hidden>
+                                                <input type="text" name="url" id="url"
+                                                    value="{{ $item->id }}" hidden>
                                             </td>
-                                            <td><input type="text" class="form-control" name="email[]" id="email[]"
-                                                    value="{{ $item->email }}"></td>
-                                            <td><input type="" class="form-control" name="nis[]" id="nis[]"
-                                                    value="{{ $item->nis }}"></td>
-                                            <td><input type="text" class="form-control" name="address[]" id="address[]"
-                                                    value="{{ $item->address }}"></td>
-                                            <td><input type="text" class="form-control" name="phone[]" id="phone[]"
-                                                    value="{{ $item->phone }}"></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -81,25 +87,27 @@
             var datasiswa = [];
 
             $('#uploadsiswa tbody tr').each(function() {
-                var nama = $(this).find('input[name="name[]"]').val();
-                var pin = $(this).find('input[name="pin[]"]').val();
-                var password = $(this).find('input[name="password[]"]').val();
+                var name = $(this).find('input[name="name[]"]').val();
+                var nis = $(this).find('input[name="nis[]"]').val();
                 var roles = $(this).find('input[name="roles[]"]').val();
                 var email = $(this).find('input[name="email[]"]').val();
-                var nis = $(this).find('input[name="nis[]"]').val();
+                var class_id = $(this).find('input[name="class_id[]"]').val();
                 var address = $(this).find('input[name="address[]"]').val();
                 var phone = $(this).find('input[name="phone[]"]').val();
-                var roles = $(this).find('input[name="roles[]"]').val();
+                var pin = $(this).find('input[name="pin[]"]').val();
+                var password = $(this).find('input[name="password[]"]').val();
+
 
                 datasiswa.push({
-                    nama: nama,
-                    pin: pin,
-                    password: password,
+                    nama: name,
+                    nis: nis,
                     roles: roles,
                     email: email,
-                    nis: nis,
+                    class_id: class_id,
                     address: address,
                     phone: phone,
+                    pin: pin,
+                    password: password,
                 });
             });
 

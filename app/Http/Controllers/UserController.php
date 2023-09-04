@@ -40,6 +40,17 @@ class UserController extends Controller
         return view('user.halaman')->with($data);
     }
 
+    public function halaman_guru()
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'submenu' => 'Upload Guru',
+            'label' => 'Guru Import',
+        ];
+        return view('user.list_user.excelguru')->with($data);
+    }
+
     public function gagal_import()
     {
         return view('user.gagal');
@@ -57,22 +68,29 @@ class UserController extends Controller
 
             $import = new UserImport();
             $hasil = $import->toArray($file);
-
+            // dd($hasil);
             DB::beginTransaction();
 
             for ($rowIndex = 1; $rowIndex < count($hasil[0]); $rowIndex++) {
+
                 $name = $hasil[0][$rowIndex][1];
-                $email = $hasil[0][$rowIndex][2];
-                $nis = $hasil[0][$rowIndex][5];
-                $alamat = $hasil[0][$rowIndex][6];
-                $tlp = $hasil[0][$rowIndex][7];
+                $nis = $hasil[0][$rowIndex][2];
+                $roles = $hasil[0][$rowIndex][3];
+                $email = $hasil[0][$rowIndex][4];
+                $class_id = $hasil[0][$rowIndex][5];
+                $address = $hasil[0][$rowIndex][6];
+                $phone = $hasil[0][$rowIndex][7];
+
+
 
                 TemporaryModel::create([
                     'name' => $name,
-                    'email' => $email,
                     'nis' => $nis,
-                    'address' => $alamat,
-                    'phone' => $tlp,
+                    'roles' => $roles,
+                    'email' => $email,
+                    'class_id' => $class_id,
+                    'address' => $address,
+                    'phone' => $phone,
                 ]);
             }
 
@@ -107,32 +125,42 @@ class UserController extends Controller
 
     public function simpanUserAjax(Request $request)
     {
+        // dd($request->datasiswa);
         $datasiswa = $request->datasiswa;
 
         DB::beginTransaction();
         try {
             foreach ($datasiswa as $item) {
-                // Cek apakah NIS sudah ada dalam database
                 $nisExists = DB::table('users')->where('nis', $item['nis'])->exists();
 
                 if ($nisExists) {
-                    TemporaryModel::truncate();
-                    DB::rollBack();
+                    // NIS sudah ada dalam database, tampilkan pesan kesalahan
                     return response()->json([
                         'code' => 400,
-                        'message' => 'NIS sudah ada dalam database',
+                        'message' => 'NIS ' . $item['nis'] .  $item['name'] . ' sudah ada dalam database',
                     ]);
                 }
 
+                // "nama" => "Ayu1"
+                // "nis" => "656785"
+                // "roles" => "siswa"
+                // "email" => null
+                // "class_id" => null
+                // "address" => null
+                // "phone" => null
+                // "pin" => "1234"
+                // "password" => "12345"
+
                 DB::table('users')->insert([
                     'name' => $item['nama'],
-                    'pin' => $item['pin'],
-                    'password' => bcrypt($item['password']),
-                    'email' => $item['email'],
                     'nis' => $item['nis'],
+                    'roles' => $item['roles'],
+                    'email' => $item['email'],
+                    'class_id' => $item['class_id'],
                     'address' => $item['address'],
                     'phone' => $item['phone'],
-                    'roles' => "siswa",
+                    'pin' => $item['pin'],
+                    'password' => bcrypt($item['password']),
                 ]);
             }
 

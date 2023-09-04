@@ -18,10 +18,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="mb-sm-0 font-size-18">Pastikan Email dan NIS tidak ada yang sama dan harus Unik</h4>
+                            <h4 class="mb-sm-0 font-size-18">Pastikan Nis Wajib Diisi dan Unik, Email dan TLP JIKA DIISI
+                                wajib Unik</h4>
                             <div class="alert alert-warning mt-3" role="alert">
                                 Gagal Upload data Siswa <a href="javascript: void(0);" class="alert-link">an example
-                                    link</a>. Pastikan Data Email dan Nis tidak ada yang sama dan belum pernah diupload.
+                                    link</a>. Pastikan Nis telah diisi dan unik, jika tlp dan email diisi pastikan tidak ada
+                                yang sama dan belum pernah diupload.
                             </div>
                             <div class="row mt-4">
                                 <div class="col-sm-12">

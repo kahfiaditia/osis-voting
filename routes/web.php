@@ -50,6 +50,7 @@ Route::group(
         // menu
         Route::resource('/pengguna', UserController::class);
         Route::get('/halaman', [UserController::class, 'halaman'])->name('pengguna.halaman');
+        Route::get('/halaman_guru', [UserController::class, 'halaman_guru'])->name('pengguna.halaman_guru');
         Route::get('/profil', [UserController::class, 'profil'])->name('pengguna.profil');
         Route::patch('/updateprofil/{id}', [UserController::class, 'updateprofil'])->name('pengguna.updateprofil');
         Route::get('/alluser', [UserController::class, 'alluser'])->name('pengguna.alluser');
