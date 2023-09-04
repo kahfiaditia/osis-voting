@@ -99,7 +99,7 @@
 
 
                 datasiswa.push({
-                    nama: name,
+                    name: name,
                     nis: nis,
                     roles: roles,
                     email: email,
