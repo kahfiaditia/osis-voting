@@ -156,16 +156,28 @@
                                         <div class="avatar-group" style="padding-left: 20px;">
                                             <div class="avatar-group-item" style="margin-left: 10px;">
                                                 <a href="javascript: void(0);" class="d-inline-block">
-                                                    <img src="{{ URL::asset('avatar/' . $item->foto_ketua) }}"
-                                                        alt="" class="rounded-circle avatar-xs"
-                                                        style="height: 6rem;width: 6rem;">
+                                                    @if ($item->foto_ketua)
+                                                        <img src="{{ URL::asset('avatar/' . $item->foto_ketua) }}"
+                                                            alt="" class="rounded-circle avatar-xs"
+                                                            style="height: 6rem;width: 6rem;">
+                                                    @else
+                                                        <img src="{{ URL::asset('assets/default.jpg') }}" alt=""
+                                                            class="rounded-circle avatar-xs"
+                                                            style="height: 6rem;width: 6rem;">
+                                                    @endif
                                                 </a>
                                             </div>
                                             <div class="avatar-group-item" style="margin-left: 10px;">
                                                 <a href="javascript: void(0);" class="d-inline-block">
-                                                    <img src="{{ URL::asset('avatar/' . $item->foto_wakil) }}"
-                                                        alt="" class="rounded-circle avatar-xs"
-                                                        style="height: 6rem;width: 6rem;">
+                                                    @if ($item->foto_wakil)
+                                                        <img src="{{ URL::asset('avatar/' . $item->foto_wakil) }}"
+                                                            alt="" class="rounded-circle avatar-xs"
+                                                            style="height: 6rem;width: 6rem;">
+                                                    @else
+                                                        <img src="{{ URL::asset('assets/default.jpg') }}" alt=""
+                                                            class="rounded-circle avatar-xs"
+                                                            style="height: 6rem;width: 6rem;">
+                                                    @endif
                                                 </a>
                                             </div>
                                         </div>
@@ -222,7 +234,7 @@
 <script>
     $(document).ready(function() {
         flag = document.getElementById("flag").value;
-        if (flag == '') {
+        if (flag != 'kosong' && flag != '1') {
             setTimeout(function() {
                 location.reload();
             }, 5000);

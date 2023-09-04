@@ -53,8 +53,8 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->trx_number }}</td>
                                             <td>{{ $item->periode->periode_name }}</td>
-                                            <td>{{ $item->kandidat->ketua->name }}</td>
-                                            <td>{{ $item->kandidat->wakil->name }}</td>
+                                            <td>{{ $item->kandidat ? $item->kandidat->ketua->name : '' }}</td>
+                                            <td>{{ $item->kandidat ? $item->kandidat->wakil->name : '' }}</td>
                                             @if (Auth::user()->roles == 'Administrator')
                                                 <td>{{ $item->siswa->name }}</td>
                                             @endif

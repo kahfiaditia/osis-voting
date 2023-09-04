@@ -36,7 +36,7 @@ class FrontendController extends Controller
             $flag = $Queryperiode[0]->flag;
         } else {
             $periode = null;
-            $flag = null;
+            $flag = 'kosong';
         }
 
         $hasil_vote = DB::table('kandidat')
@@ -46,6 +46,7 @@ class FrontendController extends Controller
             ->join('users as w', 'w.id', '=', 'kandidat.id_wakil')
             ->leftJoin('vote', 'vote.id_kandidat', '=', 'kandidat.id')
             ->join('periode', 'periode.id', '=', 'kandidat.id_periode')
+            ->whereNull('kandidat.deleted_at')
             ->where('periode_name', $periode)
             ->groupBy('kandidat.id')
             ->orderByRaw('no_urut ASC')
@@ -55,6 +56,7 @@ class FrontendController extends Controller
             ->selectRaw('COUNT(vote.id) as jml_vote')
             ->join('periode', 'periode.id', '=', 'vote.id_periode')
             ->join('kandidat', 'kandidat.id', '=', 'vote.id_kandidat')
+            ->whereNull('kandidat.deleted_at')
             ->where('periode_name', $periode)
             ->get();
 

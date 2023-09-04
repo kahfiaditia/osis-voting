@@ -29,6 +29,7 @@ class DashboardController extends Controller
             ->join('users', 'users.id', '=', 'kandidat.id_ketua')
             ->join('users as w', 'w.id', '=', 'kandidat.id_wakil')
             ->join('periode', 'periode.id', '=', 'kandidat.id_periode')
+            ->whereNull('kandidat.deleted_at')
             ->where('periode_name', $periode)
             ->groupBy('kandidat.id')
             ->orderByRaw('kandidat.no_urut ASC')

@@ -99,7 +99,7 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="avatar" class="form-label">Foto (.jpg, .jpeg,
-                                                .png) max 2048</label>
+                                                .png) max 2048kb</label>
                                             <input type="file" class="form-control" name="avatar" id="avatar"
                                                 accept=".jpg, .jpeg, .png" autocomplete="off">
                                         </div>
