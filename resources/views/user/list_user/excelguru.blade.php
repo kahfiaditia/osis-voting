@@ -26,14 +26,15 @@
                             <h4 class="card-title">Import</h4>
                             <p class="card-title-desc">Upload Data Guru</p>
                             <div class="alert alert-warning" role="alert">
-                                Sebelum Upload, klik <a href="{{ route('pengguna.hapus_semua') }}" class="alert-link">DI
+                                Sebelum Upload, klik <a href="{{ route('pengguna.hapus_semua_guru') }}"
+                                    class="alert-link">DI
                                     SINI</a>
                                 terlebih dahulu agar upload berjalan lancar
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="{{ route('template') }}" class="btn btn-primary waves-effect mb-3"
-                                    target="_blank">Download Excel Template</a>
+                                <a href="{{ route('template_guru') }}" class="btn btn-primary waves-effect mb-3"
+                                    target="_blank">Download Template Guru</a>
                                 <button type="button" class="btn btn-success waves-effect waves-light"
                                     data-bs-toggle="modal" data-bs-target=".bs-example-modal-sm">Panduan Upload</button>
                             </div>

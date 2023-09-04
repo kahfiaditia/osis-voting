@@ -60,6 +60,7 @@ Route::group(
         Route::get('/hasil_import', [UserController::class, 'hasil_import'])->name('pengguna.hasil_import');
         Route::get('/gagal_import', [UserController::class, 'gagal_import'])->name('pengguna.gagal_import');
         Route::get('/hapus_semua', [UserController::class, 'hapus_semua'])->name('pengguna.hapus_semua');
+        Route::get('/hapus_semua_guru', [UserController::class, 'hapus_semua_guru'])->name('pengguna.hapus_semua_guru');
         Route::post('/simpan_user_ajax', [UserController::class, 'simpanUserAjax'])->name('pengguna.simpanUserAjax');
         Route::get('/get_data_siswa', [UserController::class, 'get_data_siswa'])->name('pengguna.get_data_siswa');
         Route::get('/get_data_guru', [UserController::class, 'get_data_guru'])->name('pengguna.get_data_guru');
@@ -105,5 +106,6 @@ Route::group(
         Route::post('/edit_get_nisketua', [KandidatController::class, 'edit_get_nisketua'])->name('kandidat.edit_get_nisketua');
         Route::post('/edit_get_niswakil', [KandidatController::class, 'edit_get_niswakil'])->name('kandidat.edit_get_niswakil');
         Route::get('/download-template', [UserController::class, 'template'])->name('template');
+        Route::get('/download-guru', [UserController::class, 'template_guru'])->name('template_guru');
     }
 );

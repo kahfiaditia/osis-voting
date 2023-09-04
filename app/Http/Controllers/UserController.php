@@ -109,7 +109,7 @@ class UserController extends Controller
         $data = [
             'title' => $this->title,
             'menu' => $this->menu,
-            'submenu' => 'Siswa',
+            'submenu' => 'Data berhasil di import silahkan klik tombol simpan untuk menyimpan data!',
             'label' => 'Hasil Import',
             'importedData' => $importedData
         ];
@@ -121,6 +121,12 @@ class UserController extends Controller
     {
         TemporaryModel::truncate(); // Menghapus semua data dari TemporaryModel
         return redirect()->route('pengguna.halaman')->with('success', 'Semua data berhasil dihapus');
+    }
+
+    public function hapus_semua_guru()
+    {
+        TemporaryModel::truncate(); // Menghapus semua data dari TemporaryModel
+        return redirect()->route('pengguna.halaman_guru')->with('success', 'Semua data berhasil dihapus');
     }
 
     public function simpanUserAjax(Request $request)
@@ -152,7 +158,7 @@ class UserController extends Controller
                 // "password" => "12345"
 
                 DB::table('users')->insert([
-                    'name' => $item['nama'],
+                    'name' => $item['name'],
                     'nis' => $item['nis'],
                     'roles' => $item['roles'],
                     'email' => $item['email'],
@@ -1248,7 +1254,15 @@ class UserController extends Controller
     public function template()
     {
 
-        $filePath = public_path('dokumen/template_upload.xlsx');
+        $filePath = public_path('dokumen/upload_baru.xlsx');
+
+        return response()->file($filePath);
+    }
+
+    public function template_guru()
+    {
+
+        $filePath = public_path('dokumen/upload_guru.xlsx');
 
         return response()->file($filePath);
     }

@@ -124,7 +124,7 @@
                     if (response.code === 200) {
                         Swal.fire(
                             'Success',
-                            'Data Siswa Upload Berhasil di Simpan',
+                            'Data Upload Berhasil di Simpan',
                             'success'
                         ).then(() => {
                             var APP_URL = {!! json_encode(url('/')) !!}
