@@ -39,7 +39,7 @@ class DashboardController extends Controller
             'menu' => $this->menu,
             'label' => $this->menu,
             'hasil_vote' => $hasil_vote,
-            'user' => User::all(),
+            'user' => User::where('roles', '!=', 'Administrator')->count(),
             'guru' => User::where('roles', 'Guru')->count(),
             'siswa' => User::where('roles', 'Siswa')->count(),
         ];

@@ -95,13 +95,33 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <div style="padding: 15%">
-                                        <p class="text-muted mb-2 font-size-24">Data Masuk</p>
-                                        <h1 style="font-weight: 600;">
-                                            {{ round(($jml_vote[0]->jml_vote / $all_vote) * 100, 2) }}%</h1>
-
-                                        <div class="mt-3">
-                                            {{ number_format($jml_vote[0]->jml_vote) }} suara
+                                    <p class="text-muted mb-2 font-size-24">Total Suara</p>
+                                    <h1 style="font-weight: 600;">
+                                        {{ round(($jml_vote[0]->jml_vote / $all_vote) * 100, 2) }}%</h1>
+                                    <div class="mt-3">
+                                        {{ number_format($jml_vote[0]->jml_vote) }} suara
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="pt-4">
+                                                <p class="text-muted mb-2 font-size-24">Jumlah Pemilih</p>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <h5 class="font-size-15"><i class="mdi mdi-vote-outline"></i>
+                                                        </h5>
+                                                        <h5 class="font-size-15">Siswa</h5>
+                                                        <p class="text-muted mb-0">
+                                                            {{ number_format($jml_vote_siswa[0]->jml_vote) }} suara</p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h5 class="font-size-15"><i class="mdi mdi-vote-outline"></i>
+                                                        </h5>
+                                                        <h5 class="font-size-15">Guru</h5>
+                                                        <p class="text-muted mb-0">
+                                                            {{ number_format($jml_vote_guru[0]->jml_vote) }} suara</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -184,23 +204,34 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="px-4 py-3 border-top">
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item me-3 font-size-20" style="font-weight: 600;">
-                                        @if (count($winner) > 0)
-                                            @if ($item->no_urut == $winner[0]->id_kandidat)
-                                                <i class="bx bx bxs-crown text-{{ $color }}"></i>
+                            <div class="row mt-4 border-top">
+                                <div class="col-6">
+                                    <div class="text-center mt-3">
+                                        <h5 class="font-size-20">
+                                            @if (count($winner) > 0)
+                                                @if ($item->id_kandidat == $winner[0]->id_kandidat)
+                                                    <i class="bx bx bxs-crown text-{{ $color }}"></i>
+                                                @endif
                                             @endif
-                                        @endif
-                                        {{ round(($item->jml / $all_vote) * 100, 2) }}%
-                                    </li>
-                                    <li class="list-inline-item me-3">
-                                        <a href="javascript(0)" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModalScrollable{{ $no }}">
-                                            <i class="bx bx-comment-dots me-1"></i> Visi & Misi
-                                        </a>
-                                    </li>
-                                </ul>
+                                            {{ round(($item->jml / $all_vote) * 100, 2) }}%
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center mt-3">
+                                        <h5 class="font-size-20">
+                                            {{ number_format($item->jml) }} suara
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="py-3" style="padding-top: 0rem!important;">
+                                <div class="text-center">
+                                    <a href="javascript(0)" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModalScrollable{{ $no }}">
+                                        <i class="bx bx-comment-dots me-1"></i> Visi & Misi
+                                    </a>
+                                </div>
                             </div>
                             <div class="modal fade" id="exampleModalScrollable{{ $no }}" tabindex="-1"
                                 role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -237,7 +268,7 @@
         if (flag != 'kosong' && flag != '1') {
             setTimeout(function() {
                 location.reload();
-            }, 5000);
+            }, 10000);
             // 1000 (1 detik)
         }
     });

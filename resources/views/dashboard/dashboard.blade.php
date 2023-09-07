@@ -66,7 +66,7 @@
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
                                             <p class="text-muted fw-medium">User</p>
-                                            <h4 class="mb-0">{{ count($user) }}</h4>
+                                            <h4 class="mb-0">{{ $user }}</h4>
                                         </div>
                                         <div class="flex-shrink-0 align-self-center">
                                             <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">

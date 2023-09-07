@@ -58,55 +58,6 @@ class VoteController extends Controller
         return view('vote.index')->with($data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $Queryperiode = DB::table('periode')
-            ->select('periode_name')
-            ->whereNull('deleted_at')
-            ->orderBy('id', 'DESC')
-            ->limit(1)
-            ->get();
-        if (count($Queryperiode) > 0) {
-            $periode = $Queryperiode[0]->periode_name;
-        } else {
-            $periode = null;
-        }
-
-        $hasil_vote = DB::table('kandidat')
-            ->select('kandidat.id', 'users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil', 'visi_misi')
-            ->selectRaw('COUNT(vote.id) as jml')
-            ->join('users', 'users.id', '=', 'kandidat.id_ketua')
-            ->join('users as w', 'w.id', '=', 'kandidat.id_wakil')
-            ->leftJoin('vote', 'vote.id_kandidat', '=', 'kandidat.id')
-            ->join('periode', 'periode.id', '=', 'kandidat.id_periode')
-            ->where('periode_name', $periode)
-            ->groupBy('kandidat.id')
-            ->orderByRaw('kandidat.no_urut ASC')
-            ->get();
-
-        $jml_vote = DB::table('vote')
-            ->selectRaw('COUNT(vote.id) as jml_vote')
-            ->join('periode', 'periode.id', '=', 'vote.id_periode')
-            ->join('kandidat', 'kandidat.id', '=', 'vote.id_kandidat')
-            ->where('periode_name', $periode)
-            ->get();
-        $data = [
-            'menu' => 'Apps',
-            'submenu' => 'Vote',
-            'label' => 'Data Vote',
-            'all_vote' => User::where('roles', '!=', 'Administrator')->count(),
-            'hasil_vote' => $hasil_vote,
-            'jml_vote' => $jml_vote,
-            'periode' => $periode,
-        ];
-        return view('vote.create')->with($data);
-    }
-
     public function data_voters(Request $request)
     {
         $hasil_vote = DB::table('vote')
@@ -161,6 +112,55 @@ class VoteController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $Queryperiode = DB::table('periode')
+            ->select('periode_name')
+            ->whereNull('deleted_at')
+            ->orderBy('id', 'DESC')
+            ->limit(1)
+            ->get();
+        if (count($Queryperiode) > 0) {
+            $periode = $Queryperiode[0]->periode_name;
+        } else {
+            $periode = null;
+        }
+
+        $hasil_vote = DB::table('kandidat')
+            ->select('kandidat.id', 'users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil', 'visi_misi')
+            ->selectRaw('COUNT(vote.id) as jml')
+            ->join('users', 'users.id', '=', 'kandidat.id_ketua')
+            ->join('users as w', 'w.id', '=', 'kandidat.id_wakil')
+            ->leftJoin('vote', 'vote.id_kandidat', '=', 'kandidat.id')
+            ->join('periode', 'periode.id', '=', 'kandidat.id_periode')
+            ->where('periode_name', $periode)
+            ->groupBy('kandidat.id')
+            ->orderByRaw('kandidat.no_urut ASC')
+            ->get();
+
+        $jml_vote = DB::table('vote')
+            ->selectRaw('COUNT(vote.id) as jml_vote')
+            ->join('periode', 'periode.id', '=', 'vote.id_periode')
+            ->join('kandidat', 'kandidat.id', '=', 'vote.id_kandidat')
+            ->where('periode_name', $periode)
+            ->get();
+        $data = [
+            'menu' => 'Apps',
+            'submenu' => 'Vote',
+            'label' => 'Data Vote',
+            'all_vote' => User::where('roles', '!=', 'Administrator')->count(),
+            'hasil_vote' => $hasil_vote,
+            'jml_vote' => $jml_vote,
+            'periode' => $periode,
+        ];
+        return view('vote.create')->with($data);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -199,23 +199,30 @@ class VoteController extends Controller
             }
 
             $kandidat = KandidatModel::findorfail($request->id_kandidat);
-            DB::beginTransaction();
-            try {
-                $rak = new Vote();
-                $rak->trx_number = $trx_number;
-                $rak->id_user_vote = Auth::user()->id;
-                $rak->id_kandidat = $request->id_kandidat;
-                $rak->id_periode = $kandidat->id_periode;
-                $rak->user_created = Auth::user()->id;
-                $rak->save();
 
-                DB::commit();
-                AlertHelper::addAlert(true);
-                return redirect('vote');
-            } catch (\Throwable $err) {
-                DB::rollback();
-                throw $err;
-                AlertHelper::addAlert(false);
+            $cekVote = Vote::where('id_user_vote', Auth::user()->id)->where('id_periode', $kandidat->id_periode)->count();
+            if ($cekVote == 0) {
+                DB::beginTransaction();
+                try {
+                    $rak = new Vote();
+                    $rak->trx_number = $trx_number;
+                    $rak->id_user_vote = Auth::user()->id;
+                    $rak->id_kandidat = $request->id_kandidat;
+                    $rak->id_periode = $kandidat->id_periode;
+                    $rak->user_created = Auth::user()->id;
+                    $rak->save();
+
+                    DB::commit();
+                    AlertHelper::addAlert(true);
+                    return redirect('vote');
+                } catch (\Throwable $err) {
+                    DB::rollback();
+                    throw $err;
+                    AlertHelper::addAlert(false);
+                    return back();
+                }
+            } else {
+                AlertHelper::alertDinamis(false, 'Vote hanya 1 kali');
                 return back();
             }
         } else {

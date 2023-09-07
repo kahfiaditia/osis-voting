@@ -41,7 +41,7 @@ class FrontendController extends Controller
 
         $hasil_vote = DB::table('kandidat')
             ->select('users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil', 'visi_misi', 'no_urut', 'vote.id_kandidat')
-            ->selectRaw('COUNT(vote.id) as jml')
+            ->selectRaw('COUNT(DISTINCT vote.id_user_vote) as jml')
             ->join('users', 'users.id', '=', 'kandidat.id_ketua')
             ->join('users as w', 'w.id', '=', 'kandidat.id_wakil')
             ->leftJoin('vote', 'vote.id_kandidat', '=', 'kandidat.id')
@@ -53,11 +53,32 @@ class FrontendController extends Controller
             ->get();
 
         $jml_vote = DB::table('vote')
-            ->selectRaw('COUNT(vote.id) as jml_vote')
+            ->selectRaw('COUNT(DISTINCT vote.id_user_vote) as jml_vote')
             ->join('periode', 'periode.id', '=', 'vote.id_periode')
             ->join('kandidat', 'kandidat.id', '=', 'vote.id_kandidat')
+            ->join('users', 'users.id', '=', 'vote.id_user_vote')
             ->whereNull('kandidat.deleted_at')
             ->where('periode_name', $periode)
+            ->get();
+
+        $jml_vote_siswa = DB::table('vote')
+            ->selectRaw('COUNT(DISTINCT vote.id_user_vote) as jml_vote')
+            ->join('periode', 'periode.id', '=', 'vote.id_periode')
+            ->join('kandidat', 'kandidat.id', '=', 'vote.id_kandidat')
+            ->join('users', 'users.id', '=', 'vote.id_user_vote')
+            ->whereNull('kandidat.deleted_at')
+            ->where('periode_name', $periode)
+            ->where('roles', 'siswa')
+            ->get();
+
+        $jml_vote_guru = DB::table('vote')
+            ->selectRaw('COUNT(DISTINCT vote.id_user_vote) as jml_vote')
+            ->join('periode', 'periode.id', '=', 'vote.id_periode')
+            ->join('kandidat', 'kandidat.id', '=', 'vote.id_kandidat')
+            ->join('users', 'users.id', '=', 'vote.id_user_vote')
+            ->whereNull('kandidat.deleted_at')
+            ->where('periode_name', $periode)
+            ->where('roles', 'guru')
             ->get();
 
         $winner = DB::table('vote')
@@ -65,7 +86,7 @@ class FrontendController extends Controller
             ->join('periode', 'periode.id', '=', 'vote.id_periode')
             ->where('periode_name', $periode)
             ->groupBy('vote.id_kandidat')
-            ->orderByRaw('COUNT(vote.id) DESC')
+            ->orderByRaw('COUNT(DISTINCT vote.id_user_vote) DESC')
             ->limit(1)
             ->get();
         $data = [
@@ -75,6 +96,8 @@ class FrontendController extends Controller
             'periode' => $periode,
             'flag' => $flag,
             'winner' => $winner,
+            'jml_vote_siswa' => $jml_vote_siswa,
+            'jml_vote_guru' => $jml_vote_guru,
         ];
         return view('frontend.grafik', $data);
     }
