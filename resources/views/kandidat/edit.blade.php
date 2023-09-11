@@ -134,14 +134,12 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label for="validationCustom02" class="form-label">Deskripsi Visi dan Misi
-                                                <code>*</code></label>
-                                            <textarea name="editor1" id="editor1">{{ $kandidat->visi_misi }}</textarea>
-                                        </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <h4 class="card-title">Deskripsi dan Visi Misi</h4>
+                                        <form method="post">
+                                            <textarea id="elm1" name="elm1">{{ $kandidat->visi_misi }}</textarea>
+                                        </form>
                                         <div class="invalid-feedback">
                                             Data wajib diisi.
                                         </div>
@@ -164,7 +162,9 @@
             </form>
         </div>
     </div>
-    <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    <script script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/form-editor.init.js') }}"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/alert.js') }}"></script>

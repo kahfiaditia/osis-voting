@@ -166,10 +166,8 @@
         </form>
     </div>
     </div>
-    {{-- <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script> --}}
-
     <script script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
-    <!-- init js -->
+
     <script src="{{ asset('assets/js/pages/form-editor.init.js') }}"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
