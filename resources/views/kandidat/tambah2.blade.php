@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 divFoto">
-                                        <div class="mb-3">
+                                        <<<<<<< HEAD <div class="mb-3">
                                             <label for="avatar" class="form-label">Foto (.jpg, .jpeg,
                                                 .png) max 2048kb</label>
                                             <input type="file" class="form-control" name="avatar" id="avatar"
@@ -123,44 +123,61 @@
                                             <div class="invalid-feedback">
                                                 Data wajib diisi.
                                             </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="type_foto" id="type_foto">
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label for="validationCustom02" class="form-label">Deskripsi Visi dan Misi
-                                                <code>*</code></label>
-                                            <textarea name="editor1" id="editor1" required></textarea>
-                                            <div class="invalid-feedback">
-                                                Data wajib diisi.
-                                            </div>
-                                            {!! $errors->first('editor1', '<div class="invalid-validasi">:message</div>') !!}
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="row mt-4">
-                                    <div class="col-sm-12">
-                                        <a href="{{ route('kandidat.index') }}"
-                                            class="btn btn-secondary waves-effect">Batal</a>
-                                        <button class="btn btn-primary" type="submit" style="float: right"
-                                            id="submit">Simpan</button>
+                                <input type="hidden" name="type_foto" id="type_foto">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    =======
+                                    >>>>>>> 33bb741 (Perbaikan Form Kandidat)
+                                    <div class="mb-3">
+                                        <label for="avatar" class="form-label">Foto (.jpg, .jpeg,
+                                            .png) max 2048kb</label>
+                                        <input type="file" class="form-control" name="avatar" id="avatar"
+                                            required accept=".jpg, .jpeg, .png" autocomplete="off">
+                                        <div class="invalid-feedback">
+                                            Data wajib diisi.
+                                        </div>
                                     </div>
+                                </div>
+                                <input type="hidden" name="type_foto" id="type_foto">
+                            </div>
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <h4 class="card-title">Deskripsi dan Visi Misi</h4>
+                                    <form method="post">
+                                        <textarea id="elm1" name="elm1"></textarea>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-sm-12">
+                                    <a href="{{ route('kandidat.index') }}"
+                                        class="btn btn-secondary waves-effect">Batal</a>
+                                    <button class="btn btn-primary" type="submit" style="float: right"
+                                        id="submit">Simpan</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
         </div>
+        </form>
     </div>
-    <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    </div>
+    {{-- <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script> --}}
+
+    <script script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
+    <!-- init js -->
+    <script src="{{ asset('assets/js/pages/form-editor.init.js') }}"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+    {{-- <script script src="{{ asset('assets/libs/ckeditor/ck.min.js') }}"></script> --}}
     <script src="{{ asset('assets/alert.js') }}"></script>
     <script>
-        CKEDITOR.replace('editor1');
+        // CKEDITOR.replace('editor1');
 
         $(document).ready(function() {
             $('.divFoto').hide();

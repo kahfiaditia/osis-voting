@@ -79,6 +79,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
@@ -98,7 +99,7 @@
                                             <select class="form-control select select2" name="periode" id="periode">
                                                 <option value=""> -- Pilih --</option>
                                                 @foreach ($periode as $item)
-                                                    <option value="{{ $item->id }}" date-id="{{ $item->type_foto }}"
+                                                    <option value="{{ $item->id }}"
                                                         @if ($item->id == $kandidat->id_periode) selected @endif>
                                                         {{ $item->periode_name }}
                                                     </option>
@@ -132,26 +133,8 @@
                                             {!! $errors->first('urut', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
-                                    <div class="col-md-3 divFoto">
-                                        <div class="mb-3">
-                                            <label for="avatar" class="form-label">Foto (.jpg, .jpeg,
-                                                .png) max 2048kb</label>
-                                            <input type="file" class="form-control" name="avatar" id="avatar"
-                                                required accept=".jpg, .jpeg, .png" autocomplete="off">
-                                            @if ($kandidat->avatar_kandidat)
-                                                <a href="javascript:void(0)" data-id="" id="get_data"
-                                                    data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">
-                                                    <i
-                                                        class="mdi mdi-file-document font-size-16 align-middle text-primary me-2"></i>Lihat
-                                                    Foto
-                                                </a>
-                                            @endif
-                                            <div class="invalid-feedback">
-                                                Data wajib diisi.
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="mb-3">
@@ -162,7 +145,7 @@
                                         <div class="invalid-feedback">
                                             Data wajib diisi.
                                         </div>
-                                        {!! $errors->first('editor1', '<div class="invalid-validasi">:message</div>') !!}
+                                        {!! $errors->first('elm1', '<div class="invalid-validasi">:message</div>') !!}
                                     </div>
                                 </div>
 
@@ -181,26 +164,20 @@
             </form>
         </div>
     </div>
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myExtraLargeModalLabel">Dokumen</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="{{ URL::asset('avatar_kandidat/' . $kandidat->avatar_kandidat) }}" style="width: 100%">
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/alert.js') }}"></script>
     <script>
-        CKEDITOR.replace('editor1');
+        function typeChoice(whichbox) {
+            if (whichbox.value == 'Kandidat') {
+                $('.divFoto').show();
+                document.getElementById("avatar").required = true
+            } else {
+                $('.divFoto').hide();
+                document.getElementById("avatar").required = false
+            }
+        }
 
         function typeChoice(whichbox) {
             if (whichbox.value == 'Kandidat') {
@@ -214,6 +191,7 @@
 
         // ketua//
         $(document).ready(function() {
+
             // Menambahkan event listener untuk perubahan dropdown ketua
             $('.ketua').change(function() {
                 var selectedKetuaId = $(this).val();

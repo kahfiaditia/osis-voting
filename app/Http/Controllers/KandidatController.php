@@ -232,7 +232,7 @@ class KandidatController extends Controller
             'periode' => 'required',
             'quote' => 'required',
             'urut' => 'required',
-            'editor1' => 'required',
+            'elm1' => 'required',
         ]);
 
         DB::beginTransaction();
@@ -243,7 +243,7 @@ class KandidatController extends Controller
             $osis->id_periode = $request->periode;
             $osis->quote = $request->quote;
             $osis->no_urut = $request->urut;
-            $osis->visi_misi = $request->editor1;
+            $osis->visi_misi = $request->elm1;
             $osis->user_created =  Auth::user()->id;
             if ($request->type_foto == 'Kandidat') {
                 if ($request->avatar) {
@@ -311,7 +311,7 @@ class KandidatController extends Controller
             'periode' => 'required',
             'quote' => 'required',
             'urut' => 'required',
-            'editor1' => 'required',
+            'elm1' => 'required',
         ]);
 
         DB::beginTransaction();
@@ -322,7 +322,7 @@ class KandidatController extends Controller
             $editkelas->no_urut = $request->urut;
             $editkelas->id_periode = $request->periode;
             $editkelas->quote = $request->quote;
-            $editkelas->visi_misi = $request->editor1;
+            $editkelas->visi_misi = $request->elm1;
             $editkelas->user_updated =  Auth::user()->id;
             if ($request->avatar) {
                 $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();

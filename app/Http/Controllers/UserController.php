@@ -147,15 +147,7 @@ class UserController extends Controller
                     ]);
                 }
 
-                // "nama" => "Ayu1"
-                // "nis" => "656785"
-                // "roles" => "siswa"
-                // "email" => null
-                // "class_id" => null
-                // "address" => null
-                // "phone" => null
-                // "pin" => "1234"
-                // "password" => "12345"
+
 
                 DB::table('users')->insert([
                     'name' => $item['name'],
