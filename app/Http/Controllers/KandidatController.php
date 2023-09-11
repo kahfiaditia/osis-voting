@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class KandidatController extends Controller
@@ -118,10 +119,6 @@ class KandidatController extends Controller
 
     public function data_kandidat(Request $request)
     {
-        // $userdata = DB::table('kandidat')
-        //     ->whereNull('kandidat.deleted_at')
-        //     ->orderBy('kandidat.id', 'DESC');
-
         $userdata = DB::table('kandidat')
             ->select(
                 'kandidat.id',
@@ -248,11 +245,18 @@ class KandidatController extends Controller
             $osis->no_urut = $request->urut;
             $osis->visi_misi = $request->editor1;
             $osis->user_created =  Auth::user()->id;
+            if ($request->type_foto == 'Kandidat') {
+                if ($request->avatar) {
+                    $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                    $osis->avatar_kandidat = $fileName;
+                    $request->avatar->move(public_path('avatar_kandidat'), $fileName);
+                }
+            }
             $osis->save();
 
             DB::commit();
             AlertHelper::addAlert(true);
-            return redirect('/kandidat');
+            return redirect('kandidat');
         } catch (\Throwable $err) {
             DB::rollback();
             throw $err;
@@ -320,6 +324,11 @@ class KandidatController extends Controller
             $editkelas->quote = $request->quote;
             $editkelas->visi_misi = $request->editor1;
             $editkelas->user_updated =  Auth::user()->id;
+            if ($request->avatar) {
+                $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                $editkelas->avatar_kandidat = $fileName;
+                $request->avatar->move(public_path('avatar_kandidat'), $fileName);
+            }
             $editkelas->save();
 
             DB::commit();

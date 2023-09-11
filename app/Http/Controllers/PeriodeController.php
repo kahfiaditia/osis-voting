@@ -38,7 +38,6 @@ class PeriodeController extends Controller
 
         if ($request->get('search_manual') != null) {
             $search = $request->get('search_manual');
-            // $search_rak = str_replace(' ', '', $search);
             $userdata->where(function ($where) use ($search) {
                 $where
                     ->orWhere('periode_name', 'like', '%' . $search . '%')
@@ -46,7 +45,6 @@ class PeriodeController extends Controller
             });
 
             $search = $request->get('search');
-            // $search_rak = str_replace(' ', '', $search);
             if ($search != null) {
                 $userdata->where(function ($where) use ($search) {
                     $where
@@ -82,9 +80,7 @@ class PeriodeController extends Controller
      */
     public function create()
     {
-
         $data = [
-            // 'title' => $this->title,
             'menu' => $this->menu,
             'label' => $this->menu,
             'aksi' => "Tambah",
@@ -106,11 +102,12 @@ class PeriodeController extends Controller
 
         DB::beginTransaction();
         try {
-            $kelas = new PeriodeModel();
-            $kelas->periode_name = $request->periode;
-            $kelas->flag = $request->flag;
-            $kelas->user_created =  Auth::user()->id;
-            $kelas->save();
+            $periode = new PeriodeModel();
+            $periode->periode_name = $request->periode;
+            $periode->type_foto = $request->type_foto;
+            $periode->flag = $request->flag;
+            $periode->user_created =  Auth::user()->id;
+            $periode->save();
 
             DB::commit();
             AlertHelper::addAlert(true);
@@ -168,11 +165,12 @@ class PeriodeController extends Controller
 
         DB::beginTransaction();
         try {
-            $editkelas = PeriodeModel::findOrFail($id);
-            $editkelas->periode_name = $request->periode;
-            $editkelas->flag = $flag;
-            $editkelas->user_updated =  Auth::user()->id;
-            $editkelas->save();
+            $editperiode = PeriodeModel::findOrFail($id);
+            $editperiode->periode_name = $request->periode;
+            $editperiode->type_foto = $request->type_foto;
+            $editperiode->flag = $flag;
+            $editperiode->user_updated =  Auth::user()->id;
+            $editperiode->save();
 
             DB::commit();
             AlertHelper::addAlert(true);

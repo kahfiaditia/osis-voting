@@ -15,7 +15,8 @@
                 </div>
             </div>
 
-            <form class="needs-validation" action="{{ route('kandidat.store') }}" method="POST" novalidate>
+            <form class="needs-validation" action="{{ route('kandidat.store') }}" enctype="multipart/form-data"
+                method="POST" novalidate>
                 @csrf
                 <div class="row">
                     <div class="col-xl-12">
@@ -66,15 +67,14 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Qoute <code>*</code></label>
                                             <textarea class="form-control" name="quote" id="quote" required></textarea>
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Data wajib diisi.
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
                                         </div>
                                         {!! $errors->first('quote', '<div class="invalid-validasi">:message</div>') !!}
                                     </div>
@@ -82,11 +82,12 @@
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Periode
                                                 <code>*</code></label>
-                                            <select class="form-control select select2" name="periode" id="periode"
-                                                required>
+                                            <select class="form-control select select2 periode" name="periode"
+                                                id="periode" required>
                                                 <option value=""> -- Pilih --</option>
                                                 @foreach ($periode as $item)
-                                                    <option value="{{ $item->id }}"> {{ $item->periode_name }}</option>
+                                                    <option value="{{ $item->id }}" data-id="{{ $item->type_foto }}">
+                                                        {{ $item->periode_name }}</option>
                                                 @endforeach
                                             </select>
                                             <div class="invalid-feedback">
@@ -113,8 +114,19 @@
                                             {!! $errors->first('urut', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
+                                    <div class="col-md-3 divFoto">
+                                        <div class="mb-3">
+                                            <label for="avatar" class="form-label">Foto (.jpg, .jpeg,
+                                                .png) max 2048kb</label>
+                                            <input type="file" class="form-control" name="avatar" id="avatar"
+                                                required accept=".jpg, .jpeg, .png" autocomplete="off">
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="type_foto" id="type_foto">
                                 </div>
-
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="mb-3">
@@ -128,7 +140,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="row mt-4">
                                     <div class="col-sm-12">
                                         <a href="{{ route('kandidat.index') }}"
@@ -152,6 +163,7 @@
         CKEDITOR.replace('editor1');
 
         $(document).ready(function() {
+            $('.divFoto').hide();
             $.ajax({
                 type: "POST",
                 url: '{{ route('kandidat.get_calonketua') }}',
@@ -176,9 +188,7 @@
                     console.log(err);
                 },
             });
-        })
 
-        $(document).ready(function() {
             $.ajax({
                 type: "POST",
                 url: '{{ route('kandidat.get_calonwakil') }}',
@@ -202,6 +212,18 @@
                 error: (err) => {
                     console.log(err);
                 },
+            });
+
+            $(".periode").change(function() {
+                periode = $('#periode option:selected').data('id');
+                if (periode == 'User') {
+                    $('.divFoto').hide();
+                    document.getElementById("avatar").required = false
+                } else {
+                    $('.divFoto').show();
+                    document.getElementById("avatar").required = true
+                }
+                document.getElementById("type_foto").value = periode;
             });
         })
     </script>

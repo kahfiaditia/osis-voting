@@ -35,22 +35,34 @@
                                                     </a>
                                                 </h5>
                                                 <p class="text-muted mb-4">{{ $item->ketua }} & {{ $item->wakil }}</p>
-                                                <div class="avatar-group" style="padding-left: 50px;">
-                                                    <div class="avatar-group-item" style="margin-left: 10px;">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="{{ URL::asset('avatar/' . $item->foto_ketua) }}"
-                                                                alt="" class="rounded-circle avatar-xs"
-                                                                style="height: 6rem;width: 6rem;">
-                                                        </a>
+                                                @if ($type_foto == 'Kandidat')
+                                                    <div class="text-center">
+                                                        <div class="">
+                                                            <a href="javascript: void(0);" class="d-inline-block">
+                                                                <img src="{{ URL::asset('avatar_kandidat/' . $item->avatar_kandidat) }}"
+                                                                    alt="" class="rounded-circle avatar-xs"
+                                                                    style="height: 10rem;width: 10rem;">
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                    <div class="avatar-group-item" style="margin-left: 10px;">
-                                                        <a href="javascript: void(0);" class="d-inline-block">
-                                                            <img src="{{ URL::asset('avatar/' . $item->foto_wakil) }}"
-                                                                alt="" class="rounded-circle avatar-xs"
-                                                                style="height: 6rem;width: 6rem;">
-                                                        </a>
+                                                @else
+                                                    <div class="avatar-group">
+                                                        <div class="avatar-group-item" style="margin-left: 15%;">
+                                                            <a href="javascript: void(0);" class="d-inline-block">
+                                                                <img src="{{ URL::asset('avatar/' . $item->foto_ketua) }}"
+                                                                    alt="" class="rounded-circle avatar-xs"
+                                                                    style="height: 6rem;width: 6rem;">
+                                                            </a>
+                                                        </div>
+                                                        <div class="avatar-group-item" style="margin-left: 10px;">
+                                                            <a href="javascript: void(0);" class="d-inline-block">
+                                                                <img src="{{ URL::asset('avatar/' . $item->foto_wakil) }}"
+                                                                    alt="" class="rounded-circle avatar-xs"
+                                                                    style="height: 6rem;width: 6rem;">
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

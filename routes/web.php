@@ -4,6 +4,7 @@ use App\Http\Controllers\ClasessController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\KandidatController;
+use App\Http\Controllers\KandidatsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VoteController;
@@ -99,6 +100,7 @@ Route::group(
         Route::get('/data_kelas', [ClasessController::class, 'data_kelas'])->name('class.data_kelas');
         Route::resource('/periode', PeriodeController::class);
         Route::get('/data_periode', [PeriodeController::class, 'data_periode'])->name('periode.data_periode');
+        Route::resource('/kandidats', KandidatsController::class);
         Route::resource('/kandidat', KandidatController::class);
         Route::get('/data_kandidat', [KandidatController::class, 'data_kandidat'])->name('kandidat.data_kandidat');
         Route::post('/get_calonketua', [KandidatController::class, 'get_calonketua'])->name('kandidat.get_calonketua');

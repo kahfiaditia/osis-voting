@@ -22,7 +22,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="validationCustom02" class="form-label">Periode
                                                 <code>*</code></label>
@@ -36,18 +36,29 @@
                                             {!! $errors->first('periode', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-6">
+                                    <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="validationCustom02" class="form-label">Flag</label>
-                                            <input type="number" class="form-control" id="flag" name="flag"
-                                                max="1" value="{{ old('flag') }}" autofocus placeholder="flag"
-                                                autocomplete="off">
-                                            <div class="invalid-feedback">
-                                                Data 1 karakter.
+                                            <label class="d-block">Tipe Foto Pasalon<code>*</code></label>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="type_foto"
+                                                    id="inlineRadio1" value="Kandidat" required>
+                                                <label class="form-check-label" for="inlineRadio1">Foto Gabungan Pasalon (1
+                                                    Foto 2 Pasalon)</label>
+                                                <div class="invalid-feedback">
+                                                    Data wajib diisi.
+                                                </div>
                                             </div>
-                                            {!! $errors->first('flag', '<div class="invalid-validasi">:message</div>') !!}
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="type_foto"
+                                                    id="inlineRadio2" value="User">
+                                                <label class="form-check-label" for="inlineRadio2">Foto Terpisah Pasalon
+                                                    (Foto dari data Siswa)</label>
+                                                <div class="invalid-feedback">
+                                                    Data wajib diisi.
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">

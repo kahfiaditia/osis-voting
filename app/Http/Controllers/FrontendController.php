@@ -26,7 +26,7 @@ class FrontendController extends Controller
     public function grafik()
     {
         $Queryperiode = DB::table('periode')
-            ->select('periode_name', 'flag')
+            ->select('periode_name', 'flag', 'type_foto')
             ->whereNull('deleted_at')
             ->orderBy('id', 'DESC')
             ->limit(1)
@@ -34,13 +34,15 @@ class FrontendController extends Controller
         if (count($Queryperiode) > 0) {
             $periode = $Queryperiode[0]->periode_name;
             $flag = $Queryperiode[0]->flag;
+            $type_foto = $Queryperiode[0]->type_foto;
         } else {
             $periode = null;
             $flag = 'kosong';
+            $type_foto = null;
         }
 
         $hasil_vote = DB::table('kandidat')
-            ->select('users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil', 'visi_misi', 'no_urut', 'vote.id_kandidat')
+            ->select('users.name as ketua', 'users.avatar as foto_ketua', 'w.name as wakil', 'w.avatar as foto_wakil', 'visi_misi', 'no_urut', 'vote.id_kandidat', 'avatar_kandidat')
             ->selectRaw('COUNT(DISTINCT vote.id_user_vote) as jml')
             ->join('users', 'users.id', '=', 'kandidat.id_ketua')
             ->join('users as w', 'w.id', '=', 'kandidat.id_wakil')
@@ -98,6 +100,8 @@ class FrontendController extends Controller
             'winner' => $winner,
             'jml_vote_siswa' => $jml_vote_siswa,
             'jml_vote_guru' => $jml_vote_guru,
+            'periode' => $periode,
+            'type_foto' => $type_foto,
         ];
         return view('frontend.grafik', $data);
     }

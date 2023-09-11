@@ -158,54 +158,67 @@
                                             <div class="col-xl-3 col-sm-6">
                                                 <div class="card">
                                                     <div class="border p-3 rounded mt-4">
+                                                        <h5 class="text-truncate font-size-15">
+                                                            <a href="javascript: void(0);" class="text-dark">
+                                                                <span class="badge bg-{{ $color }}">Pasalon
+                                                                    {{ $no }}</span>
+                                                            </a>
+                                                        </h5>
+                                                        <p class="text-muted mb-4">{{ $item->ketua }} &
+                                                            {{ $item->wakil }}</p>
                                                         <div class="card-body">
                                                             <div class="d-flex">
                                                                 <div class="flex-grow-1 overflow-hidden">
-                                                                    <h5 class="text-truncate font-size-15">
-                                                                        <a href="javascript: void(0);" class="text-dark">
-                                                                            <span
-                                                                                class="badge bg-{{ $color }}">Pasalon
-                                                                                {{ $no }}</span>
-                                                                        </a>
-                                                                    </h5>
-                                                                    <p class="text-muted mb-4">{{ $item->ketua }} &
-                                                                        {{ $item->wakil }}</p>
-                                                                    <div class="avatar-group">
-                                                                        <div class="avatar-group-item"
-                                                                            style="margin-left: 10px;">
-                                                                            <a href="javascript: void(0);"
-                                                                                class="d-inline-block">
-                                                                                @if ($item->foto_ketua)
-                                                                                    <img src="{{ URL::asset('avatar/' . $item->foto_ketua) }}"
+                                                                    @if ($type_foto == 'Kandidat')
+                                                                        <div class="text-center">
+                                                                            <div class="">
+                                                                                <a href="javascript: void(0);"
+                                                                                    class="d-inline-block">
+                                                                                    <img src="{{ URL::asset('avatar_kandidat/' . $item->avatar_kandidat) }}"
                                                                                         alt=""
                                                                                         class="rounded-circle avatar-xs"
-                                                                                        style="height: 6rem;width: 6rem;">
-                                                                                @else
-                                                                                    <img src="{{ URL::asset('assets/default.jpg') }}"
-                                                                                        alt=""
-                                                                                        class="rounded-circle avatar-xs"
-                                                                                        style="height: 6rem;width: 6rem;">
-                                                                                @endif
-                                                                            </a>
+                                                                                        style="height: 10rem;width: 10rem;">
+                                                                                </a>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="avatar-group-item"
-                                                                            style="margin-left: 10px;">
-                                                                            <a href="javascript: void(0);"
-                                                                                class="d-inline-block">
-                                                                                @if ($item->foto_wakil)
-                                                                                    <img src="{{ URL::asset('avatar/' . $item->foto_wakil) }}"
-                                                                                        alt=""
-                                                                                        class="rounded-circle avatar-xs"
-                                                                                        style="height: 6rem;width: 6rem;">
-                                                                                @else
-                                                                                    <img src="{{ URL::asset('assets/default.jpg') }}"
-                                                                                        alt=""
-                                                                                        class="rounded-circle avatar-xs"
-                                                                                        style="height: 6rem;width: 6rem;">
-                                                                                @endif
-                                                                            </a>
+                                                                    @else
+                                                                        <div class="avatar-group">
+                                                                            <div class="avatar-group-item"
+                                                                                style="margin-left: 10%;">
+                                                                                <a href="javascript: void(0);"
+                                                                                    class="d-inline-block">
+                                                                                    @if ($item->foto_ketua)
+                                                                                        <img src="{{ URL::asset('avatar/' . $item->foto_ketua) }}"
+                                                                                            alt=""
+                                                                                            class="rounded-circle avatar-xs"
+                                                                                            style="height: 6rem;width: 6rem;">
+                                                                                    @else
+                                                                                        <img src="{{ URL::asset('assets/default.jpg') }}"
+                                                                                            alt=""
+                                                                                            class="rounded-circle avatar-xs"
+                                                                                            style="height: 6rem;width: 6rem;">
+                                                                                    @endif
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="avatar-group-item"
+                                                                                style="margin-left: 10px;">
+                                                                                <a href="javascript: void(0);"
+                                                                                    class="d-inline-block">
+                                                                                    @if ($item->foto_wakil)
+                                                                                        <img src="{{ URL::asset('avatar/' . $item->foto_wakil) }}"
+                                                                                            alt=""
+                                                                                            class="rounded-circle avatar-xs"
+                                                                                            style="height: 6rem;width: 6rem;">
+                                                                                    @else
+                                                                                        <img src="{{ URL::asset('assets/default.jpg') }}"
+                                                                                            alt=""
+                                                                                            class="rounded-circle avatar-xs"
+                                                                                            style="height: 6rem;width: 6rem;">
+                                                                                    @endif
+                                                                                </a>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -256,7 +269,6 @@
                     </div>
                 </div>
             </div>
-            {{-- ini ganti --}}
         </div>
     </div>
 @endsection

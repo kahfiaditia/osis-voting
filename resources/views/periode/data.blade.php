@@ -140,6 +140,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Periode</th>
+                                        <th>Foto Pasalon</th>
                                         <th>Aktif</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -228,6 +229,17 @@
                     {
                         data: 'periode_name',
                         name: 'periode_name'
+                    },
+                    {
+                        data: 'type_foto',
+                        name: 'type_foto',
+                        render: function(data, type, row) {
+                            if (data === "Kandidat") {
+                                return 'Foto Gabungan Pasalon (1 Foto 2 Pasalon)';
+                            } else {
+                                return 'Foto Terpisah Pasalon (Foto dari data Siswa)';
+                            }
+                        }
                     },
                     {
                         data: 'flag',

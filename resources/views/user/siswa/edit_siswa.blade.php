@@ -93,7 +93,7 @@
                                                     data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">
                                                     <i
                                                         class="mdi mdi-file-document font-size-16 align-middle text-primary me-2"></i>Lihat
-                                                    Dokumen
+                                                    Foto
                                                 </a>
                                             @endif
                                         </div>
