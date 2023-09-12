@@ -770,8 +770,8 @@ class UserController extends Controller
 
     public function get_list_user_siswa(Request $request)
     {
-        $userdata = DB::table('users')
-            ->select('name', 'email', 'users.id', 'nis', 'roles', 'class_name', 'class_level')
+        $usersiswa = DB::table('users')
+            ->select('name', 'email', 'address', 'phone', 'users.id', 'nis', 'roles', 'class_name', 'class_level')
             ->leftJoin('clasess', 'clasess.id', 'users.class_id')
             ->where('roles', '=', 'siswa')
             ->whereNull('users.deleted_at')
@@ -780,11 +780,13 @@ class UserController extends Controller
         if ($request->get('search_manual') != null) {
             $search = $request->get('search_manual');
             // $search_rak = str_replace(' ', '', $search);
-            $userdata->where(function ($where) use ($search) {
+            $usersiswa->where(function ($where) use ($search) {
                 $where
                     ->orWhere('name', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%')
                     ->orWhere('nis', 'like', '%' . $search . '%')
+                    ->orWhere('address', 'like', '%' . $search . '%')
+                    ->orWhere('phone', 'like', '%' . $search . '%')
                     ->orWhere('roles', 'like', '%' . $search . '%');
                 // ->orWhere('id_supplier', 'like', '%' . $search . '%');
             });
@@ -792,11 +794,13 @@ class UserController extends Controller
             $search = $request->get('search');
             // $search_rak = str_replace(' ', '', $search);
             if ($search != null) {
-                $userdata->where(function ($where) use ($search) {
+                $usersiswa->where(function ($where) use ($search) {
                     $where
                         ->orWhere('name', 'like', '%' . $search . '%')
                         ->orWhere('email', 'like', '%' . $search . '%')
                         ->orWhere('nis', 'like', '%' . $search . '%')
+                        ->orWhere('address', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%')
                         ->orWhere('roles', 'like', '%' . $search . '%');
                     // ->orWhere('id_supplier', 'like', '%' . $search . '%');
                 });
@@ -804,20 +808,28 @@ class UserController extends Controller
         } else {
             if ($request->get('name') != null) {
                 $name = $request->get('name');
-                $userdata->where('name', '=', $name);
+                $usersiswa->where('name', '=', $name);
             }
-            if ($request->get('email') != null) {
-                $email = $request->get('email');
-                $userdata->where('email', '=', $email);
+            if ($request->get('siswa') != null) {
+                $siswa = $request->get('siswa');
+                $usersiswa->where('siswa', '=', $siswa);
             }
-            if ($request->get('name') != null) {
-                $name = $request->get('name');
-                $userdata->where('name', '=', $name);
+            if ($request->get('nis') != null) {
+                $nis = $request->get('nis');
+                $usersiswa->where('nis', '=', $nis);
             }
         }
 
-        return DataTables::of($userdata)
-            ->addColumn('action', 'user.list_user.siswabutton')
+        return DataTables::of($usersiswa)
+            ->addColumn('class', function ($usersiswa) {
+                if ($usersiswa->class_name) {
+                    $class = $usersiswa->class_name . ' - ' . $usersiswa->class_level;
+                } else {
+                    $class = '-';
+                }
+                return $class;
+            })
+            ->addColumn('action', 'user.siswa.akse')
             ->rawColumns(['action'])
             ->make(true);
     }

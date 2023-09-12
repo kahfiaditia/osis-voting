@@ -284,8 +284,8 @@
                         name: 'name'
                     },
                     {
-                        data: 'class_name',
-                        name: 'class_name'
+                        data: 'class',
+                        name: 'class'
                     },
                     {
                         data: 'nis',
