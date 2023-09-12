@@ -33,7 +33,7 @@
                                                     @if ($data->roles == 'guru') selected @endif> Guru
                                                 </option>
                                                 <option value="{{ $data->roles }}"
-                                                    @if ($data->roles == 'Administrator') selected @endif> Adminitrator
+                                                    @if ($data->roles == 'Administrator') selected @endif> Administrator
                                                 </option>
 
                                             </select>
@@ -48,16 +48,20 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="nis" class="form-label">NIK </label>
+                                            <label for="nis" class="form-label">NIK <code>*</code></label>
                                             <input type="text" class="form-control" name="nis" id="nis"
                                                 value="{{ $data->nis }}" autocomplete="off">
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('nis', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Email <code>*</code></label>
+                                            <label for="email" class="form-label">Email</label>
                                             <input class="form-control" type="text" id="email" name="email"
-                                                value="{{ $data->email }}" value="" autocomplete="off" required>
+                                                value="{{ $data->email }}" value="" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -69,9 +73,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="telepon" class="form-label">Phone <code>*</code></label>
+                                            <label for="telepon" class="form-label">Phone</label>
                                             <input type="text" class="form-control" name="telepon" id="telepon"
-                                                value="{{ $data->phone }}" autocomplete="off" required>
+                                                value="{{ $data->phone }}" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="col-md-3">

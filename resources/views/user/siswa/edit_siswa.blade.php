@@ -43,6 +43,10 @@
                                             <label for="nis" class="form-label">Nis<code>*</code></label>
                                             <input type="text" class="form-control" name="nis" id="nis"
                                                 value="{{ $data->nis }}" autocomplete="off" required>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('nis', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
