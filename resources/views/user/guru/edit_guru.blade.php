@@ -28,7 +28,6 @@
                                         <div class="mb-3">
                                             <label for="role" class="form-label">Role <code>*</code></label>
                                             <select class="form-control select select2 role" name="role" id="role">
-                                                <option value=""> -- Pilih --</option>
                                                 <option value="{{ $data->roles }}"
                                                     @if ($data->roles == 'guru') selected @endif> Guru
                                                 </option>
@@ -37,6 +36,9 @@
                                                 </option>
                                                 <option value="{{ $data->roles }}"
                                                     @if ($data->roles == 'siswa') selected @endif> Siswa
+                                                </option>
+                                                <option value="{{ $data->roles }}"
+                                                    @if ($data->roles == 'pembina') selected @endif> Pembina
                                                 </option>
                                             </select>
                                         </div>
@@ -52,14 +54,14 @@
                                         <div class="mb-3">
                                             <label for="nis" class="form-label">NIK </label>
                                             <input type="text" class="form-control" name="nis" id="nis"
-                                                value="{{ $data->nis }}" autocomplete="off">
+                                                value="{{ $data->nis }}" autocomplete="off" required>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Email <code>*</code></label>
+                                            <label for="email" class="form-label">Email</label>
                                             <input class="form-control" type="text" id="email" name="email"
-                                                value="{{ $data->email }}" value="" autocomplete="off" required>
+                                                value="{{ $data->email }}" value="" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -71,37 +73,36 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="telepon" class="form-label">Phone <code>*</code></label>
+                                            <label for="telepon" class="form-label">Phone </label>
                                             <input type="text" class="form-control" name="telepon" id="telepon"
-                                                value="{{ $data->phone }}" autocomplete="off" required>
+                                                value="{{ $data->phone }}" autocomplete="off" </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="mb-3">
-                                            <label for="avatar" class="form-label">Foto</label>
-                                            <input type="file" class="form-control" name="avatar" id="avatar"
-                                                autocomplete="off">
-                                            @if ($data->avatar)
-                                                <a href="javascript:void(0)" data-id="" id="get_data"
-                                                    data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">
-                                                    <i
-                                                        class="mdi mdi-file-document font-size-16 align-middle text-primary me-2"></i>Lihat
-                                                    Dokumen
-                                                </a>
-                                            @endif
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="avatar" class="form-label">Foto</label>
+                                                <input type="file" class="form-control" name="avatar" id="avatar"
+                                                    autocomplete="off">
+                                                @if ($data->avatar)
+                                                    <a href="javascript:void(0)" data-id="" id="get_data"
+                                                        data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">
+                                                        <i
+                                                            class="mdi mdi-file-document font-size-16 align-middle text-primary me-2"></i>Lihat
+                                                        Dokumen
+                                                    </a>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                    {{-- <div class="col-md-3">
+                                        {{-- <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="nik" class="form-label">NIK </label>
                                             <input type="text" class="form-control" name="nik" id="nik"
                                                 value="{{ $data->nik }}" autocomplete="off">
                                         </div>
                                     </div> --}}
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        {{-- <div class="mb-3">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            {{-- <div class="mb-3">
                                             <label for="kelas" class="form-label">Kelas</label>
                                             <select class="form-control select2" name="kelas" id="kelas">
                                                 <option value=""> -- Pilih --</option>
@@ -113,26 +114,26 @@
                                                 @endforeach
                                             </select>
                                         </div> --}}
+                                        </div>
+
+
+
                                     </div>
+                                    <div class="row">
 
-
-
-                                </div>
-                                <div class="row">
-
-                                </div>
-                                <div class="row mt-4">
-                                    <div class="col-sm-12">
-                                        <a href="{{ route('pengguna.data_guru') }}"
-                                            class="btn btn-secondary waves-effect">Batal</a>
-                                        <button class="btn btn-primary" type="submit" style="float: right"
-                                            id="submit">Simpan</button>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-sm-12">
+                                            <a href="{{ route('pengguna.data_guru') }}"
+                                                class="btn btn-secondary waves-effect">Batal</a>
+                                            <button class="btn btn-primary" type="submit" style="float: right"
+                                                id="submit">Simpan</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </form>
         </div>
     </div>

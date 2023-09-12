@@ -37,6 +37,9 @@
                                                 <option value="Administrator"
                                                     @if ($data->roles == 'Administrator') selected @endif> Adminitrator
                                                 </option>
+                                                <option value="{{ $data->roles }}"
+                                                    @if ($data->roles == 'pembina') selected @endif> Pembina
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -52,6 +55,10 @@
                                             <label for="nis" class="form-label">NIK<code>*</code></label>
                                             <input type="text" class="form-control" name="nis" id="nis"
                                                 value="{{ $data->nis }}" autocomplete="off" required>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('nis', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">

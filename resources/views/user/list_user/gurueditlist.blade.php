@@ -37,6 +37,9 @@
                                                 <option value="Administrator"
                                                     @if ($data->roles == 'Administrator') selected @endif> Adminitrator
                                                 </option>
+                                                <option value="{{ $data->roles }}"
+                                                    @if ($data->roles == 'pembina') selected @endif> Pembina
+                                                </option>
                                             </select>
                                         </div>
                                     </div>

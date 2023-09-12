@@ -15,8 +15,8 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" action="{{ route('pengguna.store') }}" enctype="multipart/form-data"
-                method="POST" novalidate>
+            <form class="needs-validation" action="{{ route('pembina.store') }}" enctype="multipart/form-data" method="POST"
+                novalidate>
                 @csrf
                 <div class="row">
                     <div class="col-xl-12">
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">
-                                        <a href="{{ route('pengguna.data_guru') }}"
+                                        <a href="{{ route('pembina.index') }}"
                                             class="btn btn-secondary waves-effect">Batal</a>
                                         <button class="btn btn-primary" type="submit" style="float: right"
                                             id="submit">Simpan</button>

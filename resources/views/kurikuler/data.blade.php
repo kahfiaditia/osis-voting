@@ -51,7 +51,15 @@
                                             <td>{{ $item->kode }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->deskripsi }}</td>
-                                            <td>{{ $item->status == 1 ? 'Aktif' : 'Tidak Aktif' }}</td>
+                                            <td>
+                                                @if ($item->status == 1)
+                                                    <span class="badge bg-success">Active</span>
+                                                @else
+                                                    <span class="badge bg-danger">Inactive</span>
+                                                @endif
+                                            </td>
+
+                                            </td>
                                             <td>
                                                 <?php $id = $item->id; ?>
                                                 <form class="delete-form" action="" method="POST">

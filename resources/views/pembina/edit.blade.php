@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" action="{{ route('pengguna.update', $data->id) }}" enctype="multipart/form-data"
+            <form class="needs-validation" action="{{ route('pembina.update', $data->id) }}" enctype="multipart/form-data"
                 method="POST" novalidate>
                 @csrf
                 @method('PATCH')
@@ -93,28 +93,10 @@
                                             @endif
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-3">
-                                        <div class="mb-3">
-                                            <label for="nik" class="form-label">NIK </label>
-                                            <input type="text" class="form-control" name="nik" id="nik"
-                                                value="{{ $data->nik }}" autocomplete="off">
-                                        </div>
-                                    </div> --}}
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        {{-- <div class="mb-3">
-                                            <label for="kelas" class="form-label">Kelas</label>
-                                            <select class="form-control select2" name="kelas" id="kelas">
-                                                <option value=""> -- Pilih --</option>
-                                                @foreach ($kelas as $item)
-                                                    <option value="{{ $item->id }}"
-                                                        @if ($item->id == $data->class_id) selected @endif>
-                                                        {{ $item->class_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div> --}}
                                     </div>
 
 
@@ -125,7 +107,7 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">
-                                        <a href="{{ route('pengguna.admin') }}"
+                                        <a href="{{ route('pembina.index') }}"
                                             class="btn btn-secondary waves-effect">Batal</a>
                                         <button class="btn btn-primary" type="submit" style="float: right"
                                             id="submit">Simpan</button>

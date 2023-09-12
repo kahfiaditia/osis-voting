@@ -84,7 +84,7 @@ class PembinaController extends Controller
         }
 
         return DataTables::of($userdata)
-            ->addColumn('action', 'user.guru.buttonguru')
+            ->addColumn('action', 'pembina.a')
             ->rawColumns(['action'])
             ->make(true);
     }
@@ -168,7 +168,14 @@ class PembinaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'label' => 'Data Pembina',
+            'data' => User::findOrfail($id),
+        ];
+
+        return view('pembina.edit')->with($data);
     }
 
     /**
@@ -180,7 +187,39 @@ class PembinaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required',
+            'nis' => 'required|unique:users,nis',
+            'avatar' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $pembina = User::findOrFail($id);
+            $pembina->name = $request->nama;
+            $pembina->email = $request->email;
+            $pembina->password =  bcrypt('12345');
+            if ($request->avatar) {
+                $fileName = Carbon::now()->format('ymdhis') . '_' . str::random(25) . '.' . $request->avatar->extension();
+                $pembina->avatar = $fileName;
+                $request->avatar->move(public_path('avatar'), $fileName);
+            }
+            $pembina->pin =  1234;
+            $pembina->nis =  $request->nis;
+            $pembina->address = $request->alamat;
+            $pembina->phone = $request->telepon;
+            $pembina->roles = $request->role;
+            $pembina->save();
+
+            DB::commit();
+            AlertHelper::addAlert(true);
+            return redirect('/pembina');
+        } catch (\Throwable $err) {
+            DB::rollback();
+            throw $err;
+            AlertHelper::addAlert(false);
+            return back();
+        }
     }
 
     /**

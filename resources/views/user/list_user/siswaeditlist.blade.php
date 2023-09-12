@@ -37,6 +37,9 @@
                                                 <option value="Administrator"
                                                     @if ($data->roles == 'Administrator') selected @endif> Adminitrator
                                                 </option>
+                                                <option value="{{ $data->roles }}"
+                                                    @if ($data->roles == 'pembina') selected @endif> Pembina
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -103,28 +106,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        {{-- <div class="mb-3">
-                                            <label for="kelas" class="form-label">Kelas</label>
-                                            <select class="form-control select2" name="kelas" id="kelas">
-                                                <option value=""> -- Pilih --</option>
-                                                @foreach ($kelas as $item)
-                                                    <option value="{{ $item->id }}"
-                                                        @if ($item->id == $data->class_id) selected @endif>
-                                                        {{ $item->class_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div> --}}
-                                    </div>
-
-
-
-                                </div>
-                                <div class="row">
-
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">

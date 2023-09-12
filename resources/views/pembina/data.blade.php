@@ -125,7 +125,7 @@
                                                         <div class="col-sm-10 mb-2">
                                                             <button type="submit"
                                                                 class="btn btn-primary w-md">Cari</button>
-                                                            <a href="{{ route('pengguna.data_guru') }}"
+                                                            <a href="{{ route('pembina.index') }}"
                                                                 class="btn btn-secondary w-md">Batal</a>
                                                             @if (isset($_GET['name']) or isset($_GET['like']))
                                                                 <?php

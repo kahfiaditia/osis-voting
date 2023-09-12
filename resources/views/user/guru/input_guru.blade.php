@@ -18,14 +18,6 @@
             <form class="needs-validation" action="{{ route('pengguna.store') }}" enctype="multipart/form-data"
                 method="POST" novalidate>
                 @csrf
-                {{-- <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <a href="{{ route('pengguna.halaman') }}" type="button"
-                            class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                            <i class="mdi mdi-plus me-1"></i> Upload Excel
-                        </a>
-                    </ol>
-                </div> --}}
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
@@ -53,7 +45,7 @@
                                         <div class="mb-3">
                                             <label for="nis" class="form-label">NIK </label>
                                             <input type="text" class="form-control" name="nis" id="nis"
-                                                autocomplete="off" maxlength="15">
+                                                autocomplete="off" maxlength="15" required>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
