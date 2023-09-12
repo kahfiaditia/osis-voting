@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\ClasessController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExtraController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\KandidatsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PembinaController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\UserController;
@@ -109,5 +111,9 @@ Route::group(
         Route::post('/edit_get_niswakil', [KandidatController::class, 'edit_get_niswakil'])->name('kandidat.edit_get_niswakil');
         Route::get('/download-template', [UserController::class, 'template'])->name('template');
         Route::get('/download-guru', [UserController::class, 'template_guru'])->name('template_guru');
+
+        Route::resource('/kegiatan', ExtraController::class);
+        Route::resource('/pembina', PembinaController::class);
+        Route::get('/get_data_pembina', [PembinaController::class, 'get_data_pembina'])->name('pembina.get_data_pembina');
     }
 );

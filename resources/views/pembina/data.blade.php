@@ -14,9 +14,9 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 @if (Auth::user()->id == 1)
-                                    <a href="{{ route('kandidat.create') }}" type="button"
+                                    <a href="{{ route('pembina.create') }}" type="button"
                                         class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                        <i class="mdi mdi-plus me-1"></i> Tambah Calon Osis
+                                        <i class="mdi mdi-plus me-1"></i> Tambah Pembina
                                     </a>
                                 @endif
                             </ol>
@@ -31,7 +31,7 @@
                             <div class="accordion" id="accordionExample">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne">
-                                        <button class="accordion-button fw-medium <?php if (isset($_GET['id_ketua'])) {
+                                        <button class="accordion-button fw-medium <?php if (isset($_GET['name'])) {
                                         } else {
                                             echo 'collapsed';
                                         } ?>" type="button"
@@ -43,8 +43,8 @@
                                     </h2>
 
                                     <div id="collapseOne" class="accordion-collapse collapse <?php
-                                    if (isset($_GET['id_ketua']) or isset($_GET['id_wakil']) or isset($_GET['no_urut']) or isset($_GET['id_periode']) or isset($_GET['quote']) or isset($_GET['visi_misi'])) {
-                                        if ($_GET['id_ketua'] != null or $_GET['id_wakil'] != null or $_GET['no_urut'] != null or $_GET['id_periode'] != null or $_GET['quote'] != null or $_GET['visi_misi'] != null) {
+                                    if (isset($_GET['name']) or isset($_GET['email']) or isset($_GET['nis']) or isset($_GET['address']) or isset($_GET['phone']) or isset($_GET['roles'])) {
+                                        if ($_GET['name'] != null or $_GET['email'] != null or $_GET['nis'] != null or $_GET['address'] != null or $_GET['phone'] != null or $_GET['roles'] != null) {
                                             echo 'show';
                                         }
                                     }
@@ -61,39 +61,40 @@
                                                         <div class="col-md-12">
                                                             <div class="row">
                                                                 <div class="col-md-2 mb-2">
-                                                                    <input type="text" name="id_ketua" id="id_ketua"
-                                                                        value="{{ isset($_GET['id_ketua']) ? $_GET['id_ketua'] : null }}"
-                                                                        class="form-control" placeholder="Ketua"
+                                                                    <input type="text" name="name" id="name"
+                                                                        value="{{ isset($_GET['name']) ? $_GET['name'] : null }}"
+                                                                        class="form-control" placeholder="Nama"
                                                                         autocomplete="off">
                                                                 </div>
                                                                 <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="id_wakil" id="id_wakil"
-                                                                        value="{{ isset($_GET['id_wakil']) ? $_GET['id_wakil'] : null }}"
-                                                                        class="form-control" placeholder="Wakil"
+                                                                    <input type="text" name="email" id="email"
+                                                                        value="{{ isset($_GET['email']) ? $_GET['email'] : null }}"
+                                                                        class="form-control" placeholder="Email"
                                                                         autocomplete="off">
                                                                 </div>
                                                                 <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="no_urut" id="no_urut"
-                                                                        value="{{ isset($_GET['no_urut']) ? $_GET['no_urut'] : null }}"
-                                                                        class="form-control" placeholder="No Urut"
+                                                                    <input type="text" name="nis" id="nis"
+                                                                        value="{{ isset($_GET['nis']) ? $_GET['nis'] : null }}"
+                                                                        class="form-control" placeholder="Nis"
                                                                         autocomplete="off">
                                                                 </div>
                                                                 <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="id_periode" id="id_periode"
-                                                                        value="{{ isset($_GET['id_periode']) ? $_GET['id_periode'] : null }}"
-                                                                        class="form-control" placeholder="Periode"
+                                                                    <input type="text" name="address" id="address"
+                                                                        value="{{ isset($_GET['address']) ? $_GET['address'] : null }}"
+                                                                        class="form-control" placeholder="Alamat"
                                                                         autocomplete="off">
                                                                 </div>
                                                                 <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="quote" id="quote"
-                                                                        value="{{ isset($_GET['quote']) ? $_GET['quote'] : null }}"
-                                                                        class="form-control" placeholder="Quote"
+                                                                    <input type="text" name="phone" id="phone"
+                                                                        value="{{ isset($_GET['phone']) ? $_GET['phone'] : null }}"
+                                                                        class="form-control" placeholder="Phone"
                                                                         autocomplete="off">
                                                                 </div>
+
                                                                 <div class="col-sm-2 mb-2">
-                                                                    <input type="text" name="visi_misi" id="visi_misi"
-                                                                        value="{{ isset($_GET['visi_misi']) ? $_GET['visi_misi'] : null }}"
-                                                                        class="form-control" placeholder="Visi Misi"
+                                                                    <input type="text" name="roles" id="roles"
+                                                                        value="{{ isset($_GET['roles']) ? $_GET['roles'] : null }}"
+                                                                        class="form-control" placeholder="Roles"
                                                                         autocomplete="off">
                                                                 </div>
                                                             </div>
@@ -124,16 +125,17 @@
                                                         <div class="col-sm-10 mb-2">
                                                             <button type="submit"
                                                                 class="btn btn-primary w-md">Cari</button>
-                                                            <a href="{{ route('kandidat.index') }}"
+                                                            <a href="{{ route('pengguna.data_guru') }}"
                                                                 class="btn btn-secondary w-md">Batal</a>
-                                                            {{-- @if (isset($_GET['id_ketua']) or isset($_GET['id_ketua']))
+                                                            @if (isset($_GET['name']) or isset($_GET['like']))
                                                                 <?php
-                                                                $id_ketua = $_GET['id_ketua'];
-                                                                $id_wakil = $_GET['id_wakil'];
-                                                                $no_urut = $_GET['no_urut'];
-                                                                $id_periode = $_GET['id_periode'];
-                                                                $quote = $_GET['quote'];
-                                                                $visi_misi = $_GET['visi_misi'];
+                                                                $name = $_GET['name'];
+                                                                $email = $_GET['email'];
+                                                                $nis = $_GET['nis'];
+                                                                $address = $_GET['address'];
+                                                                $phone = $_GET['phone'];
+                                                                $roles = $_GET['roles'];
+                                                                // $name = $_GET['name'];
                                                                 $search_manual = $_GET['search_manual'];
                                                                 if (isset($_GET['like'])) {
                                                                     $like = $_GET['like'];
@@ -141,33 +143,7 @@
                                                                     $like = null;
                                                                 }
                                                                 ?>
-                                                                <a href="{{ route(
-                                                                    'kandidat.index',
-                                                                    'id_ketua=' .
-                                                                        $id_ketua .
-                                                                        '&id_wakil=' .
-                                                                        $id_wakil .
-                                                                        '&no_urut=' .
-                                                                        $no_urut .
-                                                                        '&id_periode=' .
-                                                                        $id_periode .
-                                                                        '&quote=' .
-                                                                        $quote .
-                                                                        '&visi_misi=' .
-                                                                        $visi_misi .
-                                                                        '&search_manual=' .
-                                                                        $search_manual .
-                                                                        '&like=' .
-                                                                        $like .
-                                                                        '',
-                                                                ) }}"
-                                                                    class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
-                                                                        class="bx bx-cloud-download me-1"></i>Unduh</a>
-                                                            @else
-                                                                <a href="{{ route('kandidat.index') }}"
-                                                                    class="btn btn-success btn-rounded waves-effect waves-light w-md"><i
-                                                                        class="bx bx-cloud-download me-1"></i>Unduh</a>
-                                                            @endif --}}
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </form>
@@ -181,12 +157,12 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Ketua</th>
-                                        <th>Wakil</th>
-                                        <th>No Urut</th>
-                                        <th>Periode</th>
-                                        <th>Qoute</th>
-                                        {{-- <th>Visi Misi</th> --}}
+                                        <th>Nama</th>
+                                        <th>Email</th>
+                                        <th>Nik</th>
+                                        <th>Alamat</th>
+                                        <th>Phone</th>
+                                        <th>Roles</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -205,12 +181,12 @@
         function toggleCheckbox() {
             like = document.getElementById("like").checked;
             if (like == true) {
-                document.getElementById("id_ketua").value = null;
-                document.getElementById("id_wakil").value = null;
-                document.getElementById("no_urut").value = null;
-                document.getElementById("id_periode").value = null;
-                document.getElementById("quote").value = null;
-                document.getElementById("visi_misi").value = null;
+                document.getElementById("name").value = null;
+                document.getElementById("email").value = null;
+                document.getElementById("nis").value = null;
+                document.getElementById("address").value = null;
+                document.getElementById("phone").value = null;
+                document.getElementById("roles").value = null;
                 // document.getElementById("name").value = null;
                 $('#type').val("").trigger('change')
                 document.getElementById("id_where").style.display = 'none';
@@ -226,13 +202,12 @@
         $(document).ready(function() {
             like = document.getElementById("like").checked;
             if (like == true) {
-                document.getElementById("id_ketua").value = null;
-                document.getElementById("id_wakil").value = null;
-                document.getElementById("no_urut").value = null;
-                document.getElementById("id_periode").value = null;
-                document.getElementById("quote").value = null;
-                document.getElementById("visi_misi").value = null;
-                // document.getElementById("name").value = null;
+                document.getElementById("name").value = null;
+                document.getElementById("email").value = null;
+                document.getElementById("nis").value = null;
+                document.getElementById("address").value = null;
+                document.getElementById("phone").value = null;
+                document.getElementById("roles").value = null;
                 $('#type').val("").trigger('change')
                 document.getElementById("id_where").style.display = 'none';
                 document.getElementById("id_like").style.display = 'block';
@@ -251,33 +226,33 @@
                 serverSide: true,
                 responsive: true,
                 ajax: {
-                    url: "{{ route('kandidat.data_kandidat') }}",
+                    url: "{{ route('pembina.get_data_pembina') }}",
                     data: function(d) {
-                        d.id_ketua = (document.getElementById("id_ketua").value
+                        d.name = (document.getElementById("name").value
                                 .length != 0) ?
                             document
                             .getElementById(
-                                "id_ketua").value : null;
-                        d.id_wakil = (document.getElementById("id_wakil").value.length != 0) ?
+                                "name").value : null;
+                        d.email = (document.getElementById("email").value.length != 0) ?
                             document
                             .getElementById(
-                                "id_wakil").value : null;
-                        d.no_urut = (document.getElementById("no_urut").value.length != 0) ?
+                                "email").value : null;
+                        d.nis = (document.getElementById("nis").value.length != 0) ?
                             document
                             .getElementById(
-                                "no_urut").value : null;
-                        d.id_periode = (document.getElementById("id_periode").value.length != 0) ?
+                                "nis").value : null;
+                        d.address = (document.getElementById("address").value.length != 0) ?
                             document
                             .getElementById(
-                                "id_periode").value : null;
-                        d.quote = (document.getElementById("quote").value.length != 0) ?
+                                "address").value : null;
+                        d.phone = (document.getElementById("phone").value.length != 0) ?
                             document
                             .getElementById(
-                                "quote").value : null;
-                        d.visi_misi = (document.getElementById("visi_misi").value.length != 0) ?
+                                "phone").value : null;
+                        d.roles = (document.getElementById("roles").value.length != 0) ?
                             document
                             .getElementById(
-                                "visi_misi").value : null;
+                                "roles").value : null;
                         d.search_manual = (document.getElementById("search_manual").value
                                 .length != 0) ?
                             document
@@ -296,29 +271,29 @@
 
                     },
                     {
-                        data: 'ketua_name',
-                        name: 'ketua_name'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
-                        data: 'wakil_name',
-                        name: 'wakil_name'
+                        data: 'email',
+                        name: 'email'
                     },
                     {
-                        data: 'no_urut',
-                        name: 'no_urut'
+                        data: 'nis',
+                        name: 'nis'
                     },
                     {
-                        data: 'periode_name',
-                        name: 'periode_name'
+                        data: 'address',
+                        name: 'address'
                     },
                     {
-                        data: 'quote',
-                        name: 'quote'
+                        data: 'phone',
+                        name: 'phone'
                     },
-                    // {
-                    //     data: 'visi_misi',
-                    //     name: 'visi_misi'
-                    // },
+                    {
+                        data: 'roles',
+                        name: 'roles'
+                    },
                     {
                         data: 'action',
                         name: 'action',

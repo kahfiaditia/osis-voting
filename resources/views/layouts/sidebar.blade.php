@@ -68,7 +68,8 @@
                          <span key="t-ecommerce">Ekstra Kulikuler</span>
                      </a>
                      <ul class="sub-menu" aria-expanded="false">
-                         <li><a class="inactive-link" key="t-products">Kegiatan</a></li>
+                         <li><a href="{{ route('kegiatan.index') }}" key="t-products">Kegiatan</a></li>
+                         <li><a href="{{ route('pembina.index') }}" key="t-products">Pembina</a></li>
                          <li><a class="inactive-link" key="t-product-detail">Jadwal</a></li>
                          <li><a class="inactive-link" key="t-orders">Follow</a></li>
                          <li><a class="inactive-link" key="t-orders">Absensi</a></li>

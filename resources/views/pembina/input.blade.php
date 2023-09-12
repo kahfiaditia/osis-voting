@@ -18,14 +18,6 @@
             <form class="needs-validation" action="{{ route('pengguna.store') }}" enctype="multipart/form-data"
                 method="POST" novalidate>
                 @csrf
-                {{-- <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <a href="{{ route('pengguna.halaman') }}" type="button"
-                            class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                            <i class="mdi mdi-plus me-1"></i> Upload Excel
-                        </a>
-                    </ol>
-                </div> --}}
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
@@ -35,7 +27,7 @@
                                         <div class="mb-3">
                                             <label for="role" class="form-label">Role <code>*</code></label>
                                             <input type="text" class="form-control" name="role" id="role"
-                                                value="guru" autocomplete="off" maxlength="30" readonly>
+                                                value="pembina" autocomplete="off" maxlength="30" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -58,7 +50,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
+                                            <label for="email" class="form-label">Email </label>
                                             <input class="form-control" type="text" id="email" name="email"
                                                 value="" autocomplete="off" maxlength="50">
                                         </div>
