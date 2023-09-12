@@ -35,7 +35,7 @@
                                                     Guru
                                                 </option>
                                                 <option value="Administrator"
-                                                    @if ($data->roles == 'Administrator') selected @endif> Adminitrator
+                                                    @if ($data->roles == 'Administrator') selected @endif> Administrator
                                                 </option>
                                                 <option value="{{ $data->roles }}"
                                                     @if ($data->roles == 'pembina') selected @endif> Pembina
@@ -97,10 +97,13 @@
                                         <div class="mb-3">
                                             <label for="kelas" class="form-label">Kelas</label>
                                             <select class="form-control select2" name="kelas" id="kelas">
+                                                <option value="">
+                                                    -- Pilih --
+                                                </option>
                                                 @foreach ($kelas as $c)
                                                     <option value="{{ $c->id }}"
                                                         @if ($c->id == $data->class_id) selected @endif>
-                                                        {{ $c->class_name }}
+                                                        {{ $c->class_name }} - {{ $c->class_level }}
                                                     </option>
                                                 @endforeach
                                             </select>

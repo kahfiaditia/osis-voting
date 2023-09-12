@@ -35,7 +35,7 @@
                                                     Guru
                                                 </option>
                                                 <option value="Administrator"
-                                                    @if ($data->roles == 'Administrator') selected @endif> Adminitrator
+                                                    @if ($data->roles == 'Administrator') selected @endif> Administrator
                                                 </option>
                                                 <option value="{{ $data->roles }}"
                                                     @if ($data->roles == 'pembina') selected @endif> Pembina
@@ -48,6 +48,10 @@
                                             <label for="nama" class="form-label">Nama <code>*</code></label>
                                             <input type="text" class="form-control" name="nama" id="nama"
                                                 value="{{ $data->name }}" autocomplete="off" required>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('nama', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">

@@ -32,7 +32,7 @@
                                                     @if ($data->roles == 'guru') selected @endif> Guru
                                                 </option>
                                                 <option value="{{ $data->roles }}"
-                                                    @if ($data->roles == 'Administrator') selected @endif> Adminitrator
+                                                    @if ($data->roles == 'Administrator') selected @endif> Administrator
                                                 </option>
                                                 <option value="{{ $data->roles }}"
                                                     @if ($data->roles == 'siswa') selected @endif> Siswa
@@ -48,13 +48,21 @@
                                             <label for="nama" class="form-label">Nama <code>*</code></label>
                                             <input type="text" class="form-control" name="nama" id="nama"
                                                 value="{{ $data->name }}" autocomplete="off" required>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('nama', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="nis" class="form-label">NIK </label>
+                                            <label for="nis" class="form-label">NIK <code>*</code></label>
                                             <input type="text" class="form-control" name="nis" id="nis"
                                                 value="{{ $data->nis }}" autocomplete="off" required>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('nis', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">

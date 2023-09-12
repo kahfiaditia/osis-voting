@@ -829,7 +829,7 @@ class UserController extends Controller
                 }
                 return $class;
             })
-            ->addColumn('action', 'user.siswa.akse')
+            ->addColumn('action', 'user.list_user.siswabutton')
             ->rawColumns(['action'])
             ->make(true);
     }
