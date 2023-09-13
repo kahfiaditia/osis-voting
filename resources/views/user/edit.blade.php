@@ -93,34 +93,6 @@
                                             @endif
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-3">
-                                        <div class="mb-3">
-                                            <label for="nik" class="form-label">NIK </label>
-                                            <input type="text" class="form-control" name="nik" id="nik"
-                                                value="{{ $data->nik }}" autocomplete="off">
-                                        </div>
-                                    </div> --}}
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        {{-- <div class="mb-3">
-                                            <label for="kelas" class="form-label">Kelas</label>
-                                            <select class="form-control select2" name="kelas" id="kelas">
-                                                <option value=""> -- Pilih --</option>
-                                                @foreach ($kelas as $item)
-                                                    <option value="{{ $item->id }}"
-                                                        @if ($item->id == $data->class_id) selected @endif>
-                                                        {{ $item->class_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div> --}}
-                                    </div>
-
-
-
-                                </div>
-                                <div class="row">
 
                                 </div>
                                 <div class="row mt-4">
