@@ -62,7 +62,7 @@
                          <li><a href="{{ route('vote.index') }}" key="t-orders">Voting</a></li>
                      </ul>
                  </li>
-                 {{-- <li>
+                 <li>
                      <a href="javascript: void(0);" class="has-arrow waves-effect">
                          <i class="bx bx-label"></i>
                          <span key="t-ecommerce">Ekstra Kulikuler</span>
@@ -74,7 +74,7 @@
                          <li><a class="inactive-link" key="t-orders">Follow</a></li>
                          <li><a class="inactive-link" key="t-orders">Absensi</a></li>
                      </ul>
-                 </li> --}}
+                 </li>
              </ul>
          </div>
      </div>
