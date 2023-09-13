@@ -12,6 +12,7 @@ use App\Http\Controllers\PembinaController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPembinaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,5 +116,8 @@ Route::group(
         Route::resource('/kegiatan', ExtraController::class);
         Route::resource('/pembina', PembinaController::class);
         Route::get('/get_data_pembina', [PembinaController::class, 'get_data_pembina'])->name('pembina.get_data_pembina');
+        Route::resource('/pembina_list', UserPembinaController::class);
+        Route::get('/get_list_user_pembina', [UserPembinaController::class, 'get_list_user_pembina'])->name('pembina_list.get_list_user_pembina');
+        Route::post('/reset_password_pembina/{id}', [UserPembinaController::class, 'reset_password_pembina'])->name('pembina_list.reset_password_pembina');
     }
 );

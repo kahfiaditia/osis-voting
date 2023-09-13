@@ -15,17 +15,10 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" action="{{ route('pengguna.storelistguru') }}" enctype="multipart/form-data"
-                method="POST" novalidate>
+            <form class="needs-validation" action="{{ route('pembina_list.update', $data->id) }}"
+                enctype="multipart/form-data" method="POST" novalidate>
                 @csrf
-                <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <a href="{{ route('pengguna.halaman_guru') }}" type="button"
-                            class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                            <i class="mdi mdi-plus me-1"></i> Upload Excel
-                        </a>
-                    </ol>
-                </div>
+                @method('PATCH')
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
@@ -34,73 +27,85 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="role" class="form-label">Role <code>*</code></label>
-                                            <input type="text" class="form-control" name="role" id="role"
-                                                value="guru" autocomplete="off" maxlength="30" readonly>
+                                            <select class="form-control select select2 role" name="role" id="role">
+                                                <option value="siswa" @if ($data->roles == 'siswa') selected @endif>
+                                                    Siswa
+                                                </option>
+                                                <option value="guru" @if ($data->roles == 'guru') selected @endif>
+                                                    Guru
+                                                </option>
+                                                <option value="Administrator"
+                                                    @if ($data->roles == 'Administrator') selected @endif> Administrator
+                                                </option>
+                                                <option value="{{ $data->roles }}"
+                                                    @if ($data->roles == 'pembina') selected @endif> Pembina
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="nama" class="form-label">Nama <code>*</code></label>
                                             <input type="text" class="form-control" name="nama" id="nama"
-                                                autocomplete="off" maxlength="30" required>
+                                                value="{{ $data->name }}" autocomplete="off" required>
                                             <div class="invalid-feedback">
                                                 Data wajib diisi.
                                             </div>
                                             {!! $errors->first('nama', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
+
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="nis" class="form-label">NIK<code>*</code> </label>
+                                            <label for="nis" class="form-label">NIK<code>*</code></label>
                                             <input type="text" class="form-control" name="nis" id="nis"
-                                                autocomplete="off" maxlength="15" required>
+                                                value="{{ $data->nis }}" autocomplete="off" required>
                                             <div class="invalid-feedback">
                                                 Data wajib diisi.
                                             </div>
                                             {!! $errors->first('nis', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
-
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
+                                            <label for="email" class="form-label">Email </label>
                                             <input class="form-control" type="text" id="email" name="email"
-                                                value="" autocomplete="off" maxlength="50">
+                                                value="{{ $data->email }}" autocomplete="off">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="alamat" class="form-label">Alamat</label>
                                             <input type="text" class="form-control" name="alamat" id="alamat"
-                                                autocomplete="off" maxlength="50">
+                                                value="{{ $data->address }}" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="telepon" class="form-label">Phone </label>
                                             <input type="text" class="form-control" name="telepon" id="telepon"
-                                                autocomplete="off" maxlength="20">
+                                                value="{{ $data->phone }}" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label for="avatar" class="form-label">Foto (.jpg, .jpeg,
-                                                .png) max 2048</label>
+                                            <label for="avatar" class="form-label">Foto</label>
                                             <input type="file" class="form-control" name="avatar" id="avatar"
-                                                autocomplete="off" accept=".jpg, .jpeg, .png">
+                                                autocomplete="off">
+                                            @if ($data->avatar)
+                                                <a href="javascript:void(0)" data-id="" id="get_data"
+                                                    data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">
+                                                    <i
+                                                        class="mdi mdi-file-document font-size-16 align-middle text-primary me-2"></i>Lihat
+                                                    Dokumen
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-
-                                </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">
-                                        <a href="{{ route('list_data_guru') }}"
+                                        <a href="{{ route('pembina_list.index') }}"
                                             class="btn btn-secondary waves-effect">Batal</a>
                                         <button class="btn btn-primary" type="submit" style="float: right"
                                             id="submit">Simpan</button>
@@ -111,6 +116,20 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myExtraLargeModalLabel">Dokumen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ URL::asset('avatar/' . $data->avatar) }}" style="width: 100%">
+                </div>
+            </div>
         </div>
     </div>
 @endsection

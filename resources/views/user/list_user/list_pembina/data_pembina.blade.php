@@ -54,12 +54,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('pembina_list.index') }}">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="" role="tab">
                                         Pembina
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-bs-toggle="tab" href="#administrator" role="tab">
+                                    <a class="nav-link" href="{{ route('list_data_administrator') }}">
                                         Administrator
                                     </a>
                                 </li>
@@ -241,7 +241,7 @@
                 serverSide: true,
                 responsive: true,
                 ajax: {
-                    url: "{{ route('pengguna.get_list_user_administrator') }}",
+                    url: "{{ route('pembina_list.get_list_user_pembina') }}",
                     data: function(d) {
                         d.name = (document.getElementById("name").value
                                 .length != 0) ?
