@@ -10,6 +10,7 @@ use App\Http\Controllers\KandidatsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembinaController;
+use App\Http\Controllers\PengikutController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\UserController;
@@ -126,5 +127,9 @@ Route::group(
         Route::get('/get_hari', [JadwalExtraController::class, 'getHari'])->name('jadwal.get_hari');
         Route::post('/simpan_data', [JadwalExtraController::class, 'simpan_data'])->name('jadwal.simpan_data');
         Route::get('/data_list_jadwal', [JadwalExtraController::class, 'data_list_jadwal'])->name('jadwal.data_list_jadwal');
+        Route::resource('/follow', PengikutController::class);
+        Route::get('/data_kegiatan', [PengikutController::class, 'data_kegiatan'])->name('follow.data_kegiatan');
+        Route::get('/cari_siswa', [PengikutController::class, 'cari_siswa'])->name('follow.cari_siswa');
+        Route::post('/simpan_pengikut', [PengikutController::class, 'simpan_pengikut'])->name('follow.simpan_pengikut');
     }
 );
