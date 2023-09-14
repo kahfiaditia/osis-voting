@@ -257,18 +257,6 @@
             });
         }
 
-
-        // function ambilNilaiSelect() {
-        //     var nilaiSelect = [];
-        //     $('tbody tr').each(function() {
-        //         var idSelect = $(this).find('select').attr('id'); // Ambil ID elemen <select> dalam baris saat ini
-        //         var nilai = $("#" + idSelect).val(); // Ambil nilai dari elemen <select> berdasarkan ID
-        //         nilaiSelect.push(nilai);
-        //         // console.log("Nilai elemen <select>:", nilai);
-        //     });
-        //     return nilaiSelect;
-        // }
-
         function ambilNilaiSelect() {
             var nilaiSelect = [];
             $('tbody tr').each(function() {
@@ -319,12 +307,14 @@
                     success: response => {
                         if (response.code == 200) {
                             Swal.fire({
-                                title: 'Edit Data',
+                                title: 'Input Jadwal Berhasil',
                                 text: `${response.message}`,
                                 icon: 'success',
                                 timer: 1000,
                                 willClose: () => {
-                                    location.reload();
+                                    // Mengarahkan ke route jadwal.index
+                                    window.location.href =
+                                        '{{ route('jadwal.index') }}';
                                 }
                             })
                         } else {

@@ -171,7 +171,6 @@ class JadwalExtraController extends Controller
                 ]);
             }
 
-
             DB::commit();
             return response()->json([
                 'code' => 200,

@@ -120,7 +120,7 @@
                                                         <div class="col-sm-10 mb-2">
                                                             <button type="submit"
                                                                 class="btn btn-primary w-md">Cari</button>
-                                                            <a href="{{ route('kandidat.index') }}"
+                                                            <a href="{{ route('jadwal.index') }}"
                                                                 class="btn btn-secondary w-md">Batal</a>
                                                             {{-- @if (isset($_GET['id_ketua']) or isset($_GET['id_ketua']))
                                                                 <?php
