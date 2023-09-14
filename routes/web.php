@@ -4,6 +4,7 @@ use App\Http\Controllers\ClasessController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExtraController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\JadwalExtraController;
 use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\KandidatsController;
 use Illuminate\Support\Facades\Route;
@@ -119,5 +120,11 @@ Route::group(
         Route::resource('/pembina_list', UserPembinaController::class);
         Route::get('/get_list_user_pembina', [UserPembinaController::class, 'get_list_user_pembina'])->name('pembina_list.get_list_user_pembina');
         Route::post('/reset_password_pembina/{id}', [UserPembinaController::class, 'reset_password_pembina'])->name('pembina_list.reset_password_pembina');
+        Route::resource('/jadwal', JadwalExtraController::class);
+        Route::post('/cari_pembina', [JadwalExtraController::class, 'cari_pembina'])->name('jadwal.cari_pembina');
+        Route::post('/cari_hari', [JadwalExtraController::class, 'cari_hari'])->name('jadwal.cari_hari');
+        Route::get('/get_hari', [JadwalExtraController::class, 'getHari'])->name('jadwal.get_hari');
+        Route::post('/simpan_data', [JadwalExtraController::class, 'simpan_data'])->name('jadwal.simpan_data');
+        Route::get('/data_list_jadwal', [JadwalExtraController::class, 'data_list_jadwal'])->name('jadwal.data_list_jadwal');
     }
 );
