@@ -16,7 +16,7 @@ class CreateTablePengikutData extends Migration
         Schema::create('table_pengikut_data', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_ekstra');
-            $table->foreign('id_ekstra')->references('id')->on('table_jadwal_hari');
+            $table->foreign('id_ekstra')->references('id')->on('ekstrakurikuler');
             $table->unsignedBigInteger('id_pengikut');
             $table->foreign('id_pengikut')->references('id')->on('users');
             $table->string('status', 1)->nullable();

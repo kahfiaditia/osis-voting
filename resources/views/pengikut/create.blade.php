@@ -20,7 +20,7 @@
                 <form id="form" class="needs-validation" action="{{ route('follow.store') }}" method="POST">
                     @csrf
                     <div class="row">
-                        <div class="col-xl-8">
+                        <div class="col-xl-6">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="accordion" id="accordionExample">
@@ -79,8 +79,8 @@
                                     </div>
 
                                     <div class="row mt-4">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
+                                        <div class="col-lg-6">
+                                            <div class="mb-6">
                                                 <label class="form-label">
                                                     Kegiatan</label>
                                                 <select class="form-control select select2 kegiatan" name="kegiatan"
@@ -90,8 +90,8 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
+                                        <div class="col-lg-6">
+                                            <div class="mb-6">
                                                 <label class="form-label">
                                                     Pembina</label>
                                                 <input type="text" class="form-control" id="nama_pembina"
@@ -102,8 +102,8 @@
 
                                     <form>
                                         <div class="row mt-3">
-                                            <div class="col-lg-3">
-                                                <div class="mb-3">
+                                            <div class="col-lg-6">
+                                                <div class="mb-6">
                                                     <label for="formrow-firstname-input" class="form-label">Nis</label>
                                                     <select id="nis" class="form-control select select2"
                                                         name="nis" required>
@@ -111,15 +111,8 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
-                                                <div class="mb-3">
-                                                    <label for="formrow-firstname-input" class="form-label">Kelas</label>
-                                                    <input type="text" class="form-control" id="kelas"
-                                                        name="kelas" placeholder="Kelas" readonly>
-                                                </div>
-                                            </div>
                                             <div class="col-lg-6">
-                                                <div class="mb-3">
+                                                <div class="mb-6">
                                                     <label for="formrow-firstname-input" class="form-label">Nama</label>
                                                     <input type="text" class="form-control" id="nama_siswa"
                                                         name="nama_siswa" placeholder="Siswa" readonly>
@@ -127,8 +120,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-
+                                        <div class="row mt-2">
                                             <div class="col-lg-12">
                                                 {{-- <button class="btn btn-primary" type="submit" style="float: right"
                                                     id="save">Ikutkan Siswa</button> --}}
@@ -144,54 +136,32 @@
                             <!-- end card -->
                         </div>
 
-                        <div class="col-xl-4">
+                        <div class="col-xl-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title mb-4">Nama Pengikut</h5>
-
-                                    <div class="card bg-primary text-white visa-card mb-0">
-                                        <div class="card-body">
-                                            {{-- <div> --}}
-                                            {{-- <i class="bx bxl-visa visa-pattern"></i> --}}
-
-                                            {{-- <div class="float-end">
-                                                    <i class="bx bxl-visa visa-logo display-3"></i>
-                                                </div> --}}
-
-                                            {{-- <div>
-                                                    <i class="bx bx-chip h1 text-warning"></i>
-                                                </div> --}}
-                                            {{-- </div> --}}
-
-                                            <div class="row mt-2">
-                                                <div class="col-4">
-                                                    <p>
-                                                        <i class="fas fa-star-of-life m-1"></i>
-                                                        <i class="fas fa-star-of-life m-1"></i>
-                                                        <i class="fas fa-star-of-life m-1"></i>
-                                                    </p>
-                                                </div>
-                                                <div class="col-4">
-                                                    <p>
-                                                        <i class="fas fa-star-of-life m-1"></i>
-                                                        <i class="fas fa-star-of-life m-1"></i>
-                                                        <i class="fas fa-star-of-life m-1"></i>
-                                                    </p>
-                                                </div>
-                                                <div class="col-4">
-                                                    <p>
-                                                        <i class="fas fa-star-of-life m-1"></i>
-                                                        <i class="fas fa-star-of-life m-1"></i>
-                                                        <i class="fas fa-star-of-life m-1"></i>
-                                                    </p>
-                                                </div>
-                                            </div>
-
-                                            <div class="mt-1">
-                                                <h5 class="text-white float-end mb-0">Nis</h5>
-                                                <h5 class="text-white mb-0">Nama</h5>
-                                            </div>
-                                        </div>
+                                    <h5 class="card-title mb-4"> -- Daftar Pengikut --</h5>
+                                    <select class="form-control select select2 kegiatan" name="daftar" id="daftar"
+                                        required>
+                                        <option value="">-- Pilih --</option>
+                                        @foreach ($pilihan as $extra)
+                                            <option value="{{ $extra->id }}">{{ $extra->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="col-md-12 table-responsive mt-2">
+                                        <table class="table table-responsive table-bordered table-striped"
+                                            id="daftarPengikut">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" style="width: 10%">No</th>
+                                                    <th class="text-center" style="width: 30%">Nis</th>
+                                                    <th class="text-center" style="width: 60%">Siswa</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{-- <tr>
+                                                </tr> --}}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +180,113 @@
 
     <script>
         $(document).ready(function() {
-            // Ambil elemen select kegiatan
+            var resultContainer = document.getElementById('qr-reader-results');
+            var lastResult, countResults = 0;
+
+            function onScanSuccess(decodedText, decodedResult) {
+                if (decodedText !== lastResult) {
+                    ++countResults;
+                    lastResult = decodedText;
+                    // Handle on success condition with the decoded message.
+                    barcode = decodedText;
+                    // pembeli = document.getElementById("pembeli").value;
+
+                    // get value database 
+                    getValueScanBarcodeCamera(barcode)
+                    // getValueScanBarcodeCamera(barcode, pembeli)
+                }
+            }
+
+            var html5QrcodeScanner = new Html5QrcodeScanner(
+                "qr-reader", {
+                    fps: 10,
+                    qrbox: 250
+                });
+            html5QrcodeScanner.render(onScanSuccess);
+
+            $('.div_scan_camera').hide();
+            $('.div_barcode').hide();
+
+            collapseOne.classList.remove("show");
+
+            // function myLoad() {
+
+            //     $('.div_scan_camera').hide();
+            //     $('.div_barcode').hide();
+
+            //     collapseOne.classList.remove("show");
+
+            // }
+
+            function getValueScanBarcodeCamera(nis, user) {
+                $.ajax({
+                    type: "POST",
+                    url: '{{ route('follow.scanBarcode1') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        nis,
+                        // user
+                    },
+                    success: response => {
+                        console.log(response);
+                        if (response.code == 200) {
+                            // Handle jika response memiliki kode 200 (berhasil)
+
+                            if (response.type == 'siswa') {
+                                console.log(response);
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Siswa sudah terdaftar!',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                })
+                            }
+                        } else {
+                            // Handle jika response memiliki kode selain 200 (gagal)
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi kesalahan saat memproses permintaan.',
+                                showConfirmButton: false,
+                                timer: 3000,
+                            });
+                        }
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    },
+                });
+            }
+
+
+            $(document).ready(function() {
+                $('.radio').click(function() {
+                    let metode_scan = $(this).val();
+                    if (metode_scan == 'Barcode') {
+                        $('.div_scan_camera').hide();
+                        $('.div_barcode').show();
+                    } else {
+                        $('.div_scan_camera').show();
+                        $('.div_barcode').hide();
+                    }
+                });
+
+                $(".scanner_barcode").change(function() {
+                    let barcode = $(this).val();
+                    // user = document.getElementById("user").value;
+                    document.getElementById('scanner_barcode').value = '';
+                    // get value database 
+                    getValueScanBarcodeCamera(barcode)
+                    // getValueScanBarcodeCamera(barcode, user)
+                });
+
+            })
+        });
+
+        // select option barcode
+        $(document).ready(function() {
+
             var selectKegiatan = $('#kegiatan');
 
             // Variabel untuk menyimpan nilai kegiatan terpilih
@@ -304,10 +380,8 @@
                     $('#nama_siswa').val('');
                 }
             });
-
             $('#simpanDataBtn').click(function() {
                 var datapengikut = [];
-
                 var kegiatan = selectedKegiatan;
                 console.log(kegiatan);
                 var nis = document.getElementById('nis').value;
@@ -343,10 +417,8 @@
                                 icon: 'error',
                                 title: `${response.message}`,
                                 showConfirmButton: false,
-                                timer: 3000,
-                                willClose: () => {
-                                    location.reload();
-                                }
+                                timer: 2000,
+
                             })
                         }
                     },
@@ -354,6 +426,55 @@
                         console.log(err);
                     },
                 });
+            });
+        });
+
+
+        //daftar pengikut
+        $(document).ready(function() {
+            $('#daftar').change(function() {
+                var selectedId = $(this).val();
+
+                if (selectedId !== '') {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/get-siswa-by-extra/' + selectedId,
+                        dataType: 'json',
+                        success: function(data) {
+                            // Kosongkan tabel sebelum menambahkan data baru
+                            $('#daftarPengikut tbody').empty();
+
+                            // Inisialisasi nomor urut
+                            var counter = 1;
+
+                            // Handle data dan tampilkan dalam tabel
+                            $.each(data.data, function(index, siswa) {
+                                var rowHtml = '<tr>';
+                                rowHtml += '<td class="text-left">' + counter +
+                                    '</td>';
+                                rowHtml += '<td class="text-left">' + siswa.data_nis +
+                                    '</td>';
+                                rowHtml += '<td class="text-left">' + siswa
+                                    .nama_pengikut +
+                                    '</td>';
+                                rowHtml += '</tr>';
+
+                                // Tambahkan baris ke dalam tabel
+                                $('#daftarPengikut tbody').append(rowHtml);
+
+                                // Increment nomor urut
+                                counter++;
+                            });
+                        },
+                        error: function(error) {
+                            console.log(error);
+                            // Handle kesalahan jika diperlukan
+                        }
+                    });
+                } else {
+                    // Kosongkan tabel jika tidak ada opsi yang dipilih
+                    $('#daftarPengikut tbody').empty();
+                }
             });
         });
     </script>

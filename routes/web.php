@@ -131,5 +131,7 @@ Route::group(
         Route::get('/data_kegiatan', [PengikutController::class, 'data_kegiatan'])->name('follow.data_kegiatan');
         Route::get('/cari_siswa', [PengikutController::class, 'cari_siswa'])->name('follow.cari_siswa');
         Route::post('/simpan_pengikut', [PengikutController::class, 'simpan_pengikut'])->name('follow.simpan_pengikut');
+        Route::post('/scanBarcode1', [PengikutController::class, 'scanBarcode1'])->name('follow.scanBarcode1');
+        Route::get('/get-siswa-by-extra/{id}', [PengikutController::class, 'getSiswaByExtra']);
     }
 );
