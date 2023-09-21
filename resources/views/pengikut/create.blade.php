@@ -522,10 +522,83 @@
                 });
             });
 
-            // $('#daftarBarcode').on('click', '.delete-record', function(e) {
-            //     e.preventDefault();
-            //     var row = $(this).closest('tr');
-            //     table.row(row).remove().draw();
+
+            // $("#simpanDataBtn").click(function() {
+            //     // Mengumpulkan data dari tabel daftarBarcode
+            //     var tableData = [];
+            //     var table = $('#daftarBarcode').DataTable();
+            //     table.rows().every(function() {
+            //         var rowData = this.data();
+            //         var dataItem = {
+            //             'id': rowData[1],
+            //             'nis': rowData[2],
+            //             'nama_siswa': rowData[3],
+            //             'kode_kegiatan': rowData[4],
+            //             'nama_kegiatan': rowData[5]
+            //         };
+            //         tableData.push(dataItem);
+            //     });
+
+            //     // Mengirim data untuk pengecekan data duplikat ke controller dengan AJAX
+            //     $.ajax({
+            //         type: "POST",
+            //         url: '{{ route('follow.cek_duplicate') }}',
+            //         data: {
+            //             "_token": "{{ csrf_token() }}",
+            //             'tableData': tableData
+            //         },
+            //         success: function(response) {
+            //             if (response.duplicateData.length > 0) {
+            //                 // Tampilkan pesan alert jika ada data duplikat
+            //                 var message = 'Terdapat data duplikat:\n';
+            //                 $.each(response.duplicateData, function(index, data) {
+            //                     message += data.nama_siswa + ' pada kegiatan ' + data
+            //                         .nama_kegiatan + '\n';
+            //                 });
+            //                 Swal.fire({
+            //                     icon: 'error',
+            //                     title: 'Data duplikat',
+            //                     text: message,
+            //                 });
+            //             } else {
+            //                 // Jika tidak ada data duplikat, lanjutkan untuk menyimpan data
+            //                 $.ajax({
+            //                     type: "POST",
+            //                     url: '{{ route('follow.simpan_pengikut') }}',
+            //                     data: {
+            //                         "_token": "{{ csrf_token() }}",
+            //                         'tableData': tableData
+            //                     },
+            //                     success: function(response) {
+            //                         if (response.code == 200) {
+            //                             Swal.fire({
+            //                                 icon: 'success',
+            //                                 title: 'Data berhasil disimpan.',
+            //                                 showConfirmButton: false,
+            //                                 timer: 2000,
+            //                             });
+
+            //                             // Bersihkan data di tabel daftarBarcode
+            //                             table.clear().draw();
+            //                         } else {
+            //                             Swal.fire({
+            //                                 icon: 'error',
+            //                                 title: 'Terjadi kesalahan saat menyimpan data.',
+            //                                 showConfirmButton: false,
+            //                                 timer: 3000,
+            //                             });
+            //                         }
+            //                     },
+            //                     error: function(err) {
+            //                         console.log(err);
+            //                     }
+            //                 });
+            //             }
+            //         },
+            //         error: function(err) {
+            //             console.log(err);
+            //         }
+            //     });
             // });
 
             $("#simpanDataBtn").click(function() {
@@ -544,39 +617,105 @@
                     tableData.push(dataItem);
                 });
 
-                // Mengirim data ke controller dengan AJAX
-                $.ajax({
-                    type: "POST",
-                    url: '{{ route('follow.simpan_pengikut') }}',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        'tableData': tableData
-                    },
-                    success: function(response) {
-                        if (response.code == 200) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Data berhasil disimpan.',
-                                showConfirmButton: false,
-                                timer: 2000,
-                            });
+                // Lakukan pengecekan data duplikat di tabel
+                var duplicateData = findDuplicateData(tableData);
 
-                            // Bersihkan data di tabel daftarBarcode
-                            table.clear().draw();
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Terjadi kesalahan saat menyimpan data.',
-                                showConfirmButton: false,
-                                timer: 3000,
-                            });
+                if (duplicateData.length > 0) {
+                    // Tampilkan pesan alert jika ada data duplikat di tabel
+                    var message = 'Terdapat data duplikat:\n';
+                    $.each(duplicateData, function(index, data) {
+                        message += data.nama_siswa + ' pada kegiatan ' + data.nama_kegiatan + '\n';
+                    });
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Data duplikat',
+                        text: message,
+                    });
+                } else {
+                    // Mengirim data ke controller untuk pengecekan data duplikat di database
+                    $.ajax({
+                        type: "POST",
+                        url: '{{ route('follow.cek_duplicate') }}',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'tableData': tableData
+                        },
+                        success: function(response) {
+                            if (response.duplicateData.length > 0) {
+                                // Tampilkan pesan alert jika ada data duplikat di database
+                                var message = 'Terdapat data duplikat di database:\n';
+                                $.each(response.duplicateData, function(index, data) {
+                                    message += data.nama_siswa + ' pada kegiatan ' +
+                                        data.nama_kegiatan + '\n';
+                                });
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Data duplikat di database',
+                                    text: message,
+                                });
+                            } else {
+                                // Jika tidak ada data duplikat di database, lanjutkan untuk menyimpan data
+                                $.ajax({
+                                    type: "POST",
+                                    url: '{{ route('follow.simpan_pengikut') }}',
+                                    data: {
+                                        "_token": "{{ csrf_token() }}",
+                                        'tableData': tableData
+                                    },
+                                    success: function(response) {
+                                        if (response.code == 200) {
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Data berhasil disimpan.',
+                                                showConfirmButton: false,
+                                                timer: 2000,
+                                            });
+
+                                            // Bersihkan data di tabel daftarBarcode
+                                            table.clear().draw();
+                                        } else {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Terjadi kesalahan saat menyimpan data.',
+                                                showConfirmButton: false,
+                                                timer: 3000,
+                                            });
+                                        }
+                                    },
+                                    error: function(err) {
+                                        console.log(err);
+                                    }
+                                });
+                            }
+                        },
+                        error: function(err) {
+                            console.log(err);
                         }
-                    },
-                    error: function(err) {
-                        console.log(err);
-                    }
-                });
+                    });
+                }
             });
+
+
+
+            // Fungsi untuk mencari data duplikat
+            function findDuplicateData(data) {
+                var seen = {};
+                var duplicates = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+                    var key = item.id + '-' + item.kode_kegiatan;
+
+                    if (seen[key]) {
+                        duplicates.push(item);
+                    } else {
+                        seen[key] = true;
+                    }
+                }
+
+                return duplicates;
+            }
+
 
 
         });

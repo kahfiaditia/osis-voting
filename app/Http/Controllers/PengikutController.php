@@ -102,7 +102,7 @@ class PengikutController extends Controller
 
     public function simpan_pengikut(Request $request)
     {
-        dd($request->tableData);
+        // dd($request->tableData);
 
         DB::beginTransaction();
         try {
@@ -189,27 +189,25 @@ class PengikutController extends Controller
         ]);
     }
 
-    public function validateStudent(Request $request)
+    public function cekDuplicate(Request $request)
     {
-        $nis = $request->input('nis');
-        $kodeKegiatan = $request->input('kode_kegiatan');
+        $tableData = $request->input('tableData');
 
-        // Lakukan pengecekan di database
-        $existingRecord = PengikutModel::where('nis', $nis)
-            ->where('kode_kegiatan', $kodeKegiatan)
-            ->first();
+        $duplicateData = [];
+        foreach ($tableData as $data) {
+            $existingRecord = PengikutModel::where('id_ekstra', $data['kode_kegiatan'])
+                ->where('id_pengikut', $data['id'])
+                ->first();
 
-        if ($existingRecord) {
-            return response()->json([
-                'code' => 400,
-                'message' => 'Siswa sudah mengikuti ekstrakurikuler ini.',
-            ]);
+            if ($existingRecord) {
+                $duplicateData[] = [
+                    'nama_siswa' => $data['nama_siswa'],
+                    'nama_kegiatan' => $data['nama_kegiatan'],
+                ];
+            }
         }
 
-        return response()->json([
-            'code' => 200,
-            'message' => 'Siswa dapat ditambahkan ke dalam tabel.',
-        ]);
+        return response()->json(['code' => 200, 'duplicateData' => $duplicateData]);
     }
 
     /**
