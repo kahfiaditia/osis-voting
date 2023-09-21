@@ -643,7 +643,11 @@
 
 
         //daftar pengikut
+
         $(document).ready(function() {
+            // Inisialisasi DataTable
+            var table = $('#daftarPengikut').DataTable();
+
             $('#daftar').change(function() {
                 var selectedId = $(this).val();
 
@@ -654,27 +658,18 @@
                         dataType: 'json',
                         success: function(data) {
                             // Kosongkan tabel sebelum menambahkan data baru
-                            $('#daftarPengikut tbody').empty();
+                            table.clear().draw();
 
                             // Inisialisasi nomor urut
                             var counter = 1;
 
                             // Handle data dan tampilkan dalam tabel
                             $.each(data.data, function(index, siswa) {
-                                var rowHtml = '<tr>';
-                                rowHtml += '<td class="text-left">' +
-                                    counter +
-                                    '</td>';
-                                rowHtml += '<td class="text-left">' + siswa
-                                    .data_nis +
-                                    '</td>';
-                                rowHtml += '<td class="text-left">' + siswa
-                                    .nama_pengikut +
-                                    '</td>';
-                                rowHtml += '</tr>';
-
-                                // Tambahkan baris ke dalam tabel
-                                $('#daftarPengikut tbody').append(rowHtml);
+                                table.row.add([
+                                    counter,
+                                    siswa.data_nis,
+                                    siswa.nama_pengikut
+                                ]).draw(false);
 
                                 // Increment nomor urut
                                 counter++;
@@ -687,7 +682,7 @@
                     });
                 } else {
                     // Kosongkan tabel jika tidak ada opsi yang dipilih
-                    $('#daftarPengikut tbody').empty();
+                    table.clear().draw();
                 }
             });
         });
