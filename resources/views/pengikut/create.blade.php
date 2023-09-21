@@ -23,6 +23,7 @@
                         <div class="col-xl-6">
                             <div class="card">
                                 <div class="card-body">
+                                    {{-- barcode --}}
                                     <div class="accordion" id="accordionExample">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
@@ -63,7 +64,7 @@
                                                         <div class="col-md-4">
                                                             <input type="text" name="scanner_barcode"
                                                                 class="form-control scanner_barcode" id="scanner_barcode"
-                                                                placeholder="Barcode" autofocus>
+                                                                placeholder="NIS" autofocus>
                                                         </div>
                                                     </div>
                                                     <div class="row text-muted div_scan_camera">
@@ -77,9 +78,10 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- akhir barcode --}}
 
-                                    <div class="row mt-4">
-                                        <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-6 mt-3">
                                             <div class="mb-6">
                                                 <label class="form-label">
                                                     Kegiatan</label>
@@ -87,10 +89,13 @@
                                                     id="kegiatan" required>
                                                     <option value="">-- Pilih --</option>
                                                 </select>
-
+                                                <div class="invalid-feedback">
+                                                    Data wajib diisi.
+                                                </div>
+                                                {!! $errors->first('kegiatan', '<div class="invalid-validasi">:message</div>') !!}
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6 mt-3">
                                             <div class="mb-6">
                                                 <label class="form-label">
                                                     Pembina</label>
@@ -99,37 +104,37 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <form>
-                                        <div class="row mt-3">
-                                            <div class="col-lg-6">
-                                                <div class="mb-6">
-                                                    <label for="formrow-firstname-input" class="form-label">Nis</label>
-                                                    <select id="nis" class="form-control select select2"
-                                                        name="nis" required>
-                                                        <option value="" selected>-- Pilih --</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-6">
-                                                    <label for="formrow-firstname-input" class="form-label">Nama</label>
-                                                    <input type="text" class="form-control" id="nama_siswa"
-                                                        name="nama_siswa" placeholder="Siswa" readonly>
-
-                                                </div>
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6">
+                                            <div class="mb-6">
+                                                <label for="formrow-firstname-input" class="form-label">Nis</label>
+                                                <select id="nis" class="form-control select select2" name="nis"
+                                                    required>
+                                                    <option value="" selected>-- Pilih --</option>
+                                                    <div class="invalid-feedback">
+                                                        Data wajib diisi.
+                                                    </div>
+                                                    {!! $errors->first('nis', '<div class="invalid-validasi">:message</div>') !!}
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="row mt-2">
-                                            <div class="col-lg-12">
-                                                {{-- <button class="btn btn-primary" type="submit" style="float: right"
-                                                    id="save">Ikutkan Siswa</button> --}}
-                                                <button class="btn btn-primary" type="button" style="float: right"
-                                                    id="simpanDataBtn">Simpan</button>
-                                            </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-6">
+                                                <label for="formrow-firstname-input" class="form-label">Nama</label>
+                                                <input type="text" class="form-control" id="nama_siswa"
+                                                    name="nama_siswa" placeholder="Siswa" readonly>
 
+                                            </div>
                                         </div>
-                                    </form>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-lg-12">
+                                            <button type="button" id="tambahSiswaButton" class="btn btn-info w-md"
+                                                style="float: right">
+                                                Tambah Siswa
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- end card body -->
                             </div>
@@ -137,6 +142,35 @@
                         </div>
 
                         <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="col-md-12 table-responsive mt-2">
+                                        <table class="table table-responsive table-bordered table-striped"
+                                            id="daftarBarcode">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-left" style="width: 10%">No</th>
+                                                    <th class="text-left" style="width: 0%" hidden>id</th>
+                                                    <th class="text-left" style="width: 20%">Nis</th>
+                                                    <th class="text-left" style="width: 30%">Siswa</th>
+                                                    <th class="text-left" style="width: 0%" hidden>Kode</th>
+                                                    <th class="text-left" style="width: 30%">Kegiatan</th>
+                                                    <th class="text-left" style="width: 10%">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                        <button class="btn btn-primary mt-2" type="button" style="float: right"
+                                            id="simpanDataBtn">Simpan</button>
+                                    </div>
+
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                        <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title mb-4"> -- Daftar Pengikut --</h5>
@@ -158,8 +192,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- <tr>
-                                                </tr> --}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -167,11 +199,17 @@
                             </div>
                         </div>
 
+                    </div>
 
                 </form>
             </div>
         </div>
     </body>
+    <style>
+        #daftarBarcode tbody td.hidden {
+            display: none;
+        }
+    </style>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
@@ -209,31 +247,70 @@
 
             collapseOne.classList.remove("show");
 
-            // function myLoad() {
-
-            //     $('.div_scan_camera').hide();
-            //     $('.div_barcode').hide();
-
-            //     collapseOne.classList.remove("show");
-
-            // }
-
             function getValueScanBarcodeCamera(nis, user) {
+                var kegiatan = $("#kegiatan option:selected").text(); // Ambil nama kegiatan dari dropdown
+                var kodeKegiatan = $("#kegiatan").val(); // Ambil kode kegiatan dari dropdown
+
+                // Validasi apakah kegiatan sudah dipilih
+                if (!kodeKegiatan) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Pilih Kegiatan',
+                        text: 'Harap pilih kegiatan terlebih dahulu.',
+                    });
+                    return;
+                }
+
+                //kode buatan
+
+                //kodebuatan
+
                 $.ajax({
                     type: "POST",
                     url: '{{ route('follow.scanBarcode1') }}',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         nis,
-                        // user
                     },
                     success: response => {
                         console.log(response);
                         if (response.code == 200) {
                             // Handle jika response memiliki kode 200 (berhasil)
-
                             if (response.type == 'siswa') {
                                 console.log(response);
+
+                                // Tambahkan data siswa ke dalam tabel
+                                var table = $('#daftarBarcode').DataTable();
+                                table.row.add([
+                                    table.rows().count() + 1,
+                                    response.id,
+                                    response.nis,
+                                    response.name,
+                                    kodeKegiatan,
+                                    kegiatan,
+                                    '<a href="#" class="text-danger delete-record"><i class="mdi mdi-delete font-size-18"></i></a>'
+                                ]).draw();
+
+                                // Bersihkan nilai input barcode setelah berhasil
+                                $('#scanner_barcode').val('');
+
+                                // var lastRow = table.row(table.rows().count() - 1);
+                                // var cells = lastRow.node().cells;
+                                // $(cells[1]).addClass('hidden'); 
+                                // $(cells[4]).addClass('hidden'); 
+
+                                var lastRow = table.row(table.rows().count() - 1).nodes()
+                                    .to$();
+                                var cells = lastRow[0].cells;
+                                $(cells[1]).addClass('hidden');
+                                $(cells[4]).addClass('hidden');
+
+                                lastRow.find('.delete-record').click(function(e) {
+                                    e.preventDefault();
+                                    table.row(lastRow).remove().draw();
+                                });
+
+
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -244,7 +321,6 @@
                             }
                         } else {
                             // Handle jika response memiliki kode selain 200 (gagal)
-
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Terjadi kesalahan saat memproses permintaan.',
@@ -258,7 +334,6 @@
                     },
                 });
             }
-
 
             $(document).ready(function() {
                 $('.radio').click(function() {
@@ -334,8 +409,8 @@
                 if (selectedKegiatan) {
                     // Lakukan request AJAX untuk mengisi dropdown NIS berdasarkan kegiatan
                     $.ajax({
-                        type: "GET", // Ganti dengan metode yang sesuai
-                        url: '{{ route('follow.cari_siswa') }}', // Ganti dengan URL endpoint Anda
+                        type: "GET",
+                        url: '{{ route('follow.cari_siswa') }}',
                         data: {
                             "_token": "{{ csrf_token() }}",
                             kegiatan: selectedKegiatan
@@ -345,9 +420,11 @@
                                 $('#nis').append(
                                     `<option value="">-- Pilih --</option>`
                                 );
+
                                 // Isi dropdown NIS dengan data siswa yang sesuai
                                 $.each(response.data, function(i, item) {
                                     $('#nis').append(
+                                        //pastikan di query nya di select ada id nya karena ada item.id
                                         `<option value="${item.id}" data-id="${item.name}">${item.nis}</option>`
                                     );
                                 });
@@ -380,53 +457,128 @@
                     $('#nama_siswa').val('');
                 }
             });
-            $('#simpanDataBtn').click(function() {
-                var datapengikut = [];
-                var kegiatan = selectedKegiatan;
-                console.log(kegiatan);
-                var nis = document.getElementById('nis').value;
-                console.log(nis);
 
-                var item = {
-                    kegiatan: kegiatan,
-                    nis: nis,
-                };
+            $(document).ready(function() {
+                // Inisialisasi DataTable dengan konfigurasi
+                var table = $('#daftarBarcode').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": false,
+                    "info": false,
+                });
 
-                datapengikut.push(item);
+                // Ketika tombol "Tambah Siswa" diklik
+                $("#tambahSiswaButton").click(function() {
+                    // Ambil data kegiatan dan nis dari form
+                    var kegiatan = $("#kegiatan option:selected").text();
+                    var id = $("#nis").val();
+                    var nis = $("#nis option:selected").text();
+                    var namaSiswa = $("#nama_siswa").val();
 
+                    $('#nis').val("").trigger('change')
+
+                    // Validasi kegiatan dan nis
+                    if (!kegiatan || !id) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validasi Gagal',
+                            text: 'Kegiatan dan NIS harus dipilih.',
+                        });
+                        return;
+                    }
+
+                    // Tambahkan data siswa ke dalam tabel dengan DataTable
+                    table.row.add([
+                        table.rows().count() + 1,
+                        id,
+                        nis,
+                        namaSiswa,
+                        $("#kegiatan").val(), // Tambahkan kode kegiatan
+                        kegiatan, // Tambahkan nama kegiatan
+                        '<a href="#" class="text-danger delete-record"><i class="mdi mdi-delete font-size-18"></i></a>' // Tautan Hapus
+                    ]).draw();
+
+                    // Reset form ke default
+                    // $("#kegiatan").val("");
+                    $("#nis").val("");
+                    $("#nama_siswa").val("");
+
+                    // var lastRow = table.row(table.rows().count() - 1);
+                    // var cells = lastRow.node().cells;
+                    // $(cells[1]).addClass('hidden'); 
+                    // $(cells[4]).addClass('hidden'); 
+
+                    var lastRow = table.row(table.rows().count() - 1).nodes()
+                        .to$();
+                    var cells = lastRow[0].cells;
+                    $(cells[1]).addClass('hidden');
+                    $(cells[4]).addClass('hidden');
+
+                    lastRow.find('.delete-record').click(function(e) {
+                        e.preventDefault();
+                        table.row(lastRow).remove().draw();
+                    });
+
+                });
+            });
+
+            // $('#daftarBarcode').on('click', '.delete-record', function(e) {
+            //     e.preventDefault();
+            //     var row = $(this).closest('tr');
+            //     table.row(row).remove().draw();
+            // });
+
+            $("#simpanDataBtn").click(function() {
+                // Mengumpulkan data dari tabel daftarBarcode
+                var tableData = [];
+                var table = $('#daftarBarcode').DataTable();
+                table.rows().every(function() {
+                    var rowData = this.data();
+                    var dataItem = {
+                        'id': rowData[1],
+                        'nis': rowData[2],
+                        'nama_siswa': rowData[3],
+                        'kode_kegiatan': rowData[4],
+                        'nama_kegiatan': rowData[5]
+                    };
+                    tableData.push(dataItem);
+                });
+
+                // Mengirim data ke controller dengan AJAX
                 $.ajax({
-                    type: 'POST',
+                    type: "POST",
                     url: '{{ route('follow.simpan_pengikut') }}',
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        datapengikut: datapengikut,
+                        'tableData': tableData
                     },
-                    success: response => {
+                    success: function(response) {
                         if (response.code == 200) {
                             Swal.fire({
-                                title: 'Input Jadwal Berhasil',
-                                text: `${response.message}`,
                                 icon: 'success',
-                                timer: 1000,
-                                willClose: () => {
-                                    location.reload();
-                                }
-                            })
+                                title: 'Data berhasil disimpan.',
+                                showConfirmButton: false,
+                                timer: 2000,
+                            });
+
+                            // Bersihkan data di tabel daftarBarcode
+                            table.clear().draw();
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: `${response.message}`,
+                                title: 'Terjadi kesalahan saat menyimpan data.',
                                 showConfirmButton: false,
-                                timer: 2000,
-
-                            })
+                                timer: 3000,
+                            });
                         }
                     },
-                    error: (err) => {
+                    error: function(err) {
                         console.log(err);
-                    },
+                    }
                 });
             });
+
+
         });
 
 
@@ -450,9 +602,11 @@
                             // Handle data dan tampilkan dalam tabel
                             $.each(data.data, function(index, siswa) {
                                 var rowHtml = '<tr>';
-                                rowHtml += '<td class="text-left">' + counter +
+                                rowHtml += '<td class="text-left">' +
+                                    counter +
                                     '</td>';
-                                rowHtml += '<td class="text-left">' + siswa.data_nis +
+                                rowHtml += '<td class="text-left">' + siswa
+                                    .data_nis +
                                     '</td>';
                                 rowHtml += '<td class="text-left">' + siswa
                                     .nama_pengikut +

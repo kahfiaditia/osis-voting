@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\AlertHelper;
 use App\Models\ExtraModel;
 use App\Models\JadwalKegiatanModel;
 use App\Models\PengikutModel;
@@ -101,17 +102,23 @@ class PengikutController extends Controller
 
     public function simpan_pengikut(Request $request)
     {
+        dd($request->tableData);
 
         DB::beginTransaction();
         try {
-            $datapengikut = $request->input('datapengikut');
+            $tableData = $request->input('tableData');
 
-            foreach ($datapengikut as $data) {
-                $id_ekstra = $data['kegiatan'];
-                $id_pengikut = $data['nis'];
+            foreach ($tableData as $data) {
 
-                $existingRecord = PengikutModel::where('id_ekstra', $id_ekstra)
-                    ->where('id_pengikut', $id_pengikut)
+                $id_siswa = $data['id'];
+                $nis = $data['nis'];
+                $nama_siswa = $data['nama_siswa'];
+                $kode_kegiatan = $data['kode_kegiatan'];
+                $nama_kegiatan = $data['nama_kegiatan'];
+
+
+                $existingRecord = PengikutModel::where('id_ekstra', $kode_kegiatan)
+                    ->where('id_pengikut', $id_siswa)
                     ->first();
 
                 if ($existingRecord) {
@@ -123,10 +130,10 @@ class PengikutController extends Controller
                 }
             }
 
-            foreach ($datapengikut as $data) {
+            foreach ($tableData as $data) {
                 PengikutModel::create([
-                    'id_ekstra' => $data['kegiatan'],
-                    'id_pengikut' => $data['nis'],
+                    'id_ekstra' => $data['kode_kegiatan'],
+                    'id_pengikut' => $data['id'],
                     'user_created' => Auth::user()->id,
                     'created_at' => Carbon::now(),
                 ]);
@@ -149,33 +156,59 @@ class PengikutController extends Controller
 
     public function scanBarcode1(Request $request)
     {
-        $val = 0;
-        $code = 400; // Set kode awal ke 400
 
-        if ($request->roles == 'siswa') {
-            $data = User::where('nis', $request->nis)->first();
-            if ($data) {
-                $id = $data->id;
-                $name = $data->name;
-                $nis = $data->nis;
-                $class_id = $data->class_id;
-                $type = $data->roles;
-                $code = 200;
-                $val = $val + 1;
-            }
+        $code = 400; // Set kode awal ke 400
+        $id = null;
+        $name = null;
+        $nis = null;
+        $class_id = null;
+        $type = null;
+        $val = 0;
+
+
+        $data = User::where('nis', $request->nis)->first();
+        if ($data) {
+            $id = $data->id;
+            $name = $data->name;
+            $nis = $data->nis;
+            $class_id = $data->class_id;
+            $type = $data->roles;
+            $code = 200;
+            $val = $val + 1;
         }
 
-        // Tidak perlu inisialisasi ulang variabel jika $val == 0
-        // Menggunakan $data->roles daripada $request->user
 
         return response()->json([
             'code' => $code,
-            'id' => isset($id) ? $id : null,
-            'name' => isset($name) ? $name : null,
-            'nis' => isset($nis) ? $nis : null,
-            'class_id' => isset($class_id) ? $class_id : null,
-            'type' => isset($type) ? $type : null,
+            'id' => $id,
+            'name' => $name,
+            'nis' => $nis,
+            'class_id' => $class_id,
+            'type' => $type,
             'val' => $val,
+        ]);
+    }
+
+    public function validateStudent(Request $request)
+    {
+        $nis = $request->input('nis');
+        $kodeKegiatan = $request->input('kode_kegiatan');
+
+        // Lakukan pengecekan di database
+        $existingRecord = PengikutModel::where('nis', $nis)
+            ->where('kode_kegiatan', $kodeKegiatan)
+            ->first();
+
+        if ($existingRecord) {
+            return response()->json([
+                'code' => 400,
+                'message' => 'Siswa sudah mengikuti ekstrakurikuler ini.',
+            ]);
+        }
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'Siswa dapat ditambahkan ke dalam tabel.',
         ]);
     }
 
