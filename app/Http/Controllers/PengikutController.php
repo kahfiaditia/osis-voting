@@ -65,19 +65,33 @@ class PengikutController extends Controller
         }
     }
 
-    public function cari_siswa()
+    public function cari_siswa(Request $request)
     {
-        $result = DB::table('users')
-            ->where('roles', '=', 'siswa')
-            ->whereNull('deleted_at')
-            ->get();
+        $id = $request->kegiatan;
 
-        if (count($result) > 0) {
-            return response()->json([
-                'code' => 200,
-                'data' => $result,
-            ]);
+        if ($id) {
+            $result = User::select('users.id as id', 'users.nis as nis', 'users.name', 'users.email', 'users.roles')
+                ->leftJoin('table_pengikut_data', function ($join) use ($id) {
+                    $join->on('users.id', '=', 'table_pengikut_data.id_pengikut')
+                        ->where('table_pengikut_data.id_ekstra', '=', $id);
+                })
+                ->whereNull('table_pengikut_data.id_pengikut')
+                ->where('users.roles', 'siswa')
+                ->get();
+
+            if (count($result) > 0) {
+                return response()->json([
+                    'code' => 200,
+                    'data' => $result,
+                ]);
+            } else {
+                return response()->json([
+                    'code' => 400,
+                    'data' => null,
+                ]);
+            }
         } else {
+            // Handle the case where $id is not defined (e.g., return an error response or set a default value).
             return response()->json([
                 'code' => 400,
                 'data' => null,
@@ -157,7 +171,7 @@ class PengikutController extends Controller
     public function scanBarcode1(Request $request)
     {
 
-        $code = 400; // Set kode awal ke 400
+        $code = 400;
         $id = null;
         $name = null;
         $nis = null;

@@ -247,6 +247,181 @@
 
             collapseOne.classList.remove("show");
 
+            // function getValueScanBarcodeCamera(nis, user) {
+            //     var kegiatan = $("#kegiatan option:selected").text(); // Ambil nama kegiatan dari dropdown
+            //     var kodeKegiatan = $("#kegiatan").val(); // Ambil kode kegiatan dari dropdown
+
+            //     // Validasi apakah kegiatan sudah dipilih
+            //     if (!kodeKegiatan) {
+            //         Swal.fire({
+            //             icon: 'error',
+            //             title: 'Pilih Kegiatan',
+            //             text: 'Harap pilih kegiatan terlebih dahulu.',
+            //         });
+            //         return;
+            //     }
+
+            //     //kode buatan
+
+            //     //kodebuatan
+
+            //     // $.ajax({
+            //     //     type: "POST",
+            //     //     url: '{{ route('follow.scanBarcode1') }}',
+            //     //     data: {
+            //     //         "_token": "{{ csrf_token() }}",
+            //     //         nis,
+            //     //     },
+            //     //     success: response => {
+            //     //         console.log(response);
+            //     //         if (response.code == 200) {
+            //     //             // Handle jika response memiliki kode 200 (berhasil)
+            //     //             if (response.type == 'siswa') {
+            //     //                 console.log(response);
+
+            //     //                 // Tambahkan data siswa ke dalam tabel
+            //     //                 var table = $('#daftarBarcode').DataTable();
+            //     //                 table.row.add([
+            //     //                     table.rows().count() + 1,
+            //     //                     response.id,
+            //     //                     response.nis,
+            //     //                     response.name,
+            //     //                     kodeKegiatan,
+            //     //                     kegiatan,
+            //     //                     '<a href="#" class="text-danger delete-record"><i class="mdi mdi-delete font-size-18"></i></a>'
+            //     //                 ]).draw();
+
+            //     //                 // Bersihkan nilai input barcode setelah berhasil
+            //     //                 $('#scanner_barcode').val('');
+
+            //     //                 // var lastRow = table.row(table.rows().count() - 1);
+            //     //                 // var cells = lastRow.node().cells;
+            //     //                 // $(cells[1]).addClass('hidden'); 
+            //     //                 // $(cells[4]).addClass('hidden'); 
+
+            //     //                 var lastRow = table.row(table.rows().count() - 1).nodes()
+            //     //                     .to$();
+            //     //                 var cells = lastRow[0].cells;
+            //     //                 $(cells[1]).addClass('hidden');
+            //     //                 $(cells[4]).addClass('hidden');
+
+            //     //                 lastRow.find('.delete-record').click(function(e) {
+            //     //                     e.preventDefault();
+            //     //                     table.row(lastRow).remove().draw();
+            //     //                 });
+
+
+            //     //             } else {
+            //     //                 Swal.fire({
+            //     //                     icon: 'error',
+            //     //                     title: 'Siswa sudah terdaftar!',
+            //     //                     showConfirmButton: false,
+            //     //                     timer: 3000,
+            //     //                 })
+            //     //             }
+            //     //         } else {
+            //     //             // Handle jika response memiliki kode selain 200 (gagal)
+            //     //             Swal.fire({
+            //     //                 icon: 'error',
+            //     //                 title: 'Terjadi kesalahan saat memproses permintaan.',
+            //     //                 showConfirmButton: false,
+            //     //                 timer: 3000,
+            //     //             });
+            //     //         }
+            //     //     },
+            //     //     error: (err) => {
+            //     //         console.log(err);
+            //     //     },
+            //     // });
+
+            //     var table = $('#daftarBarcode').DataTable();
+            //     var existingData = new Set();
+            //     $.ajax({
+            //         type: "POST",
+            //         url: '{{ route('follow.scanBarcode1') }}',
+            //         data: {
+            //             "_token": "{{ csrf_token() }}",
+            //             nis,
+            //         },
+            //         success: response => {
+            //             console.log(response);
+            //             if (response.code == 200) {
+            //                 // Handle jika response memiliki kode 200 (berhasil)
+            //                 if (response.type == 'siswa') {
+            //                     console.log(response);
+
+            //                     // Buat kunci unik untuk data siswa dari barcode
+            //                     var dataKey = response.id + "-" + kodeKegiatan;
+
+            //                     // Cek apakah data siswa dari barcode sudah ada di tabel
+            //                     if (existingData.has(dataKey)) {
+            //                         Swal.fire({
+            //                             icon: 'error',
+            //                             title: 'Data sudah ada',
+            //                             text: 'Data siswa dari barcode sudah ada di input.',
+            //                         });
+            //                         return;
+            //                     }
+
+            //                     // Tambahkan data siswa dari barcode ke dalam tabel
+            //                     var table = $('#daftarBarcode').DataTable();
+            //                     var rowNode = table.row.add([
+            //                         table.rows().count() + 1,
+            //                         response.id,
+            //                         response.nis,
+            //                         response.name,
+            //                         kodeKegiatan,
+            //                         kegiatan,
+            //                         '<a href="#" class="text-danger delete-record"><i class="mdi mdi-delete font-size-18"></i></a>'
+            //                     ]).draw().node();
+
+            //                     // Tambahkan data siswa dari barcode ke dalam Set existingData
+            //                     existingData.add(dataKey);
+
+            //                     // Tambahkan data ke dalam row sebagai atribut data-barcode
+            //                     $(rowNode).attr('data-barcode', dataKey);
+
+            //                     // Bersihkan nilai input barcode setelah berhasil
+            //                     $('#scanner_barcode').val('');
+            //                     var lastRow = table.row(table.rows().count() - 1);
+            //                     var cells = lastRow.node().cells;
+            //                     $(cells[1]).addClass('hidden');
+            //                     $(cells[4]).addClass('hidden');
+
+            //                     // Hapus data jika tombol delete di klik
+            //                     $(rowNode).find('.delete-record').click(function(e) {
+            //                         e.preventDefault();
+            //                         var dataKeyToRemove = $(rowNode).attr('data-barcode');
+            //                         existingData.delete(dataKeyToRemove);
+            //                         table.row(rowNode).remove().draw();
+            //                     });
+
+            //                 } else {
+            //                     Swal.fire({
+            //                         icon: 'error',
+            //                         title: 'Siswa sudah terdaftar!',
+            //                         showConfirmButton: false,
+            //                         timer: 3000,
+            //                     })
+            //                 }
+            //             } else {
+            //                 // Handle jika response memiliki kode selain 200 (gagal)
+            //                 Swal.fire({
+            //                     icon: 'error',
+            //                     title: 'Terjadi kesalahan saat memproses permintaan.',
+            //                     showConfirmButton: false,
+            //                     timer: 3000,
+            //                 });
+            //             }
+            //         },
+            //         error: (err) => {
+            //             console.log(err);
+            //         },
+            //     });
+
+
+            // }
+
             function getValueScanBarcodeCamera(nis, user) {
                 var kegiatan = $("#kegiatan option:selected").text(); // Ambil nama kegiatan dari dropdown
                 var kodeKegiatan = $("#kegiatan").val(); // Ambil kode kegiatan dari dropdown
@@ -261,9 +436,16 @@
                     return;
                 }
 
-                //kode buatan
+                var table = $('#daftarBarcode').DataTable();
+                var existingData = new Set();
 
-                //kodebuatan
+                // Loop through existing rows to populate existingData
+                table.rows().every(function() {
+                    var rowData = this.data();
+                    var dataKey = rowData[1] + "-" + rowData[
+                        4]; // Assuming ID is in the first column and Kode Kegiatan is in the fifth column
+                    existingData.add(dataKey);
+                });
 
                 $.ajax({
                     type: "POST",
@@ -279,9 +461,21 @@
                             if (response.type == 'siswa') {
                                 console.log(response);
 
-                                // Tambahkan data siswa ke dalam tabel
-                                var table = $('#daftarBarcode').DataTable();
-                                table.row.add([
+                                // Buat kunci unik untuk data siswa dari barcode
+                                var dataKey = response.id + "-" + kodeKegiatan;
+
+                                // Cek apakah data siswa dari barcode sudah ada di tabel
+                                if (existingData.has(dataKey)) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Data sudah ada',
+                                        text: 'Data siswa dari barcode sudah ada di input.',
+                                    });
+                                    return;
+                                }
+
+                                // Tambahkan data siswa dari barcode ke dalam tabel
+                                var rowNode = table.row.add([
                                     table.rows().count() + 1,
                                     response.id,
                                     response.nis,
@@ -289,27 +483,28 @@
                                     kodeKegiatan,
                                     kegiatan,
                                     '<a href="#" class="text-danger delete-record"><i class="mdi mdi-delete font-size-18"></i></a>'
-                                ]).draw();
+                                ]).draw().node();
+
+                                // Tambahkan data siswa dari barcode ke dalam Set existingData
+                                existingData.add(dataKey);
+
+                                // Tambahkan data ke dalam row sebagai atribut data-barcode
+                                $(rowNode).attr('data-barcode', dataKey);
 
                                 // Bersihkan nilai input barcode setelah berhasil
                                 $('#scanner_barcode').val('');
-
-                                // var lastRow = table.row(table.rows().count() - 1);
-                                // var cells = lastRow.node().cells;
-                                // $(cells[1]).addClass('hidden'); 
-                                // $(cells[4]).addClass('hidden'); 
-
-                                var lastRow = table.row(table.rows().count() - 1).nodes()
-                                    .to$();
-                                var cells = lastRow[0].cells;
+                                var lastRow = table.row(table.rows().count() - 1);
+                                var cells = lastRow.node().cells;
                                 $(cells[1]).addClass('hidden');
                                 $(cells[4]).addClass('hidden');
 
-                                lastRow.find('.delete-record').click(function(e) {
+                                // Hapus data jika tombol delete di klik
+                                $(rowNode).find('.delete-record').click(function(e) {
                                     e.preventDefault();
-                                    table.row(lastRow).remove().draw();
+                                    var dataKeyToRemove = $(rowNode).attr('data-barcode');
+                                    existingData.delete(dataKeyToRemove);
+                                    table.row(rowNode).remove().draw();
                                 });
-
 
                             } else {
                                 Swal.fire({
@@ -334,6 +529,7 @@
                     },
                 });
             }
+
 
             $(document).ready(function() {
                 $('.radio').click(function() {
@@ -401,7 +597,7 @@
 
                 // Update nilai selectedKegiatan
                 selectedKegiatan = $(this).val();
-
+                console.log(selectedKegiatan);
                 // Bersihkan dropdown NIS
                 $('#nis').empty();
 
@@ -468,6 +664,62 @@
                 });
 
                 // Ketika tombol "Tambah Siswa" diklik
+                // $("#tambahSiswaButton").click(function() {
+                //     // Ambil data kegiatan dan nis dari form
+                //     var kegiatan = $("#kegiatan option:selected").text();
+                //     var id = $("#nis").val();
+                //     var nis = $("#nis option:selected").text();
+                //     var namaSiswa = $("#nama_siswa").val();
+
+                //     $('#nis').val("").trigger('change')
+
+                //     // Validasi kegiatan dan nis
+                //     if (!kegiatan || !id) {
+                //         Swal.fire({
+                //             icon: 'error',
+                //             title: 'Validasi Gagal',
+                //             text: 'Kegiatan dan NIS harus dipilih.',
+                //         });
+                //         return;
+                //     }
+
+                //     // Tambahkan data siswa ke dalam tabel dengan DataTable
+                //     table.row.add([
+                //         table.rows().count() + 1,
+                //         id,
+                //         nis,
+                //         namaSiswa,
+                //         $("#kegiatan").val(), //  kode kegiatan
+                //         kegiatan, //  nama kegiatan
+                //         '<a href="#" class="text-danger delete-record"><i class="mdi mdi-delete font-size-18"></i></a>' // Tautan Hapus
+                //     ]).draw();
+
+                //     // Reset form ke default
+                //     // $("#kegiatan").val("");
+                //     $("#nis").val("");
+                //     $("#nama_siswa").val("");
+
+                //     // var lastRow = table.row(table.rows().count() - 1);
+                //     // var cells = lastRow.node().cells;
+                //     // $(cells[1]).addClass('hidden'); 
+                //     // $(cells[4]).addClass('hidden'); 
+
+                //     var lastRow = table.row(table.rows().count() - 1).nodes()
+                //         .to$();
+                //     var cells = lastRow[0].cells;
+                //     $(cells[1]).addClass('hidden');
+                //     $(cells[4]).addClass('hidden');
+
+                //     lastRow.find('.delete-record').click(function(e) {
+                //         e.preventDefault();
+                //         table.row(lastRow).remove().draw();
+                //     });
+
+                // });
+
+                var table = $('#daftarBarcode').DataTable();
+                var existingData = new Set();
+
                 $("#tambahSiswaButton").click(function() {
                     // Ambil data kegiatan dan nis dari form
                     var kegiatan = $("#kegiatan option:selected").text();
@@ -487,39 +739,50 @@
                         return;
                     }
 
+                    var dataKey = id + "-" + kegiatan;
+
+                    // Cek apakah data sudah ada di tabel
+                    if (existingData.has(dataKey)) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Data sudah ada',
+                            text: 'Data siswa sudah ada di input.',
+                        });
+                        return;
+                    }
+
                     // Tambahkan data siswa ke dalam tabel dengan DataTable
-                    table.row.add([
+                    var rowNode = table.row.add([
                         table.rows().count() + 1,
                         id,
                         nis,
                         namaSiswa,
-                        $("#kegiatan").val(), // Tambahkan kode kegiatan
-                        kegiatan, // Tambahkan nama kegiatan
-                        '<a href="#" class="text-danger delete-record"><i class="mdi mdi-delete font-size-18"></i></a>' // Tautan Hapus
-                    ]).draw();
+                        $("#kegiatan").val(), // kode kegiatan
+                        kegiatan, // nama kegiatan
+                        '<a href="#" class="text-danger delete-record"><i class="mdi mdi-delete font-size-18"></i></a>'
+                    ]).draw().node();
+
+                    // Tambahkan data ke Set
+                    existingData.add(dataKey);
 
                     // Reset form ke default
-                    // $("#kegiatan").val("");
                     $("#nis").val("");
                     $("#nama_siswa").val("");
 
-                    // var lastRow = table.row(table.rows().count() - 1);
-                    // var cells = lastRow.node().cells;
-                    // $(cells[1]).addClass('hidden'); 
-                    // $(cells[4]).addClass('hidden'); 
-
-                    var lastRow = table.row(table.rows().count() - 1).nodes()
-                        .to$();
+                    var lastRow = table.row(table.rows().count() - 1).nodes().to$();
                     var cells = lastRow[0].cells;
                     $(cells[1]).addClass('hidden');
                     $(cells[4]).addClass('hidden');
 
                     lastRow.find('.delete-record').click(function(e) {
                         e.preventDefault();
+                        // Hapus data dari Set saat data dihapus dari tabel
+                        existingData.delete(dataKey);
                         table.row(lastRow).remove().draw();
                     });
-
                 });
+
+
             });
 
             $("#simpanDataBtn").click(function() {
@@ -616,8 +879,6 @@
                 }
             });
 
-
-
             // Fungsi untuk mencari data duplikat
             function findDuplicateData(data) {
                 var seen = {};
@@ -636,9 +897,6 @@
 
                 return duplicates;
             }
-
-
-
         });
 
 
