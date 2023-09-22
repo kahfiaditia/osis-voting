@@ -72,6 +72,8 @@
                          <li><a href="{{ route('pembina.index') }}" key="t-products">Pembina</a></li>
                          <li><a href="{{ route('jadwal.index') }}" key="t-product-detail">Jadwal</a></li>
                          <li><a href="{{ route('follow.create') }}" key="t-orders">Ikuti</a></li>
+                         <li><a href="{{ route('daftar_mandiri.index') }}" key="t-orders">Daftar Kegiatan</a>
+                         </li>
                          <li><a class="inactive-link" key="t-orders">Absensi</a></li>
                      </ul>
                  </li>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClasessController;
+use App\Http\Controllers\DaftarMandiriController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExtraController;
 use App\Http\Controllers\FrontendController;
@@ -134,5 +135,7 @@ Route::group(
         Route::post('/scanBarcode1', [PengikutController::class, 'scanBarcode1'])->name('follow.scanBarcode1');
         Route::get('/get-siswa-by-extra/{id}', [PengikutController::class, 'getSiswaByExtra']);
         Route::post('/follow/cek-duplicate', [PengikutController::class, 'cekDuplicate'])->name('follow.cek_duplicate');
+        Route::resource('/daftar_mandiri', DaftarMandiriController::class);
+        Route::get('/daftar-mandiri/{dataId}', [DaftarMandiriController::class, 'daftar_kegiatan'])->name('daftar_mandiri.daftar_kegiatan');
     }
 );
