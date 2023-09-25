@@ -3,15 +3,18 @@
     <div class="page-content">
         <div class="container-fluid">
 
+            {{-- <div class="page-content">
+                <div class="container-fluid"> --}}
+
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
-                    <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0 font-size-18">{{ $menu }}</h4>
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">{{ $title }}</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item">{{ $title }}</li>
+                                <li class="breadcrumb-item">Daftar</li>
                                 <li class="breadcrumb-item active">{{ $kegiatan }}</li>
                             </ol>
                         </div>
@@ -20,91 +23,125 @@
                 </div>
             </div>
             <!-- end page title -->
+
             <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <table class="table project-list-table table-nowrap align-middle table-borderless">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nis</th>
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">Absensi</th>
-                                    <th scope="col">Keterangan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($absensinya as $list)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $list->nis }}</td>
-                                        <td>{{ $list->name }}</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input absensi" type="radio"
-                                                    name="absensi_{{ $list->id_user }}" id="izin_{{ $list->id_user }}"
-                                                    value="2" onclick="toggleKeterangan('{{ $list->id_user }}', true)">
-                                                <label class="form-check-label">Izin</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input absensi" type="radio"
-                                                    name="absensi_{{ $list->id_user }}" id="alpa_{{ $list->id_user }}"
-                                                    value="3"
-                                                    onclick="toggleKeterangan('{{ $list->id_user }}', false)">
-                                                <label class="form-check-label">Alpa</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input absensi" type="radio"
-                                                    name="absensi_{{ $list->id_user }}" id="hadir_{{ $list->id_user }}"
-                                                    value="1"
-                                                    onclick="toggleKeterangan('{{ $list->id_user }}', false)">
-                                                <label class="form-check-label">Hadir</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <input class="form-control keterangan-input" type="text"
-                                                name="keterangan_{{ $list->id_user }}"
-                                                id="keterangan_{{ $list->id_user }}" maxlength="20"
-                                                placeholder="Tambahkan Keterangan Izin" style="display: none">
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="3"></td>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">{{ $title }}</h4>
 
-                                    <td>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input absensi-all" type="radio"
-                                                name="absensi_pilihan" value="izin" id="absensi_pilihan_izin"
-                                                onclick="setAllRadio('izin')">
-                                            <label class="form-check-label">All Izin</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input absensi-all" type="radio"
-                                                name="absensi_pilihan" value="alpa" id="absensi_pilihan_alpa"
-                                                onclick="setAllRadio('alpa')">
-                                            <label class="form-check-label">All Alpa</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input absensi-all" type="radio"
-                                                name="absensi_pilihan" value="hadir" id="absensi_pilihan_hadir"
-                                                onclick="setAllRadio('hadir')">
-                                            <label class="form-check-label">All Hadir</label>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#all-order" role="tab">
+                                        Absensi Manual
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#processing" role="tab">
+                                        Processing
+                                    </a>
+                                </li>
+                            </ul>
 
+                            <!-- Tab panes -->
+                            <div class="tab-content p-3">
+                                <div class="tab-pane active" id="all-order" role="tabpanel">
+
+                                    <div class="table-responsive mt-5">
+                                        <table class="table table-hover datatable dt-responsive nowrap"
+                                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Nis</th>
+                                                    <th scope="col">Nama</th>
+                                                    <th scope="col">Absensi</th>
+                                                    <th scope="col">Keterangan</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($absensinya as $list)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $list->nis }}</td>
+                                                        <td>{{ $list->name }}</td>
+                                                        <td>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input absensi" type="radio"
+                                                                    name="absensi_{{ $list->id_user }}"
+                                                                    id="izin_{{ $list->id_user }}" value="2"
+                                                                    onclick="toggleKeterangan('{{ $list->id_user }}', true)">
+                                                                <label class="form-check-label">Izin</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input absensi" type="radio"
+                                                                    name="absensi_{{ $list->id_user }}"
+                                                                    id="alpa_{{ $list->id_user }}" value="3"
+                                                                    onclick="toggleKeterangan('{{ $list->id_user }}', false)">
+                                                                <label class="form-check-label">Alpa</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input absensi" type="radio"
+                                                                    name="absensi_{{ $list->id_user }}"
+                                                                    id="hadir_{{ $list->id_user }}" value="1"
+                                                                    onclick="toggleKeterangan('{{ $list->id_user }}', false)">
+                                                                <label class="form-check-label">Hadir</label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control keterangan-input" type="text"
+                                                                name="keterangan_{{ $list->id_user }}"
+                                                                id="keterangan_{{ $list->id_user }}" maxlength="20"
+                                                                placeholder="Tambahkan Keterangan Izin"
+                                                                style="display: none" required>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="3"></td>
+                                                    <td>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input absensi-all" type="radio"
+                                                                name="absensi_pilihan" value="izin"
+                                                                id="absensi_pilihan_izin" onclick="setAllRadio('izin')">
+                                                            <label class="form-check-label">All Izin</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input absensi-all" type="radio"
+                                                                name="absensi_pilihan" value="alpa"
+                                                                id="absensi_pilihan_alpa" onclick="setAllRadio('alpa')">
+                                                            <label class="form-check-label">All Alpa</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input absensi-all" type="radio"
+                                                                name="absensi_pilihan" value="hadir"
+                                                                id="absensi_pilihan_hadir" onclick="setAllRadio('hadir')">
+                                                            <label class="form-check-label">All Hadir</label>
+                                                        </div>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-sm-12">
+                                            <a href="{{ route('daftar_absensi.index') }}"
+                                                class="btn btn-secondary waves-effect">Batal</a>
+                                            <button class="btn btn-primary" id="simpanButton"
+                                                style="float: right">Simpan</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn btn-primary" id="simpanButton">Simpan</button>
                 </div>
-
             </div>
-        </div>
+        </div> <!-- container-fluid -->
     </div>
 
     <script script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
@@ -145,14 +182,23 @@
                 var absensi = document.querySelector('input[name="absensi_' + id_user + '"]:checked');
                 var keterangan = document.getElementById('keterangan_' + id_user).value;
 
-                if (absensi) {
-                    data.push({
-                        id_user: id_user,
-                        id_kegiatan: id_kegiatan,
-                        absensi: absensi.value,
-                        keterangan: keterangan
+                // Tambahkan validasi untuk absensi yang harus diisi
+                if (!absensi) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Absensi harus diisi',
+                        showConfirmButton: false,
+                        timer: 1500
                     });
+                    return; // Hentikan proses jika absensi kosong
                 }
+
+                data.push({
+                    id_user: id_user,
+                    id_kegiatan: id_kegiatan,
+                    absensi: absensi.value,
+                    keterangan: keterangan
+                });
             @endforeach
 
             // Kirim data melalui AJAX
