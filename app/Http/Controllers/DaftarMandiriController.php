@@ -59,7 +59,7 @@ class DaftarMandiriController extends Controller
         ];
 
         // Cek apakah pengguna sudah mengikuti kegiatan dan kirim flag ke view
-        $cekvalidasi['alreadyJoinedActivities'] = PengikutModel::where('id_pengikut', Auth::user()->id)
+        $cekvalidasi['inidatavalidasi'] = PengikutModel::where('id_pengikut', Auth::user()->id)
             ->whereIn('id_ekstra', collect($result)->pluck('id_ekstrakurikuler'))
             ->pluck('id_ekstra')
             ->toArray();

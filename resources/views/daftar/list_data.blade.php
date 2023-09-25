@@ -47,10 +47,10 @@
                                     </div>
                                 </div>
                                 @php
-                                    $alreadyJoinedActivities = in_array($data->id_ekstrakurikuler, $cekvalidasi['alreadyJoinedActivities']);
+                                    $inidatavalidasi = in_array($data->id_ekstrakurikuler, $cekvalidasi['inidatavalidasi']);
                                 @endphp
 
-                                @if ($alreadyJoinedActivities)
+                                @if ($inidatavalidasi)
                                     <p class="text-success">Sudah Mengikuti</p>
                                 @else
                                     <div class="text-center plan-btn">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\ClasessController;
 use App\Http\Controllers\DaftarMandiriController;
 use App\Http\Controllers\DashboardController;
@@ -137,5 +138,7 @@ Route::group(
         Route::post('/follow/cek-duplicate', [PengikutController::class, 'cekDuplicate'])->name('follow.cek_duplicate');
         Route::resource('/daftar_mandiri', DaftarMandiriController::class);
         Route::get('/daftar-mandiri/{dataId}', [DaftarMandiriController::class, 'daftar_kegiatan'])->name('daftar_mandiri.daftar_kegiatan');
+        Route::resource('/daftar_absensi', AbsensiController::class);
+        Route::post('/simpan-absensi',  [AbsensiController::class, 'simpan'])->name('daftar_absensi.simpan');
     }
 );
