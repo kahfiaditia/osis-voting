@@ -49,8 +49,8 @@
                                 @php
                                     $inidatavalidasi = in_array($data->id_ekstrakurikuler, $cekvalidasi['inidatavalidasi']);
                                 @endphp
-
-                                @if ($inidatavalidasi)
+                                {{-- {{ Auth::user()->roles }} --}}
+                                @if ($inidatavalidasi || Auth::user()->roles != 'siswa')
                                     <p class="text-success">Sudah Mengikuti</p>
                                 @else
                                     <div class="text-center plan-btn">
@@ -59,6 +59,7 @@
                                             {{ $data->Kegiatan }}</a>
                                     </div>
                                 @endif
+
                                 <div class="plan-features mt-5">
                                     <p><i class="bx bx-checkbox-square text-primary me-2"></i> {{ $data->Hari }}</p>
                                 </div>

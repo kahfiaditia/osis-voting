@@ -58,11 +58,12 @@ class DaftarMandiriController extends Controller
             'jadwal' => $result,
         ];
 
-        // Cek apakah pengguna sudah mengikuti kegiatan dan kirim flag ke view
+        //Cek apakah pengguna sudah mengikuti kegiatan dan kirim flag ke view
         $cekvalidasi['inidatavalidasi'] = PengikutModel::where('id_pengikut', Auth::user()->id)
             ->whereIn('id_ekstra', collect($result)->pluck('id_ekstrakurikuler'))
             ->pluck('id_ekstra')
             ->toArray();
+
 
         return view('daftar.list_data', compact('data', 'cekvalidasi'));
     }

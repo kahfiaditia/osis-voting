@@ -27,7 +27,7 @@
                         <div class="table-responsive">
                             <div class="">
                                 <div class="alert alert-info mb-0" role="alert">
-                                    Data absensi akan tampil sesuai jadwal yang telah di input
+                                    Data absensi akan tampil sesuai jadwal yang telah di input pada menu Jadwal
                                 </div>
                             </div>
                             <table class="table project-list-table table-nowrap align-middle table-borderless">
