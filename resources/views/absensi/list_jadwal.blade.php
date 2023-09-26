@@ -24,8 +24,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="">
-
                         <div class="table-responsive">
+                            <div class="">
+                                <div class="alert alert-info mb-0" role="alert">
+                                    Data absensi akan tampil sesuai jadwal yang telah di input
+                                </div>
+                            </div>
                             <table class="table project-list-table table-nowrap align-middle table-borderless">
                                 <thead>
                                     <tr>
