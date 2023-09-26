@@ -24,19 +24,8 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title mb-3">{{ $title }}</h4>
-                            {{-- {{ $data_kegiatan }} --}}
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" data-bs-toggle="tab" href="#all-order" role="tab">
-                                        Absensi Manual
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('barcode_absensi', $data_kegiatan) }}">Barcode</a>
-                                </li>
-                            </ul>
+                            <h4 class="card-title mb-3">{{ $title }} </h4>
+                            <hr>
 
                             <div class="col-xl-12">
                                 <div class="card">
@@ -82,7 +71,7 @@
                                                             <div class="col-md-4"></div>
                                                             <div class="col-md-2">
                                                                 <select class="form-control select select2 data_absen"
-                                                                    name="absensi1" id="absensi1">
+                                                                    name="absensi1" id="absensi1" required>
                                                                     <option value=""> -- Pilih --</option>
                                                                     <option value="1"> Hadir </option>
                                                                     <option value="3"> Alpa </option>
@@ -117,7 +106,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th scope="col" style="width: 70px;">#</th>
-                                                                <th scope="col" style="width: 70px;">id</th>
+                                                                <th scope="col" style="width: 70px;" hidden>id</th>
                                                                 <th scope="col" style="width: 120px;">Nis</th>
                                                                 <th scope="col" style="width: 180px;">Nama</th>
                                                                 <th scope="col" style="width: 120px;">Absensi</th>
@@ -130,7 +119,7 @@
                                                             @foreach ($absensinya as $list)
                                                                 <tr>
                                                                     <td>{{ $loop->iteration }}</td>
-                                                                    <td>{{ $list->id_user }}</td>
+                                                                    <td hidden>{{ $list->id_user }}</td>
                                                                     <td>{{ $list->nis }}</td>
                                                                     <td>{{ $list->name }}</td>
                                                                     <td>
@@ -183,12 +172,13 @@
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td></td>
-                                                                <td></td>
+                                                                <td hidden></td>
                                                                 <td>
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input absensi-all"
-                                                                            type="radio" name="absensi_pilihan"
-                                                                            value="izin" id="absensi_pilihan_izin"
+                                                                            type="radio" value="2"
+                                                                            name="absensi_pilihan"
+                                                                            id="absensi_pilihan_izin"
                                                                             onclick="setAllRadio('izin')">
                                                                         <label class="form-check-label">All Izin</label>
                                                                     </div>
@@ -196,8 +186,9 @@
                                                                 <td>
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input absensi-all"
-                                                                            type="radio" name="absensi_pilihan"
-                                                                            value="alpa" id="absensi_pilihan_alpa"
+                                                                            type="radio" value="3"
+                                                                            name="absensi_pilihan"
+                                                                            id="absensi_pilihan_alpa"
                                                                             onclick="setAllRadio('alpa')">
                                                                         <label class="form-check-label">All Alpa</label>
                                                                     </div>
@@ -205,8 +196,9 @@
                                                                 <td>
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input absensi-all"
-                                                                            type="radio" name="absensi_pilihan"
-                                                                            value="hadir" id="absensi_pilihan_hadir"
+                                                                            type="radio" value="1"
+                                                                            name="absensi_pilihan"
+                                                                            id="absensi_pilihan_hadir"
                                                                             onclick="setAllRadio('hadir')">
                                                                         <label class="form-check-label">All Hadir</label>
                                                                     </div>
@@ -226,7 +218,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- // --}}
 
                                     </div>
                                 </div>
@@ -246,155 +237,6 @@
     <script src="{{ asset('assets/scanner/html5-qrcode.min.js') }}"></script>
 
     <script>
-        // $(document).ready(function() {
-        //     var resultContainer = document.getElementById('qr-reader-results');
-        //     var lastResult, countResults = 0;
-
-        //     function onScanSuccess(decodedText, decodedResult) {
-        //         if (decodedText !== lastResult) {
-        //             ++countResults;
-        //             lastResult = decodedText;
-        //             // Handle on success condition with the decoded message.
-        //             barcode = decodedText;
-        //             // pembeli = document.getElementById("pembeli").value;
-
-        //             // get value database 
-        //             getValueScanBarcodeCamera(barcode)
-        //             // getValueScanBarcodeCamera(barcode, pembeli)
-        //         }
-        //     }
-
-        //     var html5QrcodeScanner = new Html5QrcodeScanner(
-        //         "qr-reader", {
-        //             fps: 10,
-        //             qrbox: 250
-        //         });
-        //     html5QrcodeScanner.render(onScanSuccess);
-
-        //     $('.div_scan_camera').hide();
-        //     $('.div_barcode').hide();
-
-        //     collapseOne.classList.remove("show");
-
-
-        //     function getValueScanBarcodeCamera(nis, user) {
-        //         var kehadiran = $("#absensi1 option:selected").text();
-        //         console.log(kehadiran);
-        //         var kodeKehadiran = $("#absensi1").val();
-        //         console.log(kodeKehadiran);
-
-        //         var table = $('#tableAbsen').DataTable();
-        //         var existingData = new Set();
-
-        //         // Loop through existing rows to populate existingData
-        //         table.rows().every(function() {
-        //             var rowData = this.data();
-        //             var dataKey = rowData[1] + "-" + rowData[
-        //                 4]; // Assuming ID is in the first column and Kode Kegiatan is in the fifth column
-        //             existingData.add(dataKey);
-        //         });
-
-        //         $.ajax({
-        //             type: "POST",
-        //             url: '{{ route('daftar_absensi.cariBarcode') }}',
-        //             data: {
-        //                 "_token": "{{ csrf_token() }}",
-        //                 nis,
-        //             },
-        //             success: response => {
-        //                 console.log(response);
-        //                 if (response.code == 200) {
-        //                     // Handle jika response memiliki kode 200 (berhasil)
-        //                     if (response.type == 'siswa') {
-        //                         console.log(response);
-
-        //                         // Buat kunci unik untuk data siswa dari barcode
-        //                         var dataKey = response.id + "-" + kodeKehadiran;
-
-        //                         // Cek apakah data siswa dari barcode sudah ada di tabel
-        //                         if (existingData.has(dataKey)) {
-        //                             Swal.fire({
-        //                                 icon: 'error',
-        //                                 title: 'Data sudah ada',
-        //                                 text: 'Data siswa dari barcode sudah ada di input.',
-        //                             });
-        //                             return;
-        //                         }
-
-        //                         // Tambahkan data siswa dari barcode ke dalam tabel
-        //                         var rowNode = table.row.add([
-        //                             table.rows().count() + 1,
-        //                             response.id,
-        //                             response.nis,
-        //                             response.name,
-        //                             kodeKehadiran,
-        //                             kehadiran,
-        //                         ]).draw().node();
-
-        //                         // Tambahkan data siswa dari barcode ke dalam Set existingData
-        //                         existingData.add(dataKey);
-
-        //                         // Tambahkan data ke dalam row sebagai atribut data-barcode
-        //                         $(rowNode).attr('data-barcode', dataKey);
-
-        //                         // Bersihkan nilai input barcode setelah berhasil
-        //                         $('#scanner_barcode').val('');
-        //                         var lastRow = table.row(table.rows().count() - 1);
-        //                         var cells = lastRow.node().cells;
-        //                         $(cells[1]).addClass('hidden');
-        //                         $(cells[4]).addClass('hidden');
-
-
-
-        //                     } else {
-        //                         Swal.fire({
-        //                             icon: 'error',
-        //                             title: 'Siswa sudah terdaftar!',
-        //                             showConfirmButton: false,
-        //                             timer: 3000,
-        //                         })
-        //                     }
-        //                 } else {
-        //                     // Handle jika response memiliki kode selain 200 (gagal)
-        //                     Swal.fire({
-        //                         icon: 'error',
-        //                         title: 'Terjadi kesalahan saat memproses permintaan.',
-        //                         showConfirmButton: false,
-        //                         timer: 3000,
-        //                     });
-        //                 }
-        //             },
-        //             error: (err) => {
-        //                 console.log(err);
-        //             },
-        //         });
-        //     }
-
-
-        //     $(document).ready(function() {
-        //         $('.radio').click(function() {
-        //             let metode_scan = $(this).val();
-        //             if (metode_scan == 'Barcode') {
-        //                 $('.div_scan_camera').hide();
-        //                 $('.div_barcode').show();
-        //             } else {
-        //                 $('.div_scan_camera').show();
-        //                 $('.div_barcode').hide();
-        //             }
-        //         });
-
-        //         $(".scanner_barcode").change(function() {
-        //             let barcode = $(this).val();
-        //             // user = document.getElementById("user").value;
-        //             document.getElementById('scanner_barcode').value = '';
-        //             // get value database 
-        //             getValueScanBarcodeCamera(barcode)
-        //             // getValueScanBarcodeCamera(barcode, user)
-        //         });
-
-        //     })
-        // });
-
         $(document).ready(function() {
             var resultContainer = document.getElementById('qr-reader-results');
             var lastResult, countResults = 0;
@@ -406,6 +248,18 @@
                     // Handle on success condition with the decoded message.
                     barcode = decodedText;
                     // pembeli = document.getElementById("pembeli").value;
+
+                    // Check if absensi1 dropdown is empty
+                    var absensiValue = $("#absensi1").val();
+                    if (!absensiValue) {
+                        // Display an alert if absensi1 is not selected
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Pilih Data Absensi terlebih dahulu',
+                            text: 'Harap pilih Data Absensi terlebih dahulu sebelum melakukan scan barcode.',
+                        });
+                        return;
+                    }
 
                     // get value database 
                     getValueScanBarcodeCamera(barcode)
@@ -426,15 +280,24 @@
             collapseOne.classList.remove("show");
 
             function getValueScanBarcodeCamera(nis, user) {
-                var kehadiran = $("#absensi1 option:selected").text();
-                console.log(kehadiran);
-                var kodeKehadiran = $("#absensi1").val();
-                console.log(kodeKehadiran);
+                var absensiValue = $("#absensi1").val();
+                if (!absensiValue) {
+                    // Display an alert if absensi1 is not selected
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Pilih Kehadiran',
+                        text: 'Harap pilih Kehadiran Absensi.',
+                    });
+                    return;
+                }
 
+                var kehadiran = $("#absensi1 option:selected").text();
+                // console.log(kehadiran);
+                var kodeKehadiran = $("#absensi1").val();
+                // console.log(kodeKehadiran);
 
                 var table = $('#tableAbsen').DataTable();
                 var existingData = new Set();
-
 
                 // Loop through existing rows to populate existingData
                 table.rows().every(function() {
@@ -461,6 +324,13 @@
                             }
                         });
 
+                        // Toggle visibility of Keterangan input field
+                        if (kodeKehadiran === '2') { // '2' represents Izin
+                            $('#keterangan_' + rowData[1]).show();
+                        } else {
+                            $('#keterangan_' + rowData[1]).hide();
+                        }
+
                         return false; // Exit the loop since NIS is found
                     }
                 });
@@ -471,6 +341,13 @@
                         icon: 'error',
                         title: 'NIS Not Found',
                         text: 'Siswa dengan NIS tersebut tidak ditemukan dalam daftar absensi.',
+                    });
+                } else {
+                    // Display an alert for successful attendance record
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Absensi Berhasil',
+                        text: 'Absensi telah berhasil dicatat.',
                     });
                 }
             }
@@ -499,11 +376,6 @@
             });
         });
 
-
-
-
-
-
         // Fungsi untuk mengatur tampilan input keterangan
         function toggleKeterangan(id, show) {
             var keteranganInput = document.getElementById('keterangan_' + id);
@@ -518,13 +390,70 @@
         }
 
         // Fungsi untuk mengatur radio button pada tfoot
+        // function setAllRadio(value) {
+        //     var absensiAllRadios = document.getElementsByClassName('absensi-all');
+        //     for (var i = 0; i < absensiAllRadios.length; i++) {
+        //         absensiAllRadios[i].checked = false;
+        //     }
+        //     document.getElementById('absensi_pilihan_' + value).checked = true;
+        // }
+
         function setAllRadio(value) {
+            // Menghapus ceklis dari semua radio button di tfoot
             var absensiAllRadios = document.getElementsByClassName('absensi-all');
             for (var i = 0; i < absensiAllRadios.length; i++) {
                 absensiAllRadios[i].checked = false;
             }
-            document.getElementById('absensi_pilihan_' + value).checked = true;
+
+            // Mengubah status radio button di tbody sesuai dengan value yang dipilih di tfoot
+            var tbodyRadioButtons = document.querySelectorAll('tbody input[type="radio"]');
+            for (var j = 0; j < tbodyRadioButtons.length; j++) {
+                var id_user = tbodyRadioButtons[j].id.split('_')[1];
+                if (value === 'izin') {
+                    tbodyRadioButtons[j].checked = (tbodyRadioButtons[j].id === 'izin_' + id_user);
+                } else if (value === 'alpa') {
+                    tbodyRadioButtons[j].checked = (tbodyRadioButtons[j].id === 'alpa_' + id_user);
+                } else if (value === 'hadir') {
+                    tbodyRadioButtons[j].checked = (tbodyRadioButtons[j].id === 'hadir_' + id_user);
+                }
+            }
+
+            var izinElements = document.querySelectorAll('tbody [id^="izin_"]');
+            var alpaElements = document.querySelectorAll('tbody [id^="alpa_"]');
+            var hadirElements = document.querySelectorAll('tbody [id^="hadir_"]');
+
+            var isIzinEmpty = izinElements.length == 0;
+            var isAlpaEmpty = alpaElements.length == 0;
+            var isHadirEmpty = hadirElements.length == 0;
+
+            if (isIzinEmpty && isAlpaEmpty && isHadirEmpty) {
+                // Tidak ada elemen di tbody, hapus ceklis dari radio button di tfoot
+                document.querySelector('#absensi_pilihan_izin').checked = false;
+                document.querySelector('#absensi_pilihan_alpa').checked = false;
+                document.querySelector('#absensi_pilihan_hadir').checked = false;
+            }
         }
+
+
+        // function updateTfootRadioButtons() {
+        //     var izinElements = document.querySelectorAll('tbody [id^="izin_"]');
+        //     var alpaElements = document.querySelectorAll('tbody [id^="alpa_"]');
+        //     var hadirElements = document.querySelectorAll('tbody [id^="hadir_"]');
+
+        //     var isIzinEmpty = izinElements.length == 0;
+        //     var isAlpaEmpty = alpaElements.length == 0;
+        //     var isHadirEmpty = hadirElements.length == 0;
+
+        //     if (isIzinEmpty && isAlpaEmpty && isHadirEmpty) {
+        //         // Tidak ada elemen di tbody, hapus ceklis dari radio button di tfoot
+        //         document.querySelector('#absensi_pilihan_izin').checked = false;
+        //         document.querySelector('#absensi_pilihan_alpa').checked = false;
+        //         document.querySelector('#absensi_pilihan_hadir').checked = false;
+        //     }
+        // }
+
+        // // Panggil fungsi saat halaman dimuat
+        // updateTfootRadioButtons();
 
         function simpanData() {
             var data = [];
@@ -558,7 +487,7 @@
             // Kirim data melalui AJAX
             $.ajax({
                 type: 'POST',
-                url: '{{ route('daftar_absensi.simpan') }}', // Ganti dengan nama route yang sesuai
+                url: '{{ route('daftar_absensi.simpan') }}',
                 data: {
                     _token: '{{ csrf_token() }}',
                     data: data
