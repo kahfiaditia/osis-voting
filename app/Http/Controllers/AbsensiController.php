@@ -173,4 +173,39 @@ class AbsensiController extends Controller
         // ];
         // return view('absensi.absensi_barcode')->with($data);
     }
+
+    public function cariBarcode(Request $request)
+    {
+
+        $code = 400;
+        $id = null;
+        $name = null;
+        $nis = null;
+        $class_id = null;
+        $type = null;
+        $val = 0;
+
+
+        $data = User::where('nis', $request->nis)->first();
+        if ($data) {
+            $id = $data->id;
+            $name = $data->name;
+            $nis = $data->nis;
+            $class_id = $data->class_id;
+            $type = $data->roles;
+            $code = 200;
+            $val = $val + 1;
+        }
+
+
+        return response()->json([
+            'code' => $code,
+            'id' => $id,
+            'name' => $name,
+            'nis' => $nis,
+            'class_id' => $class_id,
+            'type' => $type,
+            'val' => $val,
+        ]);
+    }
 }

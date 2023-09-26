@@ -142,5 +142,6 @@ Route::group(
         Route::resource('/daftar_absensi', AbsensiController::class);
         Route::post('/simpan-absensi',  [AbsensiController::class, 'simpan'])->name('daftar_absensi.simpan');
         Route::get('/barcode_absensi/{id}', [AbsensiController::class, 'barcode_absensi'])->name('barcode_absensi');
+        Route::post('/cariBarcode', [AbsensiController::class, 'cariBarcode'])->name('daftar_absensi.cariBarcode');
     }
 );
