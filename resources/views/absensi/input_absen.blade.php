@@ -84,9 +84,9 @@
                                                                 <select class="form-control select select2 data_absen"
                                                                     name="" id="">
                                                                     <option value=""> -- Pilih --</option>
-                                                                    <option value=""> Hadir </option>
-                                                                    <option value=""> Alpa </option>
-                                                                    <option value=""> Izin </option>
+                                                                    <option value="1"> Hadir </option>
+                                                                    <option value="3"> Alpa </option>
+                                                                    <option value="2"> Izin </option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-2">
