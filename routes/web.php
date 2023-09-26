@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\BarcodeAbsensiController;
 use App\Http\Controllers\ClasessController;
 use App\Http\Controllers\DaftarMandiriController;
 use App\Http\Controllers\DashboardController;
@@ -140,5 +141,6 @@ Route::group(
         Route::get('/daftar-mandiri/{dataId}', [DaftarMandiriController::class, 'daftar_kegiatan'])->name('daftar_mandiri.daftar_kegiatan');
         Route::resource('/daftar_absensi', AbsensiController::class);
         Route::post('/simpan-absensi',  [AbsensiController::class, 'simpan'])->name('daftar_absensi.simpan');
+        Route::get('/barcode_absensi/{id}', [AbsensiController::class, 'barcode_absensi'])->name('barcode_absensi');
     }
 );

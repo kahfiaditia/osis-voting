@@ -95,13 +95,12 @@ class AbsensiController extends Controller
             ->where('table_pengikut_data.id_ekstra', $id)
             ->get();
 
-        // dd($nama_siswa);
         $data = [
             'title' => $this->title,
             'menu' => $this->menu,
             'kegiatan' => 'Ekstrakulikuler',
             'absensinya' => $userdata,
-            // 'nama_siswa'  => $nama_siswa
+            'data_kegiatan' => $id,
 
         ];
         return view('absensi.input_absen')->with($data);
@@ -160,5 +159,18 @@ class AbsensiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function barcode_absensi()
+    {
+        // dd($id);
+
+        // $data = [
+        //     'title' => $this->title,
+        //     'menu' => $this->menu,
+        //     'kegiatan' => 'Ekstrakulikuler',
+        //     'label' => 'Data',
+        // ];
+        // return view('absensi.absensi_barcode')->with($data);
     }
 }
