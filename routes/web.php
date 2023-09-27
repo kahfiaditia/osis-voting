@@ -1,17 +1,23 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\BarcodeAbsensiController;
 use App\Http\Controllers\ClasessController;
+use App\Http\Controllers\DaftarMandiriController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExtraController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\JadwalExtraController;
 use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\KandidatsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembinaController;
+use App\Http\Controllers\PengikutController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPembinaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,5 +121,27 @@ Route::group(
         Route::resource('/kegiatan', ExtraController::class);
         Route::resource('/pembina', PembinaController::class);
         Route::get('/get_data_pembina', [PembinaController::class, 'get_data_pembina'])->name('pembina.get_data_pembina');
+        Route::resource('/pembina_list', UserPembinaController::class);
+        Route::get('/get_list_user_pembina', [UserPembinaController::class, 'get_list_user_pembina'])->name('pembina_list.get_list_user_pembina');
+        Route::post('/reset_password_pembina/{id}', [UserPembinaController::class, 'reset_password_pembina'])->name('pembina_list.reset_password_pembina');
+        Route::resource('/jadwal', JadwalExtraController::class);
+        Route::post('/cari_pembina', [JadwalExtraController::class, 'cari_pembina'])->name('jadwal.cari_pembina');
+        Route::post('/cari_hari', [JadwalExtraController::class, 'cari_hari'])->name('jadwal.cari_hari');
+        Route::get('/get_hari', [JadwalExtraController::class, 'getHari'])->name('jadwal.get_hari');
+        Route::post('/simpan_data', [JadwalExtraController::class, 'simpan_data'])->name('jadwal.simpan_data');
+        Route::get('/data_list_jadwal', [JadwalExtraController::class, 'data_list_jadwal'])->name('jadwal.data_list_jadwal');
+        Route::resource('/follow', PengikutController::class);
+        Route::get('/data_kegiatan', [PengikutController::class, 'data_kegiatan'])->name('follow.data_kegiatan');
+        Route::get('/cari_siswa', [PengikutController::class, 'cari_siswa'])->name('follow.cari_siswa');
+        Route::post('/simpan_pengikut', [PengikutController::class, 'simpan_pengikut'])->name('follow.simpan_pengikut');
+        Route::post('/scanBarcode1', [PengikutController::class, 'scanBarcode1'])->name('follow.scanBarcode1');
+        Route::get('/get-siswa-by-extra/{id}', [PengikutController::class, 'getSiswaByExtra']);
+        Route::post('/follow/cek-duplicate', [PengikutController::class, 'cekDuplicate'])->name('follow.cek_duplicate');
+        Route::resource('/daftar_mandiri', DaftarMandiriController::class);
+        Route::get('/daftar-mandiri/{dataId}', [DaftarMandiriController::class, 'daftar_kegiatan'])->name('daftar_mandiri.daftar_kegiatan');
+        Route::resource('/daftar_absensi', AbsensiController::class);
+        Route::post('/simpan-absensi',  [AbsensiController::class, 'simpan'])->name('daftar_absensi.simpan');
+        Route::get('/barcode_absensi/{id}', [AbsensiController::class, 'barcode_absensi'])->name('barcode_absensi');
+        Route::post('/cariBarcode', [AbsensiController::class, 'cariBarcode'])->name('daftar_absensi.cariBarcode');
     }
 );

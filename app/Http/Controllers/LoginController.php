@@ -35,7 +35,7 @@ class LoginController extends Controller
             'password' => 'required',
             'aktif' => '0',
         ]);
-
+        // dd($request);
         // login password harus bcrpt baru bisa masuk auth::attempt
         if (Auth::attempt($credentials)) {
             if (Auth::user()->roles == 'Administrator') {

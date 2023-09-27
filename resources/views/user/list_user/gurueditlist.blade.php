@@ -27,7 +27,8 @@
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label for="role" class="form-label">Role <code>*</code></label>
-                                            <select class="form-control select select2 role" name="role" id="role">
+                                            <select class="form-control select select2 role" name="role" id="role"
+                                                required>
                                                 <option value="siswa" @if ($data->roles == 'siswa') selected @endif>
                                                     Siswa
                                                 </option>
@@ -48,6 +49,10 @@
                                             <label for="nama" class="form-label">Nama <code>*</code></label>
                                             <input type="text" class="form-control" name="nama" id="nama"
                                                 value="{{ $data->name }}" autocomplete="off" required>
+                                            <div class="invalid-feedback">
+                                                Data wajib diisi.
+                                            </div>
+                                            {!! $errors->first('nama', '<div class="invalid-validasi">:message</div>') !!}
                                         </div>
                                     </div>
                                     <div class="col-md-3">

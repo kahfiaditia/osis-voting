@@ -23,6 +23,10 @@
                                         class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
                                         <i class="mdi mdi-plus me-1"></i>Guru
                                     </a>
+                                    <a href="{{ route('pembina_list.create') }}" type="button"
+                                        class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
+                                        <i class="mdi mdi-plus me-1"></i>Pembina
+                                    </a>
                                     <a href="{{ route('pengguna.tambah_admin_listuser') }}" type="button"
                                         class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
                                         <i class="mdi mdi-plus me-1"></i> Administrator
@@ -47,6 +51,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('list_data_guru') }}">
                                         Data Guru
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('pembina_list.index') }}">
+                                        Pembina
                                     </a>
                                 </li>
                                 <li class="nav-item">

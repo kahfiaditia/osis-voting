@@ -15,17 +15,17 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" action="{{ route('pengguna.storelistguru') }}" enctype="multipart/form-data"
+            <form class="needs-validation" action="{{ route('pembina_list.store') }}" enctype="multipart/form-data"
                 method="POST" novalidate>
                 @csrf
-                <div class="page-title-right">
+                {{-- <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <a href="{{ route('pengguna.halaman_guru') }}" type="button"
                             class="float-end btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
                             <i class="mdi mdi-plus me-1"></i> Upload Excel
                         </a>
                     </ol>
-                </div>
+                </div> --}}
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
@@ -35,7 +35,7 @@
                                         <div class="mb-3">
                                             <label for="role" class="form-label">Role <code>*</code></label>
                                             <input type="text" class="form-control" name="role" id="role"
-                                                value="guru" autocomplete="off" maxlength="30" readonly>
+                                                value="pembina" autocomplete="off" maxlength="30" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-sm-12">
-                                        <a href="{{ route('list_data_guru') }}"
+                                        <a href="{{ route('pembina_list.index') }}"
                                             class="btn btn-secondary waves-effect">Batal</a>
                                         <button class="btn btn-primary" type="submit" style="float: right"
                                             id="submit">Simpan</button>
