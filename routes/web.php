@@ -10,6 +10,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\JadwalExtraController;
 use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\KandidatsController;
+use App\Http\Controllers\ListAbsenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembinaController;
@@ -141,7 +142,9 @@ Route::group(
         Route::get('/daftar-mandiri/{dataId}', [DaftarMandiriController::class, 'daftar_kegiatan'])->name('daftar_mandiri.daftar_kegiatan');
         Route::resource('/daftar_absensi', AbsensiController::class);
         Route::post('/simpan-absensi',  [AbsensiController::class, 'simpan'])->name('daftar_absensi.simpan');
-        Route::get('/barcode_absensi/{id}', [AbsensiController::class, 'barcode_absensi'])->name('barcode_absensi');
-        Route::post('/cariBarcode', [AbsensiController::class, 'cariBarcode'])->name('daftar_absensi.cariBarcode');
+        Route::resource('/data_list_absen', ListAbsenController::class);
+        Route::post('/data_jadwal', [ListAbsenController::class, 'data_jadwal'])->name('data_list_absen.data_jadwal');
+        Route::post('/data_tanggal', [ListAbsenController::class, 'getDataTanggal'])->name('data_list_absen.data_tanggal');
+        Route::post('/data_absen', [ListAbsenController::class, 'data_absen'])->name('data_list_absen.data_absen');
     }
 );

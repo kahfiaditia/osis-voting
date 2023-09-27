@@ -110,6 +110,7 @@
                                                             <tr>
                                                                 <th scope="col" style="width: 70px;">#</th>
                                                                 <th scope="col" style="width: 70px;" hidden>id</th>
+                                                                <th scope="col" style="width: 70px;" hidden>id_hari</th>
                                                                 <th scope="col" style="width: 120px;">Nis</th>
                                                                 <th scope="col" style="width: 180px;">Nama</th>
                                                                 <th scope="col" style="width: 120px;">Absensi</th>
@@ -123,6 +124,7 @@
                                                                 <tr>
                                                                     <td>{{ $loop->iteration }}</td>
                                                                     <td hidden>{{ $list->id_user }}</td>
+                                                                    <td hidden>{{ $absen_kegiatan->id_hari }}</td>
                                                                     <td>{{ $list->nis }}</td>
                                                                     <td>{{ $list->name }}</td>
                                                                     <td>
@@ -176,8 +178,6 @@
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td hidden>
-
-
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-check-inline">
@@ -467,6 +467,7 @@
             // Loop melalui baris siswa
             @foreach ($absensinya as $list)
                 var id_user = '{{ $list->id_user }}';
+                var id_hari = '{{ $absen_kegiatan->id_hari }}';
                 var id_kegiatan = '{{ $list->id_kegiatan }}';
                 var absensi = document.querySelector('input[name="absensi_' + id_user + '"]:checked');
                 var keterangan = document.getElementById('keterangan_' + id_user).value;
@@ -484,6 +485,7 @@
 
                 data.push({
                     id_user: id_user,
+                    id_hari: id_hari,
                     id_kegiatan: id_kegiatan,
                     absensi: absensi.value,
                     keterangan: keterangan

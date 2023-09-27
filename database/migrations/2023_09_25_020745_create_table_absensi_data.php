@@ -19,6 +19,9 @@ class CreateTableAbsensiData extends Migration
             $table->foreign('id_kegiatan')->references('id')->on('ekstrakurikuler');
             $table->unsignedBigInteger('id_siswa');
             $table->foreign('id_siswa')->references('id')->on('users');
+            $table->unsignedBigInteger('id_hari')->nullable();
+            $table->foreign('id_hari')->references('id')->on('table_hari');
+            $table->date('tanggal');
             $table->string('status', 1);
             $table->string('keterangan', 20)->nullable();
             $table->unsignedBigInteger('user_created')->nullable();

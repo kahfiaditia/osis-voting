@@ -107,6 +107,8 @@ class AbsensiController extends Controller
             ->where('table_jadwal_hari.id_kegiatan', '=', $id)
             ->first();
 
+        // dd($list);
+
         $userdata = DB::table('table_pengikut_data')
             ->join('users', 'table_pengikut_data.id_pengikut', '=', 'users.id')
             ->join('ekstrakurikuler', 'table_pengikut_data.id_ekstra', '=', 'ekstrakurikuler.id')
@@ -133,6 +135,7 @@ class AbsensiController extends Controller
         try {
             $tanggal = Carbon::now();
             $data_absensi = $request->data;
+            $tanggalHariIni = date("Y-m-d");
 
             foreach ($data_absensi as $key => $value) {
                 // Cek apakah data sudah ada berdasarkan id_kegiatan, id_siswa, dan created_at
@@ -146,6 +149,8 @@ class AbsensiController extends Controller
                     $hasilabsensi = new HasilAbsensiModel();
                     $hasilabsensi->id_kegiatan = $value['id_kegiatan'];
                     $hasilabsensi->id_siswa = $value['id_user'];
+                    $hasilabsensi->id_hari = $value['id_hari'];
+                    $hasilabsensi->tanggal =  $tanggalHariIni;
                     $hasilabsensi->status = $value['absensi'];
                     $hasilabsensi->keterangan = $value['keterangan'];
                     $hasilabsensi->user_created = Auth::user()->id;
