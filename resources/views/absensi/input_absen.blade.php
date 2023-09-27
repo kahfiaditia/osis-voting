@@ -24,7 +24,10 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title mb-3">{{ $title }} </h4>
+
+                            <h4 class="card-title">Absensi Kegiatan {{ $absen_kegiatan->nama_kegiatan }}
+                                - {{ $absen_kegiatan->nama_hari }} - {{ $absen_kegiatan->created_at }}
+                            </h4>
                             <hr>
 
                             <div class="col-xl-12">
@@ -172,7 +175,10 @@
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td></td>
-                                                                <td hidden></td>
+                                                                <td hidden>
+
+
+                                                                </td>
                                                                 <td>
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input absensi-all"

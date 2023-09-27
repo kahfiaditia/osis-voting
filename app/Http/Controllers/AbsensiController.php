@@ -89,10 +89,29 @@ class AbsensiController extends Controller
      */
     public function edit($id)
     {
+
+        $today = Carbon::now()->format('N'); // 'N' mengembalikan nomor hari (1 = Senin, 2 = Selasa, dst.)
+
+        $list = DB::table('table_jadwal_hari')
+            ->select(
+                'table_jadwal_hari.*',
+                'table_hari.nama_hari',
+                'users.name as nama_pembina',
+                'ekstrakurikuler.name as nama_kegiatan'
+            )
+            ->join('table_hari', 'table_jadwal_hari.id_hari', '=', 'table_hari.id')
+            ->leftJoin('users', 'table_jadwal_hari.id_pembina', '=', 'users.id')
+            ->leftJoin('ekstrakurikuler', 'table_jadwal_hari.id_kegiatan', '=', 'ekstrakurikuler.id')
+            ->whereNull('table_jadwal_hari.deleted_at')
+            ->where('table_hari.kode', '=', $today)
+            ->where('table_jadwal_hari.id_kegiatan', '=', $id)
+            ->first();
+
         $userdata = DB::table('table_pengikut_data')
             ->join('users', 'table_pengikut_data.id_pengikut', '=', 'users.id')
-            ->select('users.id as id_user', 'users.nis', 'users.name', 'table_pengikut_data.id_pengikut', 'table_pengikut_data.id_ekstra as id_kegiatan')
-            ->where('table_pengikut_data.id_ekstra', $id)
+            ->join('ekstrakurikuler', 'table_pengikut_data.id_ekstra', '=', 'ekstrakurikuler.id')
+            ->select('users.id as id_user', 'users.nis', 'users.name', 'table_pengikut_data.id_pengikut', 'table_pengikut_data.id_ekstra as id_kegiatan', 'ekstrakurikuler.name as nama_ekstrakurikuler')
+            ->where('table_pengikut_data.id_ekstra', '=',  $id)
             ->get();
 
         $data = [
@@ -101,6 +120,7 @@ class AbsensiController extends Controller
             'kegiatan' => 'Ekstrakulikuler',
             'absensinya' => $userdata,
             'data_kegiatan' => $id,
+            'absen_kegiatan' =>  $list,
 
         ];
         return view('absensi.input_absen')->with($data);
@@ -111,16 +131,34 @@ class AbsensiController extends Controller
         // dd($request->data);
         DB::beginTransaction();
         try {
+            $tanggal = Carbon::now();
             $data_absensi = $request->data;
+
             foreach ($data_absensi as $key => $value) {
-                $hasilabsensi = new HasilAbsensiModel();
-                $hasilabsensi->id_kegiatan = $value['id_kegiatan'];
-                $hasilabsensi->id_siswa = $value['id_user'];
-                $hasilabsensi->status = $value['absensi'];
-                $hasilabsensi->keterangan = $value['keterangan'];
-                $hasilabsensi->user_created =  Auth::user()->id;
-                $hasilabsensi->created_at = Carbon::now();
-                $hasilabsensi->save();
+                // Cek apakah data sudah ada berdasarkan id_kegiatan, id_siswa, dan created_at
+                $cekabsen = HasilAbsensiModel::where('id_kegiatan', $value['id_kegiatan'])
+                    ->where('id_siswa', $value['id_user'])
+                    ->whereDate('created_at', $tanggal)
+                    ->first();
+
+                if ($cekabsen == null) {
+                    // Jika data tidak ada, buat data baru
+                    $hasilabsensi = new HasilAbsensiModel();
+                    $hasilabsensi->id_kegiatan = $value['id_kegiatan'];
+                    $hasilabsensi->id_siswa = $value['id_user'];
+                    $hasilabsensi->status = $value['absensi'];
+                    $hasilabsensi->keterangan = $value['keterangan'];
+                    $hasilabsensi->user_created = Auth::user()->id;
+                    $hasilabsensi->created_at = Carbon::now();
+                    $hasilabsensi->save();
+                } else {
+                    // Jika data sudah ada, update data tersebut
+                    $cekabsen->status = $value['absensi'];
+                    $cekabsen->keterangan = $value['keterangan'];
+                    $cekabsen->user_updated = Auth::user()->id;
+                    $cekabsen->updated_at = Carbon::now();
+                    $cekabsen->save();
+                }
             }
 
             DB::commit();
