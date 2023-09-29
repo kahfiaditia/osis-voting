@@ -86,13 +86,10 @@ class ListAbsenController extends Controller
     public function data_absen(Request $request)
     {
 
-        // dd($request->tanggal);
-        // Ambil data yang diperlukan berdasarkan id_kegiatan, id_hari, dan tanggal yang dikirim dari frontend
         $idKegiatan = $request->id_kegiatan;
         $idHari = $request->id_hari;
         $tanggal = $request->tanggal;
-        // dd($request->id_hari);
-        // Ganti query sesuai dengan kebutuhan Anda
+
         $filteredData = DB::table('table_absensi_data')
             ->select('tanggal', 'id_hari', 'id_kegiatan', 'ekstrakurikuler.name as kegiatan', 'table_hari.nama_hari as hari', 'users.nis as nis', 'id_siswa', 'users.name as siswa', 'table_absensi_data.status', 'keterangan')
             ->join('users', 'table_absensi_data.id_siswa', '=', 'users.id')

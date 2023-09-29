@@ -94,7 +94,7 @@
             $('#data_hari').change(function() {
                 var selectedHari = $(this).val();
                 if (selectedHari) {
-                    fetchTanggal(selectedHari, $('#data_kegiatan').val()); // Mengirim id_kegiatan
+                    fetchTanggal(selectedHari, $('#data_kegiatan').val());
                 } else {
                     $('#tanggal_container').hide();
                     $('#data_tanggal').empty();
@@ -125,13 +125,17 @@
                                     .nama_hari + '</option>';
                             });
                             $('#data_hari').html(options);
-                            $('#data_hari').width($('#data_hari option:first').width());
+                            $('#data_hari').select2({
+                                width: '100%'
+                            });
                             $('#hari_container').show();
                         } else {
                             $('#data_hari').empty().html(
                                 '<option value=""> -- Pilih Hari --</option>'
                             );
-                            $('#data_hari').width($('#data_hari option:first').width());
+                            $('#data_hari').select2({
+                                width: '100%'
+                            });
                             $('#hari_container').hide();
                             $('#tanggal_container').hide();
                         }
@@ -160,6 +164,9 @@
                                     .tanggal + '</option>';
                             });
                             $('#data_tanggal').html(options);
+                            $('#data_tanggal').select2({
+                                width: '100%'
+                            });
                             $('#tanggal_container').show();
                         } else {
                             $('#data_tanggal').empty().html(
@@ -201,14 +208,18 @@
 
                                 var alasan = '';
                                 if (item.status == 2 && item.keterangan == null) {
-                                    alasan = 'Tidak ada Keterangan';
+                                    alasan =
+                                        '<span style="color: red;">Tidak Ada Keterangan</span>';
                                 } else if (item.status == 3 && item.keterangan == null) {
-                                    alasan = 'Tidak ada Keterangan';
+                                    alasan =
+                                        '<span style="color: red;">Tidak Ada Keterangan</span>';
+                                } else if (item.status == 3 && item.keterangan != null) {
+                                    alasan = item.keterangan;
+                                } else if (item.status == 2 && item.keterangan != null) {
+                                    alasan = item.keterangan;
                                 } else if (item.status == 1 && item.keterangan == null) {
-                                    alasan = 'Bagus';
+                                    alasan = '';
                                 }
-
-
 
                                 tableRows += '<tr>' +
                                     '<td>' + item.kegiatan + '</td>' +

@@ -133,45 +133,73 @@ class AbsensiController extends Controller
         // dd($request->data);
         DB::beginTransaction();
         try {
-            $tanggal = Carbon::now();
+
+            // Data absensi yang dikirim dari frontend
             $data_absensi = $request->data;
-            $tanggalHariIni = date("Y-m-d");
 
             foreach ($data_absensi as $key => $value) {
-                // Cek apakah data sudah ada berdasarkan id_kegiatan, id_siswa, dan created_at
-                $cekabsen = HasilAbsensiModel::where('id_kegiatan', $value['id_kegiatan'])
-                    ->where('id_siswa', $value['id_user'])
-                    ->whereDate('created_at', $tanggal)
-                    ->first();
+                // dd($data_absensi);
+                $tanggal = Carbon::now();
+                // Cek apakah hari ini sesuai dengan jadwal kegiatan
+                $tanggalHariIni = date("Y-m-d");
+                $kodeHariIni = date('N', strtotime($tanggalHariIni));
 
-                if ($cekabsen == null) {
-                    // Jika data tidak ada, buat data baru
-                    $hasilabsensi = new HasilAbsensiModel();
-                    $hasilabsensi->id_kegiatan = $value['id_kegiatan'];
-                    $hasilabsensi->id_siswa = $value['id_user'];
-                    $hasilabsensi->id_hari = $value['id_hari'];
-                    $hasilabsensi->tanggal =  $tanggalHariIni;
-                    $hasilabsensi->status = $value['absensi'];
-                    $hasilabsensi->keterangan = $value['keterangan'];
-                    $hasilabsensi->user_created = Auth::user()->id;
-                    $hasilabsensi->created_at = Carbon::now();
-                    $hasilabsensi->save();
-                } else {
-                    // Jika data sudah ada, update data tersebut
-                    $cekabsen->status = $value['absensi'];
-                    $cekabsen->keterangan = $value['keterangan'];
-                    $cekabsen->user_updated = Auth::user()->id;
-                    $cekabsen->updated_at = Carbon::now();
-                    $cekabsen->save();
+                // Cek apakah ada jadwal kegiatan untuk hari ini (kode hari ini)
+                $cekJadwal = DB::table('table_jadwal_hari')
+                    ->where('id_kegiatan', $value['id_kegiatan'])
+                    ->where('id_hari', $kodeHariIni)
+                    ->get();
+
+                if ($cekJadwal->isEmpty()) {
+                    DB::rollBack();
+                    return response()->json([
+                        'code' => 400,
+                        'message' => 'Hari ini tidak sesuai dengan jadwal kegiatan.',
+                    ]);
+                }
+
+                foreach ($cekJadwal as $cekhari) {
+                    $id_pembina = $cekhari->id_pembina;
+                    $id_kegiatan = $cekhari->id_kegiatan;
+                    $id_hari = $cekhari->id_hari;
+
+                    $cekabsensi = HasilAbsensiModel::where('id_kegiatan',  $id_kegiatan)
+                        ->where('id_hari', $id_hari)
+                        ->where('id_siswa', $value['id_user'])
+                        ->whereDate('tanggal', $tanggal)
+                        ->first();
+
+                    if ($cekabsensi == null) {
+                        // Jika data tidak ada, buat data baru
+                        $hasilabsensi = new HasilAbsensiModel();
+                        $hasilabsensi->id_kegiatan = $value['id_kegiatan'];
+                        $hasilabsensi->id_siswa = $value['id_user'];
+                        $hasilabsensi->id_hari = $value['id_hari'];
+                        $hasilabsensi->tanggal =  $tanggalHariIni;
+                        $hasilabsensi->status = $value['absensi'];
+                        $hasilabsensi->keterangan = $value['keterangan'];
+                        $hasilabsensi->user_created = Auth::user()->id;
+                        $hasilabsensi->created_at = Carbon::now();
+                        $hasilabsensi->save();
+                    } else {
+                        // Jika data sudah ada, update data tersebut
+                        $cekabsensi->status = $value['absensi'];
+                        $cekabsensi->keterangan = $value['keterangan'];
+                        $cekabsensi->user_updated = Auth::user()->id;
+                        $cekabsensi->updated_at = Carbon::now();
+                        $cekabsensi->save();
+                    }
                 }
             }
 
             DB::commit();
+
             return response()->json([
                 'code' => 200,
                 'message' => 'Berhasil Input Data',
             ]);
         } catch (\Throwable $err) {
+            // Rollback transaksi database jika terjadi kesalahan
             DB::rollBack();
             throw $err;
             return response()->json([
