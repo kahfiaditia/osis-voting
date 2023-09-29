@@ -75,6 +75,7 @@
                          <li><a href="{{ route('daftar_mandiri.index') }}" key="t-orders">Daftar Kegiatan</a>
                          </li>
                          <li><a href="{{ route('daftar_absensi.index') }}" key="t-orders">Absensi</a></li>
+                         <li><a href="{{ route('data_list_absen.index') }}" key="t-orders">Data Absensi</a></li>
                      </ul>
                  </li>
              </ul>

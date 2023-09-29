@@ -24,7 +24,10 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title mb-3">{{ $title }} </h4>
+
+                            <h4 class="card-title">Absensi Kegiatan {{ $absen_kegiatan->nama_kegiatan }}
+                                - {{ $absen_kegiatan->nama_hari }} - {{ $absen_kegiatan->created_at }}
+                            </h4>
                             <hr>
 
                             <div class="col-xl-12">
@@ -107,6 +110,7 @@
                                                             <tr>
                                                                 <th scope="col" style="width: 70px;">#</th>
                                                                 <th scope="col" style="width: 70px;" hidden>id</th>
+                                                                <th scope="col" style="width: 70px;" hidden>id_hari</th>
                                                                 <th scope="col" style="width: 120px;">Nis</th>
                                                                 <th scope="col" style="width: 180px;">Nama</th>
                                                                 <th scope="col" style="width: 120px;">Absensi</th>
@@ -120,6 +124,7 @@
                                                                 <tr>
                                                                     <td>{{ $loop->iteration }}</td>
                                                                     <td hidden>{{ $list->id_user }}</td>
+                                                                    <td hidden>{{ $absen_kegiatan->id_hari }}</td>
                                                                     <td>{{ $list->nis }}</td>
                                                                     <td>{{ $list->name }}</td>
                                                                     <td>
@@ -172,7 +177,8 @@
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td></td>
-                                                                <td hidden></td>
+                                                                <td hidden>
+                                                                </td>
                                                                 <td>
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input absensi-all"
@@ -461,6 +467,7 @@
             // Loop melalui baris siswa
             @foreach ($absensinya as $list)
                 var id_user = '{{ $list->id_user }}';
+                var id_hari = '{{ $absen_kegiatan->id_hari }}';
                 var id_kegiatan = '{{ $list->id_kegiatan }}';
                 var absensi = document.querySelector('input[name="absensi_' + id_user + '"]:checked');
                 var keterangan = document.getElementById('keterangan_' + id_user).value;
@@ -478,6 +485,7 @@
 
                 data.push({
                     id_user: id_user,
+                    id_hari: id_hari,
                     id_kegiatan: id_kegiatan,
                     absensi: absensi.value,
                     keterangan: keterangan
