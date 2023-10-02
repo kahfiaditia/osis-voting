@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\AlertHelper;
 use App\Models\ExtraModel;
 use App\Models\HariModel;
 use App\Models\JadwalKegiatanModel;
@@ -39,7 +40,8 @@ class JadwalExtraController extends Controller
             ->select('jh.id', 'ek.name AS nama_kegiatan', 'h.nama_hari AS nama_hari', 'u.name AS name', 'jh.jam_mulai', 'jh.jam_selesai')
             ->join('ekstrakurikuler AS ek', 'jh.id_kegiatan', '=', 'ek.id')
             ->join('table_hari AS h', 'jh.id_hari', '=', 'h.id')
-            ->join('users AS u', 'jh.id_pembina', '=', 'u.id');
+            ->join('users AS u', 'jh.id_pembina', '=', 'u.id')
+            ->whereNull('jh.deleted_at');
         // ->get();
 
 
@@ -214,9 +216,26 @@ class JadwalExtraController extends Controller
      * @param  \App\Models\JadwalKegiatanModel  $JadwalKegiatanModel
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        //
+        $dataedit = DB::table('table_jadwal_hari')
+            ->select('table_jadwal_hari.*', 'users.name as nama_pembina', 'ekstrakurikuler.name as nama_kegiatan', 'table_hari.nama_hari')
+            ->join('users', 'table_jadwal_hari.id_pembina', '=', 'users.id')
+            ->join('ekstrakurikuler', 'table_jadwal_hari.id_kegiatan', '=', 'ekstrakurikuler.id')
+            ->join('table_hari', 'table_jadwal_hari.id_hari', '=', 'table_hari.id')
+            ->where('table_jadwal_hari.id', $id)
+            ->first();
+
+        // dd($dataedit);
+
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'data' => 'Edit Jadwal',
+            'jadwal' => $dataedit,
+            'nama_harinya' => HariModel::all(),
+        ];
+        return view('jadwal.edit')->with($data);
     }
 
     /**
@@ -228,7 +247,30 @@ class JadwalExtraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+
+        DB::beginTransaction();
+        try {
+            // dd($request->hari);
+
+            $jadwal = JadwalKegiatanModel::findOrFail($id);
+            $jadwal->id_pembina = $request->pembina;
+            $jadwal->id_kegiatan = $request->kegiatan;
+            $jadwal->id_hari = $request->hari;
+            $jadwal->jam_mulai = $request->mulai;
+            $jadwal->jam_selesai = $request->selesai;
+            $jadwal->status = $request->status1;
+            $jadwal->save();
+
+            DB::commit();
+            AlertHelper::addAlert(true);
+            return redirect('/jadwal');
+        } catch (\Throwable $err) {
+            DB::rollback();
+            throw $err;
+            AlertHelper::addAlert(false);
+            return back();
+        }
     }
 
     /**
@@ -239,6 +281,20 @@ class JadwalExtraController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $hapus = JadwalKegiatanModel::findorfail($id);
+            $hapus->user_deleted = Auth::user()->id;
+            $hapus->deleted_at = Carbon::now();
+            $hapus->save();
+
+            DB::commit();
+            AlertHelper::deleteAlert(true);
+            return back();
+        } catch (\Throwable $err) {
+            DB::rollBack();
+            AlertHelper::deleteAlert(false);
+            return back();
+        }
     }
 }
