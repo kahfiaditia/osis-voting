@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\AlertHelper;
 use App\Models\ExtraModel;
+use App\Models\HasilAbsensiModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ListAbsenController extends Controller
@@ -91,7 +95,7 @@ class ListAbsenController extends Controller
         $tanggal = $request->tanggal;
 
         $filteredData = DB::table('table_absensi_data')
-            ->select('tanggal', 'id_hari', 'id_kegiatan', 'ekstrakurikuler.name as kegiatan', 'table_hari.nama_hari as hari', 'users.nis as nis', 'id_siswa', 'users.name as siswa', 'table_absensi_data.status', 'keterangan')
+            ->select('table_absensi_data.id', 'tanggal', 'id_hari', 'id_kegiatan', 'ekstrakurikuler.name as kegiatan', 'table_hari.nama_hari as hari', 'users.nis as nis', 'id_siswa', 'users.name as siswa', 'table_absensi_data.status', 'keterangan')
             ->join('users', 'table_absensi_data.id_siswa', '=', 'users.id')
             ->join('ekstrakurikuler', 'table_absensi_data.id_kegiatan', '=', 'ekstrakurikuler.id')
             ->join('table_hari', 'table_absensi_data.id_hari', '=', 'table_hari.id')
@@ -115,7 +119,17 @@ class ListAbsenController extends Controller
 
     public function create()
     {
-        //
+    }
+
+    public function absen_edit()
+    {
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'jenis' => ExtraModel::whereNull('deleted_at')->get(),
+        ];
+
+        return view('list_absensi.edit_data')->with($data);
     }
 
     /**
@@ -148,7 +162,30 @@ class ListAbsenController extends Controller
      */
     public function edit($id)
     {
-        //
+    }
+
+    public function edit_absen_hasil($id)
+    {
+        // dd($id);
+
+        $filteredData = DB::table('table_absensi_data')
+            ->select('table_absensi_data.id', 'tanggal', 'id_hari', 'id_kegiatan', 'ekstrakurikuler.name as kegiatan', 'table_hari.nama_hari as hari', 'users.nis as nis', 'id_siswa', 'users.name as siswa', 'table_absensi_data.status', 'keterangan')
+            ->join('users', 'table_absensi_data.id_siswa', '=', 'users.id')
+            ->join('ekstrakurikuler', 'table_absensi_data.id_kegiatan', '=', 'ekstrakurikuler.id')
+            ->join('table_hari', 'table_absensi_data.id_hari', '=', 'table_hari.id')
+            ->where('table_absensi_data.id', $id)
+            ->first();
+
+        // dd($filteredData);
+
+        $data = [
+            'title' => $this->title,
+            'menu' => $this->menu,
+            'hasil' =>  $filteredData,
+
+        ];
+
+        return view('list_absensi.form_edit')->with($data);
     }
 
     /**
@@ -160,7 +197,29 @@ class ListAbsenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        // dd($request->kehadiran);
+        DB::beginTransaction();
+        try {
+            $hadir = $request->kehadiran;
+            // dd($request->kehadiran);
+            $invpinjaman = HasilAbsensiModel::findOrFail($id);
+            // dd($invpinjaman);
+            $invpinjaman->status =  $hadir;
+            $invpinjaman->user_created =  Auth::user()->id;
+            $invpinjaman->updated_at =  Carbon::now();
+            $invpinjaman->save();
+
+
+            DB::commit();
+            AlertHelper::addAlert(true);
+            return redirect('/absen_edit');
+        } catch (\Throwable $err) {
+            DB::rollback();
+            throw $err;
+            AlertHelper::addAlert(false);
+            return back();
+        }
     }
 
     /**

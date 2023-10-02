@@ -10,7 +10,6 @@
             <a href="#" class="text-danger delete_confirm"><i class="mdi mdi-delete font-size-18"></i></a>
         @endif
 
-
     </div>
 </form>
 <script>

@@ -18,24 +18,22 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-
                             <div class="card-body">
-                                <!-- Nav tabs -->
+
                                 <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-bs-toggle="tab" href="#absensi" role="tab">
+                                        <a class="nav-link" href="{{ route('data_list_absen.index') }}">
                                             Laporan Data Absen
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('data_list_absen.absen_edit') }}">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#absensiedit" role="tab">
                                             Edit Data Absen
                                         </a>
                                     </li>
                                 </ul>
-                                <br>
-                            </div>
 
+                            </div>
                             <div class="col-xl-12">
                                 <form class="row gy-4 gx-3 align-items-center mb-2">
                                     <div class="col-md-4">
@@ -70,6 +68,7 @@
                             <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                                 <thead>
                                     <tr>
+                                        <th hidden>id</th>
                                         <th>Kegiatan</th>
                                         <th>Nis</th>
                                         <th>Siswa</th>
@@ -77,6 +76,7 @@
                                         <th>Kehadiran</th>
                                         <th>Keterangan</th>
                                         <th>Tanggal</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,6 +87,17 @@
                     </div>
                 </div> <!-- end col -->
             </div> <!-- end row -->
+
+            {{-- //modal --}}
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <!-- Modal content goes here -->
+                    </div>
+                </div>
+            </div>
+            {{-- //modal --}}
 
         </div>
     </div>
@@ -199,7 +210,7 @@
             }
 
             function fetchDataAbsen(idKegiatan, idHari, tanggal) {
-                console.log(tanggal);
+                // console.log(tanggal);
                 $.ajax({
                     type: "POST",
                     url: '{{ route('data_list_absen.data_absen') }}', // Ganti dengan route yang sesuai
@@ -210,7 +221,7 @@
                         "tanggal": tanggal
                     },
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         if (response.code === 200 && response.data) {
                             var tableRows = '';
                             $.each(response.data, function(index, item) {
@@ -239,6 +250,7 @@
                                 }
 
                                 tableRows += '<tr>' +
+                                    '<td hidden>' + item.id + '</td>' +
                                     '<td>' + item.kegiatan + '</td>' +
                                     '<td>' + item.nis + '</td>' +
                                     '<td>' + item.siswa + '</td>' +
@@ -246,9 +258,14 @@
                                     '<td>' + statusText + '</td>' +
                                     '<td>' + alasan + '</td>' +
                                     '<td>' + item.tanggal + '</td>' +
+                                    '<td>' +
+                                    '<a href="/data_list_absen/edit_absen_hasil/' + item.id +
+                                    '" class="text-success edit-button"><i class="mdi mdi-pencil font-size-18"></i></a>' +
+                                    '</td>' +
                                     '</tr>';
                             });
                             $('#datatable tbody').html(tableRows);
+
                         } else {
                             $('#datatable tbody').empty();
                         }
@@ -258,6 +275,26 @@
                     },
                 });
             }
+
+            $('.edit-button').on('click', function(event) {
+                event.preventDefault(); // Prevent the default link behavior
+
+                // Get the ID from the data attribute
+                var itemId = $(this).data('item-id');
+
+                // Load content into the modal (replace this with your actual modal content loading logic)
+                $.ajax({
+                    url: '/getEditModalContent/' + itemId, // Adjust the URL to your route
+                    type: 'GET',
+                    success: function(data) {
+                        // Insert the loaded content into the modal
+                        $('#editModal .modal-content').html(data);
+
+                        // Show the modal
+                        $('#editModal').modal('show');
+                    }
+                });
+            });
         });
     </script>
 @endsection

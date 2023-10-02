@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsenMandiriController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\BarcodeAbsensiController;
 use App\Http\Controllers\ClasessController;
@@ -143,8 +144,13 @@ Route::group(
         Route::resource('/daftar_absensi', AbsensiController::class);
         Route::post('/simpan-absensi',  [AbsensiController::class, 'simpan'])->name('daftar_absensi.simpan');
         Route::resource('/data_list_absen', ListAbsenController::class);
+        Route::get('/absen_edit', [ListAbsenController::class, 'absen_edit'])->name('data_list_absen.absen_edit');
+        Route::get('/data_list_absen/edit_absen_hasil/{id}',  [ListAbsenController::class, 'edit_absen_hasil'])->name('data_list_absen.edit_absen_hasil');
+
         Route::post('/data_jadwal', [ListAbsenController::class, 'data_jadwal'])->name('data_list_absen.data_jadwal');
         Route::post('/data_tanggal', [ListAbsenController::class, 'getDataTanggal'])->name('data_list_absen.data_tanggal');
         Route::post('/data_absen', [ListAbsenController::class, 'data_absen'])->name('data_list_absen.data_absen');
+        Route::resource('/absen_mandiri', AbsenMandiriController::class);
+        Route::post('/data_hadir', [AbsenMandiriController::class, 'data_hadir'])->name('absen_mandiri.data_hadir');
     }
 );
