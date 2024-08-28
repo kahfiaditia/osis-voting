@@ -31,6 +31,8 @@ class UserController extends Controller
      */
     public function halaman()
     {
+        TemporaryModel::truncate();
+
         $data = [
             'title' => $this->title,
             'menu' => $this->menu,
@@ -81,8 +83,6 @@ class UserController extends Controller
                 $address = $hasil[0][$rowIndex][6];
                 $phone = $hasil[0][$rowIndex][7];
 
-
-
                 TemporaryModel::create([
                     'name' => $name,
                     'nis' => $nis,
@@ -131,38 +131,36 @@ class UserController extends Controller
 
     public function simpanUserAjax(Request $request)
     {
-        // dd($request->datasiswa);
+
         $datasiswa = $request->datasiswa;
 
         DB::beginTransaction();
         try {
+            // dd($datasiswa);
+
             foreach ($datasiswa as $item) {
                 $nisExists = DB::table('users')->where('nis', $item['nis'])->exists();
-
                 if ($nisExists) {
-                    // NIS sudah ada dalam database, tampilkan pesan kesalahan
                     return response()->json([
                         'code' => 400,
-                        'message' => 'NIS ' . $item['nis'] .  $item['name'] . ' sudah ada dalam database',
+                        'message' => 'NIS ' . $item['nis'] . ' - ' . $item['name'] . ' sudah ada dalam database',
                     ]);
                 }
 
-
-
-                DB::table('users')->insert([
-                    'name' => $item['name'],
-                    'nis' => $item['nis'],
-                    'roles' => $item['roles'],
-                    'email' => $item['email'],
-                    'class_id' => $item['class_id'],
-                    'address' => $item['address'],
-                    'phone' => $item['phone'],
-                    'pin' => $item['pin'],
-                    'password' => bcrypt($item['password']),
-                ]);
+                $uploaddata = new User();
+                $uploaddata->name = $item['name'];
+                $uploaddata->nis = $item['nis'];
+                $uploaddata->roles = $item['roles'];
+                $uploaddata->email = $item['email'];
+                $uploaddata->class_id = $item['class_id'];
+                $uploaddata->address = $item['address'];
+                $uploaddata->phone = $item['phone'];
+                $uploaddata->pin = $item['pin'];
+                $uploaddata->password = bcrypt($item['password']);
+                $uploaddata->save();
             }
 
-            TemporaryModel::truncate();
+            // TemporaryModel::truncate();
 
             DB::commit();
             return response()->json([
@@ -172,8 +170,8 @@ class UserController extends Controller
         } catch (\Throwable $err) {
             DB::rollBack();
             return response()->json([
-                'code' => 404,
-                'message' => 'Gagal Input Data',
+                'code' => 400,
+                'message' => 'Gagal Input Data: ' . $err->getMessage(),
             ]);
         }
     }
@@ -683,11 +681,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        // dd($id);
         DB::beginTransaction();
         try {
             $hapus = User::findorfail($id);
-            $hapus->deleted_at = Carbon::now();
-            $hapus->save();
+            $hapus->forceDelete();
 
             DB::commit();
             AlertHelper::deleteAlert(true);

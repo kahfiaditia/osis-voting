@@ -37,29 +37,10 @@
                                 <button type="button" class="btn btn-success waves-effect waves-light"
                                     data-bs-toggle="modal" data-bs-target=".bs-example-modal-sm">Panduan Upload</button>
                             </div>
-                            {{-- <a href="{{ route('template') }}" class="btn btn-primary waves-effect mb-3"
-                                target="_blank">Download
-                                Excel Template</a>
-
-                            <button type="button" class="btn btn-success waves-effect waves-light" data-bs-toggle="modal"
-                                data-bs-target=".bs-example-modal-sm">Panduan Upload</button> --}}
 
                             <form action="{{ route('pengguna.uploadExcel') }}" method="post" class="dropzone"
                                 enctype="multipart/form-data">
                                 @csrf
-                                {{-- <div class="mt-4">
-                                    <div class="fallback">
-                                        <input type="file" name="excelFile" id="excelFile" multiple="multiple"
-                                            accept=".xls,.xlsx">
-                                    </div>
-                                    <div class="dz-message needsclick">
-                                        <div class="mb-3">
-                                            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
-                                        </div>
-                                        <h4>Drop files here or click to upload.</h4>
-                                    </div>
-
-                                </div> --}}
 
                                 <div class="container text-center">
                                     <div class="row justify-content-center">
@@ -88,11 +69,9 @@
                 <div class="row mt-4">
                     <div class="col-sm-12">
                         <a href="{{ route('pengguna.alluser') }}" class="btn btn-secondary waves-effect">Batal</a>
-                        {{-- <a href="{{ route('pengguna.hapus_semua') }}" class="btn btn-secondary waves-effect">Clear Cache</a> --}}
                     </div>
-                </div> <!-- end col -->
-            </div> <!-- end row -->
-
+                </div>
+            </div>
         </div>
     </div>
 
@@ -113,7 +92,7 @@
                     <p>5. Nama dan Nis dan roles Harus/Wajib <b>diisi</b></p>
                     <p>6. Roles harus diisi dengan kata "siswa" <b>(Hilangkan tanda petik)</b></p>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
 @endsection

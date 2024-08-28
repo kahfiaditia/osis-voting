@@ -81,7 +81,8 @@
 
         </div>
     </div>
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/alert.js') }}"></script>
     <script>
         $(document).on('click', '#simpansiswa', function() {
             var datasiswa = [];
@@ -97,7 +98,6 @@
                 var pin = $(this).find('input[name="pin[]"]').val();
                 var password = $(this).find('input[name="password[]"]').val();
 
-
                 datasiswa.push({
                     name: name,
                     nis: nis,
@@ -111,41 +111,51 @@
                 });
             });
 
-            // console.log(data);
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('pengguna.simpanUserAjax') }}',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    datasiswa: datasiswa,
-
-                },
-                success: response => {
-                    if (response.code === 200) {
-                        Swal.fire(
-                            'Success',
-                            'Data Upload Berhasil di Simpan',
-                            'success'
-                        ).then(() => {
-                            var APP_URL = {!! json_encode(url('/')) !!}
-                            url = document.getElementById("url").value;
-                            window.location = APP_URL + '/pengguna/'
-                        })
-                    } else {
-                        Swal.fire(
-                            'Gagal',
-                            `${response.message}`,
-                            'error'
-                        ).then(() => {
-                            var APP_URL = {!! json_encode(url('/')) !!}
-                            window.location = APP_URL + '/halaman';
+            if (datasiswa.length > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('pengguna.simpanUserAjax') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        datasiswa: datasiswa,
+                    },
+                    success: function(response) {
+                        if (response.code === 200) {
+                            Swal.fire(
+                                'Success',
+                                'Data Upload Berhasil di Simpan',
+                                'success'
+                            ).then(() => {
+                                var APP_URL = {!! json_encode(url('/')) !!};
+                                window.location = APP_URL + '/pengguna/';
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: response.message || 'Tanda * (bintang) wajib diisi',
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        }
+                    },
+                    error: function(err) {
+                        console.error('AJAX Error: ', err);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Terjadi kesalahan saat menyimpan data',
+                            text: err.responseJSON ? err.responseJSON.message :
+                                'Silakan coba lagi.',
                         });
-                    }
-                },
-                error: (err) => {
-                    console.log(err);
-                },
-            });
+                    },
+                });
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Tidak ada data untuk disimpan',
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
         });
     </script>
 @endsection

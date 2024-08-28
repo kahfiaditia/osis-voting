@@ -36,7 +36,7 @@ class AkunSeeder extends Seeder
                 'email' => 'riki@gmail.com',
                 'password' => bcrypt('12345'),
                 'roles' => 'guru',
-                'nis' => '89565555',
+                'nis' => '89565577',
                 'pin' => 1234,
                 'address' => 'Jalan Hutan Kayu',
                 'phone' => '0896566644',
